@@ -24,6 +24,10 @@ multi_pval2z <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="log
   stopifnot(direction.cols %in% colnames(tab))
 
   res <- vapply(seq_along(prefix.v), FUN=function(i) {pval2z(tab[,p.cols[i]], direction=tab[,direction.cols[i]])}, FUN.VALUE=numeric(nrow(tab)))
-  if(length(prefix.v) > 1) dimnames(res) <-  list(rownames(tab), prefix.v)
+  if(length(prefix.v)>1){
+    dimnames(res) <-  list(rownames(tab), prefix.v)
+  }else{
+    names(res) <- rownames(tab)
+  }
   return(res)
 }

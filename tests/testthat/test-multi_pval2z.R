@@ -17,7 +17,7 @@ test_that("with prefix.v", {
 
 test_that("one comparison", {
   res <- multi_pval2z(mtt, prefix.v = names(contr.v)[1])
-  expect_equal(res[1:3], c(7.972129881, 1.426847696, 6.473577613))
+  expect_equal(as.vector(res[1:3]), c(7.972129881, 1.426847696, 6.473577613))
 })
 
 test_that("with Up/Down", {
