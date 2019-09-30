@@ -2,4 +2,6 @@
 
 export(limma_ftest_contrasts)
 export(limma_ftest_pairwise)
+export(multi_pval2z)
+export(pval2z)
 export(rankprod)
