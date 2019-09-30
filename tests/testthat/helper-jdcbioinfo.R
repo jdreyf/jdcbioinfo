@@ -22,3 +22,7 @@ el <- voom(dge, design=design, plot = FALSE)
 
 grp <- rep(c("First3", "Middle3", "Last3"), each=3)
 contr.v <- c(Middle3vsFirst3="Middle3-First3", Last3vsFirst3="Last3-First3")
+
+pval <- runif(100)
+logfc <- sample(seq(-2, 2, by = 0.01), 100, replace = TRUE)
+direction <- sample(c("Up", "Down"), 100, replace = TRUE)
