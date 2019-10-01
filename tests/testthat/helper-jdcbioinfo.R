@@ -1,6 +1,7 @@
 library(covr)
 library(edgeR)
 library(ezlimma)
+library(ezlimmaplot)
 library(testthat)
 
 set.seed(100)
@@ -26,3 +27,5 @@ contr.v <- c(Middle3vsFirst3="Middle3-First3", Last3vsFirst3="Last3-First3")
 pval <- runif(100)
 logfc <- sample(seq(-2, 2, by = 0.01), 100, replace = TRUE)
 direction <- sample(c("Up", "Down"), 100, replace = TRUE)
+
+mtt <- ezlimma::limma_contrasts(M, grp=grp, contrast.v = contr.v)
