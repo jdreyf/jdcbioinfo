@@ -4,6 +4,7 @@
 #'
 #' @param pval Vector of two-sided test p-values.
 #' @param direction Numeric or character vector. Examples of numeric valuses are log fold-change, regression slope, or correlation coefficient. For charecter values, only "Up" and "Down" are allowed.
+#' @return Vector of Z-scores.
 #' @export
 #'
 pval2z <- function(pval, direction){

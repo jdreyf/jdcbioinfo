@@ -1,5 +1,6 @@
 library(covr)
-library(edgeR)
+library(ppcor)
+library(limma)
 library(ezlimma)
 library(ezlimmaplot)
 library(testthat)
@@ -17,8 +18,8 @@ covar2 <- rnorm(ncol(M))
 design <- cbind(First3=c(1,1,1,0,0,0,0,0,0), Middle3 = c(0,0,0,1,1,1,0,0,0),
                 Last3=c(0,0,0,0,0,0,1,1,1), Covar1 = covar1, Covar2 = covar2)
 
-dge <- DGEList(counts = 2^M)
-dge <- calcNormFactors(dge)
+dge <- edgeR::DGEList(counts = 2^M)
+dge <- edgeR::calcNormFactors(dge)
 el <- voom(dge, design=design, plot = FALSE)
 
 grp <- rep(c("First3", "Middle3", "Last3"), each=3)

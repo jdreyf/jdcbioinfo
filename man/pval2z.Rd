@@ -11,6 +11,9 @@ pval2z(pval, direction)
 
 \item{direction}{Numeric or character vector. Examples of numeric valuses are log fold-change, regression slope, or correlation coefficient. For charecter values, only "Up" and "Down" are allowed.}
 }
+\value{
+Vector of Z-scores.
+}
 \description{
 Counvert two-sided test p-values to Z-scores using \code{qnorm}.
 }

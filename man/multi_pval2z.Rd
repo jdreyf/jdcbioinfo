@@ -18,6 +18,9 @@ These will be the columns that are used in the Venn diagram. If \code{NULL} thes
 
 \item{direction.suffix}{The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.}
 }
+\value{
+Matrix or vector of Z-scores.
+}
 \description{
 Convert the table of two-sided test p-values to Z-scores
 }
