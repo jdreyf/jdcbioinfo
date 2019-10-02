@@ -10,7 +10,6 @@ test_that("with prefix.v", {
   expect_equal(mtt1[1, "Middle3vsFirst3.p"], 1.559628e-15)
 })
 
-
 test_that("Direction input", {
   mtt_d <- mtt
   mtt_d$Middle3vsFirst3.Direction <- ifelse(mtt_d$Middle3vsFirst3.logFC>0, "Up", "Down")

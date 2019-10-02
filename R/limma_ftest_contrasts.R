@@ -46,7 +46,7 @@ limma_ftest_contrasts <- function(object, grp=NULL, contrast.v, add.means=!is.nu
 
   if("F" %in% colnames(ttf)){
     ttf <- ttf[, c('F', 'P.Value', 'adj.P.Val')]
-  }else if("t" %in% colnames(ttf)){
+  } else if("t" %in% colnames(ttf)){
     ttf <- ttf[, c('t', 'P.Value', 'adj.P.Val')]
   }
   colnames(ttf) <- sub('P.Value', 'p', sub('adj.P.Val', 'FDR', colnames(ttf)))
