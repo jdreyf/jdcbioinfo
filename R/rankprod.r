@@ -9,7 +9,6 @@
 #' @export
 
 rankprod <- function(mat, nsim = 1e7-1, reorder.rows = TRUE, prefix = NULL){
-
   stopifnot(!is.null(colnames(mat)))
   rmat <- apply(mat, 2, rank)
   rmat <- rmat/nrow(mat)

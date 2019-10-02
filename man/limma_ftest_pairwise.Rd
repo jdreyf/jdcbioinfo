@@ -38,7 +38,7 @@ is constant.}
 Data frame.
 }
 \description{
-Make contrasts for all pairwise comparions, and pass them to code{\link[jdcbioinfo]{limma_ftest_contrasts}}.
+Make contrasts for all pairwise comparions, and pass them to \code{\link[jdcbioinfo]{limma_ftest_contrasts}}.
 }
 \details{
 If \code{design} is \code{NULL} and \code{grp} is given, design will be calculated as

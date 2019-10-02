@@ -1,6 +1,7 @@
 #' Convert the table of p-values to Z-scores
 #'
-#' Convert the table of two-sided test p-values to Z-scores
+#' Convert the table of two-sided test p-values to Z-scores.
+#'
 #' @param p.suffix The suffix of p-value columns
 #' @param direction.suffix The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.
 #' @inheritParams ezlimmaplot::ezvenn

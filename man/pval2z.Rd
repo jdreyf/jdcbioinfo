@@ -9,7 +9,8 @@ pval2z(pval, direction)
 \arguments{
 \item{pval}{Vector of two-sided test p-values.}
 
-\item{direction}{Numeric or character vector. Examples of numeric valuses are log fold-change, regression slope, or correlation coefficient. For charecter values, only "Up" and "Down" are allowed.}
+\item{direction}{Numeric or character vector. Examples of numeric valuses are log fold-change, regression slope, or
+correlation coefficient. For charecter values, only "Up" and "Down" are allowed.}
 }
 \value{
 Vector of Z-scores.

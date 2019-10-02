@@ -1,9 +1,9 @@
 #' Correct null distribution
 #'
-#' Correct null distribution using  \pkg{fdrtool}
+#' Correct null distribution using  \pkg{fdrtool}.
 #'
-#' @inheritParams multi_pval2z
 #' @param p.suffix The suffix of p-value columns
+#' @inheritParams multi_pval2z
 #' @return Matrix or data.fame with corrected p-values and the corresponding FDR.
 #' @export
 #'

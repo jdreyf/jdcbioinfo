@@ -1,6 +1,6 @@
 #' Perform limma's moderated F-test for all pairwise comparions, and return a table
 #'
-#' Make contrasts for all pairwise comparions, and pass them to code{\link[jdcbioinfo]{limma_ftest_contrasts}}.
+#' Make contrasts for all pairwise comparions, and pass them to \code{\link[jdcbioinfo]{limma_ftest_contrasts}}.
 #'
 #' @inheritParams limma_ftest_contrasts
 #' @return Data frame.

@@ -22,5 +22,5 @@ These will be the columns that are used in the Venn diagram. If \code{NULL} thes
 Matrix of Z-scores.
 }
 \description{
-Convert the table of two-sided test p-values to Z-scores
+Convert the table of two-sided test p-values to Z-scores.
 }

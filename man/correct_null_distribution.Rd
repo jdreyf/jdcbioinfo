@@ -22,5 +22,5 @@ These will be the columns that are used in the Venn diagram. If \code{NULL} thes
 Matrix or data.fame with corrected p-values and the corresponding FDR.
 }
 \description{
-Correct null distribution using  \pkg{fdrtool}
+Correct null distribution using  \pkg{fdrtool}.
 }
