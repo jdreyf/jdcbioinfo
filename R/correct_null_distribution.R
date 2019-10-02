@@ -14,9 +14,9 @@ correct_null_distribution <- function(tab, prefix.v=NULL, p.suffix="p", fdr.suff
   mat_z <- multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix)
   res <- apply(mat_z, 2, fdrtool::fdrtool, statistic="normal", plot=FALSE)
 
-  for(prefix in prefix.v){
-    tab[, paste(prefix,  p.suffix, sep=".")] <- res[[prefix]]$pval
-    tab[, paste(prefix,  fdr.suffix, sep=".")] <- p.adjust(res[[prefix]]$pval, method="BH")
+  for(nm in names(res)){
+    tab[, paste(nm,  p.suffix, sep=".")] <- res[[nm]]$pval
+    tab[, paste(nm,  fdr.suffix, sep=".")] <- p.adjust(res[[nm]]$pval, method="BH")
   }
   return(tab)
 }
