@@ -10,12 +10,18 @@
 #' @export
 #'
 
-barplot_pwys <- function(tab, prefix.v, name = NA, width = 10, height = 4, ntop = 20, direction = c("Up", "Down"), pwys_nm_size = 100){
+barplot_pwys <- function(tab, prefix.v=NULL, name = NA, width = 10, height = 4, ntop = 20, direction = c("Up", "Down"), pwys_nm_size = 100){
 
   if(!is.na(name)) {
     name <- paste0(name, "_barplots.pdf")
     pdf(name, width, width)
     on.exit(dev.off())
+  }
+
+  if(is.null(prefix.v)){
+    p.cols <- grep("\\.p$", colnames(tab), value = TRUE)
+    p.cols <- p.cols[-grep("Mixed", p.cols)]
+    prefix.v <- gsub("\\.p", "", p.cols)
   }
 
   for(prefix in names(prefix.v)) {
