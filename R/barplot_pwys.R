@@ -6,7 +6,7 @@
 #' @param pwys_nm_size The maximum number of characters for pathway names. Longer names will be truncated.
 #' @inheritParams ezlimmaplot::ezheat
 #' @inheritParams ezlimmaplot::ezvenn
-#' @return ggplot object
+#' @return NULL
 #' @export
 #'
 
@@ -52,5 +52,4 @@ barplot_pwys <- function(tab, prefix.v=NULL, name = NA, width = 10, height = 4, 
       plot(ggp)
     }
   }
- return(ggp)
 }
