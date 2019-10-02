@@ -24,7 +24,7 @@ barplot_pwys <- function(tab, prefix.v=NULL, name = NA, width = 10, height = 4, 
     prefix.v <- gsub("\\.p", "", p.cols)
   }
 
-  for(prefix in names(prefix.v)) {
+  for(prefix in prefix.v) {
     tab.sub <- tab[, c("NGenes", paste(prefix, c("Direction", "p"), sep = "."))]
     colnames(tab.sub) <- gsub(paste0(prefix, "."), "", colnames(tab.sub))
     tab.sub <- tab.sub[order(tab.sub$p), ]
