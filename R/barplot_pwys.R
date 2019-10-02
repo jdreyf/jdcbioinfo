@@ -14,7 +14,7 @@ barplot_pwys <- function(tab, prefix.v=NULL, name = NA, width = 10, height = 4, 
 
   if(!is.na(name)) {
     name <- paste0(name, "_barplots.pdf")
-    pdf(name, width, width)
+    pdf(name, width, height)
     on.exit(dev.off())
   }
 
