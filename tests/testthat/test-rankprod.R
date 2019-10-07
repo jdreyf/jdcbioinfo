@@ -1,4 +1,4 @@
-context("rank prod")
+context("rankprod")
 
 test_that("small example", {
   mm <- matrix(1:9, nrow=3)
