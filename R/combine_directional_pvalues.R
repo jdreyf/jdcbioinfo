@@ -8,7 +8,7 @@
 #' @return Vector of p-values and/or direction and FDR .
 #' @export
 
-combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logFC", only.p=FALSE, prefix="Combined"){
+combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logFC", only.p=FALSE, prefix=NULL){
 
   mat.z <- multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix)
   combz.v <- rowSums(mat.z)/sqrt(ncol(mat.z))
@@ -22,7 +22,7 @@ combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direct
 
   direction <- ifelse(combz.v>0, "Up", "Down")
   fdr <- stats::p.adjust(combp.v, method="BH")
-  res <- data.frame(Direction=direction, p= combp.v, FDR=fdr)
+  res <- data.frame(Combined.Direction=direction, Combined.p= combp.v, Combined.FDR=fdr)
   if(!is.null(prefix)) colnames(res) <- paste(prefix, colnames(res), sep=".")
 
   return(res)

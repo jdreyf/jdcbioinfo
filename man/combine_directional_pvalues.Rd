@@ -5,7 +5,7 @@
 \title{Directionally combine p-values}
 \usage{
 combine_directional_pvalues(tab, prefix.v = NULL, p.suffix = "p",
-  direction.suffix = "logFC", only.p = FALSE, prefix = "Combined")
+  direction.suffix = "logFC", only.p = FALSE, prefix = NULL)
 }
 \arguments{
 \item{tab}{Table of output from \code{ezlimma}.}
