@@ -30,3 +30,6 @@ logfc <- sample(seq(-2, 2, by = 0.01), 100, replace = TRUE)
 direction <- sample(c("Up", "Down"), 100, replace = TRUE)
 
 mtt <- ezlimma::limma_contrasts(M, grp=grp, contrast.v = contr.v)
+
+annot <- data.frame(Gene=rownames(M), row.names=rownames(M))
+pheno <- data.frame(Group=grp, row.names=colnames(M))

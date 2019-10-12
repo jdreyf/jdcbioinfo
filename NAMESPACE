@@ -2,6 +2,7 @@
 
 export(combine_directional_pvalues)
 export(correct_null_distribution)
+export(hclust_and_heat)
 export(hclust_in_grp)
 export(limma_ftest_contrasts)
 export(limma_ftest_pairwise)
