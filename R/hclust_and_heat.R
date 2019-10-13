@@ -34,6 +34,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
     stopifnot(length(clip)==1, clip > 0)
     object.sc[object.sc < -clip] <- -clip
     object.sc[object.sc > clip] <- clip
+    main <- paste("Clipped", main)
   }
 
   # cluster
