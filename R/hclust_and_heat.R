@@ -18,7 +18,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   stopifnot(rownames(object) %in% rownames(annot))
 
   # sc
-  stopifnot(sc %in% c("ctr", "z", "none"))
+  stopifnot(length(sc)==1, sc %in% c("ctr", "z", "none"))
   if (sc=="ctr"){
     object.sc <- t(scale(x=t(object), center=TRUE, scale=FALSE))
     main <- paste("Centered", main)
@@ -39,31 +39,27 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   # cluster
   dist_mat <- dist(object.sc, method=dist.method)
   hc <- hclust(dist_mat, method=hc.method)
-  lbs <- hc$labels[hc$order]
 
   # cut tree
-  clus <- unname(dynamicTreeCut::cutreeDynamic(hc, distM=as.matrix(dist_mat), deepSplit=deepSplit,
-                               minClusterSize=minClusterSize, verbose=0))
+  clus <- unname(dynamicTreeCut::cutreeDynamic(hc, method="hybrid", distM=as.matrix(dist_mat),
+                                               deepSplit=deepSplit, minClusterSize=minClusterSize, verbose=0))
   if (verbose){
     print(knitr::kable(table(clus), caption="Clusters"))
   }
 
-  # sort
-  names(clus) <- rownames(object.sc)
-  clus <- clus[lbs]
-  clus <- sort(clus)
-  lbs <- names(clus)
-
-  clus_df <- as.data.frame(clus)
-  colnames(clus_df) <- "Cluster"
-  clus_df$Cluster <- factor(paste0("clus_", clus_df$Cluster), levels=paste0("clus_", sort(unique(clus))))
+  # rename clus
+  clus_df <- data.frame(Cluster=factor(clus), row.names= rownames(object.sc))
+  clus_df <- clus_df[hc$order, , drop=FALSE]
+  clus_lev <- as.list(unique(clus_df$Cluster))
+  names(clus_lev) <- paste0("clus_", sort(unique(clus)))
+  levels(clus_df$Cluster) <- clus_lev
 
   # heatmap
   gaps_row <- which(diff(clus, lag=1) != 0)
   annotation_colors <-
     list(Cluster=setNames(colorRampPalette(RColorBrewer::brewer.pal(n=min(max(clus), 9), name="Set1"))(max(clus)),
                           nm=levels(clus_df$Cluster)))
-  ph <- ezheat(object.sc[lbs, ], pheno.df=pheno.df, sc="none", reorder_rows=FALSE, reorder_cols=reorder_cols,
+  ph <- ezheat(object.sc[rownames(clus_df), ], pheno.df=pheno.df, sc="none", reorder_rows=FALSE, reorder_cols=reorder_cols,
                labrows=labrows, labcols=labcols, color.v=color.v, gaps_col=gaps_col,
                gaps_row=gaps_row, annotation_row=clus_df, annotation_colors=annotation_colors,
                main=main, name=name, height=height, width=width, plot=plot)[["mat"]]
