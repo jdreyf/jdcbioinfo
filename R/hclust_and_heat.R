@@ -55,7 +55,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   levels(clus_df$Cluster) <- clus_lev
 
   # heatmap
-  gaps_row <- which(diff(clus, lag=1) != 0)
+  gaps_row <- which(diff(as.numeric(clus_df$Cluster), lag=1) != 0)
   annotation_colors <-
     list(Cluster=setNames(colorRampPalette(RColorBrewer::brewer.pal(n=min(max(clus), 9), name="Set1"))(max(clus)),
                           nm=levels(clus_df$Cluster)))
