@@ -31,7 +31,7 @@ edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), 
         fit <- edgeR::glmFit(dge, design=design)
         base_mean <- unname(rowMeans(sweep(dge$counts, 2, dge$samples$norm.factors, FUN="*")))
     }
-    if (plot) edgeR::plotQLDisp(fit)
+    if (plot && test=="QLFT") edgeR::plotQLDisp(fit)
 
     contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
     for (i in seq_along(contrast.v)) {
