@@ -41,7 +41,7 @@ Data frame.
 }
 \description{
 Apply \pkg{limma}'s \code{lmFit}, \code{contrasts.fit}, & \code{eBayes} to one or more contrasts,  perform moderated F-test, and return
-a table. See examples in vignette.
+a table.
 }
 \details{
 If \code{design} is \code{NULL} and \code{grp} is given, design will be calculated as
