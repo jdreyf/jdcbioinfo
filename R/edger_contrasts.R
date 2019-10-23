@@ -42,7 +42,7 @@ edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), 
         } else if (test=="WeightedFT") {
             tres <- zinbwave::glmWeightedF(fit, contrast=contr.mat[, i], filter=base_mean)
         }
-        if (plot) edgeR::plotMD(tres)
+        if (plot) limma::plotMD(tres)
 
         tt <- edgeR::topTags(tres, n=nrow(dge), adjust.method="BH")
         tt <- as.data.frame(tt[, cols])
