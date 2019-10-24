@@ -16,7 +16,12 @@ Imports:
 	ezlimma,
 	ezlimmaplot,
 	fdrtool,
-	dynamicTreeCut
+	dynamicTreeCut,
+	edgeR,
+	zinbwave,
+	survival,
+	RColorBrewer,
+	knitr
 Suggests: 
     testthat,
     covr
