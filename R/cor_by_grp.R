@@ -3,7 +3,7 @@
 #' Two-sided correlation test in each group and combine the directional p-values.
 #'
 #' @inheritParams ezlimma::ezcor
-#' @inheritParams ezlimma::limma_contrast
+#' @inheritParams ezlimma::limma_contrasts
 #' @return A data.frame of test statistics for each group and the combined statistics.
 #' @export
 #'

@@ -1,17 +1,17 @@
-#' Apply edgeR's glmQLFit or glmFit, glmQLFTest, glmLRT, or glmWeightedF to one or more contrasts, and return a list
+#' #' Apply edgeR's glmQLFit or glmFit, glmQLFTest, glmLRT, or glmWeightedF to one or more contrasts, perform F-test for all contrasts,  and return a list
 #'
-#' Apply \pkg{edgeR}'s \code{glmQLFit}, or \code{glmFit},  \code{glmQLFTest}, \code{glmLRT}, or \code{glmWeightedF} to one or more contrasts, and return
-#' a list
-#' @param dge DGEList object.
-#' @param test QLFT, LRT or WeightedFT.
-#' @param plot Logical indicate if to plot the QC metrics.
-#' @inheritParams ezlimma::limma_contrasts
+#' #'Apply \pkg{edgeR}'s \code{glmQLFit}, or \code{glmFit},  \code{glmQLFTest}, \code{glmLRT}, or \code{glmWeightedF} to one or more contrasts,
+#' perform F-test for all contrasts, and return a list
+#'
+#' @inheritParams edger_contrasts
+#' @inheritParams limma_ftest_contrasts
 #' @details If \code{design} is \code{NULL} and \code{grp} is given, design will be calculated as
 #' \code{model.matrix(~0+grp)}. However, \code{grp} isn't needed if \code{design} is provided & \code{add.means}
 #' is \code{FALSE}.
 #' @export
 
-edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), design=NULL, cols=c("PValue", "FDR", "logFC"), test="QLFT", plot=FALSE){
+edger_ftest_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), design=NULL, prefix="", cols=c("F", "t", "PValue", "FDR"),
+                                  test="QLFT", plot=FALSE){
 
     if (is.null(design)|add.means) { stopifnot(ncol(dge)==length(grp), colnames(dge)==names(grp)) }
     stopifnot(test %in% c("QLFT", "LRT",  "WeightedFT"))
@@ -35,31 +35,28 @@ edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), 
     if (plot && test=="QLFT") edgeR::plotQLDisp(fit)
 
     contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
-    for (i in seq_along(contrast.v)) {
-        if (test=="QLFT") {
-            tres <- edgeR::glmQLFTest(fit, contrast=contr.mat[, i])
-        } else if (test=="LRT") {
-            tres <- edgeR::glmLRT(fit, contrast=contr.mat[, i])
-        } else if (test=="WeightedFT") {
-            tres <- zinbwave::glmWeightedF(fit, contrast=contr.mat[, i], filter=base_mean)
-        }
-        if (plot) limma::plotMD(tres)
 
-        tt <- edgeR::topTags(tres, n=nrow(dge), adjust.method="BH")
-        tt <- as.data.frame(tt[, cols])
-        tt$FC <- sign(tt$logFC) * 2^abs(tt$logFC)
-        colnames(tt) <- paste(names(contrast.v)[i], gsub("PValue", "p", colnames(tt)), sep=".")
-        if (i==1) { mtt <- tt }
-        else { mtt <- cbind(mtt, tt[rownames(mtt), ]) }
+    if (test=="QLFT") {
+        tres <- edgeR::glmQLFTest(fit, contrast=contr.mat)
+    } else if (test=="LRT") {
+        tres <- edgeR::glmLRT(fit, contrast=contr.mat)
+    } else if (test=="WeightedFT") {
+        tres <- zinbwave::glmWeightedF(fit, contrast=contr.mat, filter=base_mean)
     }
+    if (plot) limma::plotMD(tres)
 
-    mtt <- mtt[order(ezlimma::combine_pvalues(mtt)), ]
+    mtt <- edgeR::topTags(tres, n=nrow(dge), adjust.method="BH")
+    patt <- paste(paste0('^', cols, '$'), collapse='|')
+    mtt <- as.data.frame(mtt[, grep(patt, colnames(mtt))])
+    colnames(mtt) <-gsub("PValue", "p", colnames(mtt))
+    if (prefix!=""){ colnames(mtt) <- paste(prefix, colnames(mtt), sep=".") }
+
     logcpm <- edgeR::cpm(dge, normalized.lib.sizes=TRUE, log=TRUE, prior.count=fit$prior.count)
 
     if (add.means) {
         groups <- unique(sort(grp))
         grp.means <- vapply(groups, function(g) rowMeans(logcpm[, grp==g]), numeric(nrow(logcpm)))
-        colnames(grp.means) <- paste(groups, "avg", sep=".")
+        colnames(grp.means) <- paste(groups, "avg.logcpm", sep=".")
         mtt <- cbind(grp.means[rownames(mtt),], mtt)
     }
 

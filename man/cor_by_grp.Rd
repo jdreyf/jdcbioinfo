@@ -14,6 +14,9 @@ features (e.g. genes) and columns to samples. Must have rownames that are non-du
 \item{phenotype}{Numeric vector of sample characteristics (e.g. phenotypes or treatments). 
 Should be same length as \code{ncol(object)}.}
 
+\item{grp}{Vector of sample groups. These must be valid variable names in R and the same length as 
+\code{ncol(object)}.}
+
 \item{method}{Character string indicating which correlation coefficient to be used for the test. One of 
 \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}, can be abbreviated, see \code{\link[stats]{cor.test}}.}
 
