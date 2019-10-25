@@ -21,9 +21,12 @@ Imports:
 	zinbwave,
 	survival,
 	RColorBrewer,
-	knitr
+	knitr,
+	methods,
+	BSgenome
 Suggests: 
     testthat,
     covr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
