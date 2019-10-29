@@ -1,6 +1,6 @@
 Package: jdcbioinfo
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9001
+Title: Joslin Diabetes Center bioinformatics utilities
+Version: 0.0.0.9002
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -18,12 +18,12 @@ Imports:
 	zinbwave,
 	survival,
 	RColorBrewer,
-	knitr,
 	methods,
 	BSgenome
-Suggests: 
-    testthat,
-    covr
+Suggests:
+    covr,
+	knitr,
+	testthat
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr

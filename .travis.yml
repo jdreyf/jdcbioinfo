@@ -3,8 +3,11 @@
 language: R
 cache: packages
 warnings_are_errors: false
-bioc_packages: limma
+bioc_packages: 
+  - edgeR, 
+  - limma
 r_github_packages: 
   - jdreyf/ezlimma
+  - jdreyf/ezlimmaplot
 after_success:
 - Rscript -e 'covr::codecov()'
