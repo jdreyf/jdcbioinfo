@@ -1,7 +1,13 @@
 #' Select equal numbers of top features from the topTable
 #'
 #' Select equal numbers of top features from the topTable based on p-values.
-#'
+#' @import limma
+#' @import ezlimma
+#' @import ezlimmaplot
+#' @importFrom grDevices colorRampPalette
+#' @importFrom methods as
+#' @importFrom stats dist hclust model.matrix p.adjust qnorm setNames
+#' @importFrom utils combn
 #' @param ntop Number of top features
 #' @param ntop.offset Offset for ntop
 #' @param each Logical TRUE for select equal number of top features from each comparison

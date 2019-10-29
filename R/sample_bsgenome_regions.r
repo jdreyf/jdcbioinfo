@@ -2,6 +2,7 @@
 #'
 #' Rand seq.
 #'
+#' @importFrom BSgenome getSeq
 #' @param BSgenome BSgenome object.
 #' @param nsamp Numeric number of samples.
 #' @param flank Numeric length of flank on each side of region.

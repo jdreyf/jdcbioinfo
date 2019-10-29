@@ -9,11 +9,21 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-	fdrtool,
 	limma,
-	ezlimma
+	ezlimma,
+	ezlimmaplot,
+	fdrtool,
+	dynamicTreeCut,
+	edgeR,
+	zinbwave,
+	survival,
+	RColorBrewer,
+	knitr,
+	methods,
+	BSgenome
 Suggests: 
     testthat,
     covr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr

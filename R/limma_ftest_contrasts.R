@@ -1,7 +1,7 @@
 #' Apply limma's lmFit, contrasts.fit, & eBayes to one or more contrasts, perform moderated F-test, and return a table
 #'
 #' Apply \pkg{limma}'s \code{lmFit}, \code{contrasts.fit}, & \code{eBayes} to one or more contrasts,  perform moderated F-test, and return
-#' a table. See examples in vignette.
+#' a table.
 #'
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams ezlimma::limma_cor

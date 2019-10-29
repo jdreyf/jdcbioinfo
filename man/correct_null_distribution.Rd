@@ -5,7 +5,7 @@
 \title{Correct null distribution}
 \usage{
 correct_null_distribution(tab, prefix.v = NULL, p.suffix = "p",
-  fdr.suffix = "FDR", direction.suffix = "logFC")
+  fdr.suffix = "FDR", direction.suffix = "logFC", verbose = TRUE)
 }
 \arguments{
 \item{tab}{Table of output from \code{ezlimma}.}
@@ -14,9 +14,13 @@ correct_null_distribution(tab, prefix.v = NULL, p.suffix = "p",
 These will be the columns that are used in the Venn diagram. If \code{NULL} these are inferred from
 \code{colnames(tab)} that end with \code{.p}.}
 
-\item{p.suffix}{The suffix of p-value columns}
+\item{p.suffix}{The suffix of p-value columns.}
+
+\item{fdr.suffix}{The suffix of FDR columns.}
 
 \item{direction.suffix}{The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.}
+
+\item{verbose}{Print out status messages.}
 }
 \value{
 Matrix or data.fame with corrected p-values and the corresponding FDR.
