@@ -1,13 +1,10 @@
 Package: jdcbioinfo
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Version: 0.0.0.9001
+Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
+             person("Hui", "Pan", role = "aut"))
+BugReports: https://github.com/jdreyf/jdcbioinfo/issues
+Description: Functions used by Joslin Diabetes Center Bioinformatics & Biostatistics Core, which  do not belong in other packages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
