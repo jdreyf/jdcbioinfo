@@ -24,13 +24,13 @@ make_smpdb_glist <- function(smpdb.tab, annot, id.cols.smpdb=c("Metabolite.ID", 
   smpdb.tab <- smpdb.tab[smpdb.tab[, pwys.type.col] %in% pwys.type]
   smpdb.tab[is.na(smpdb.tab) | smpdb.tab %in% c("NA", "N/A", "n/a")] <- ""
 
-  if (mean(grepl("^HMBD",  smpdb.tab[,1])) < 0.5) {
+  if (mean(grepl("^HMBD",  annot[,1])) > 0.5 && mean(grepl("^HMBD",  smpdb.tab[,1])) < 0.5) {
     smpdb.tab[,1][smpdb.tab[,1]!=""] <- paste0("HMBD", smpdb.tab[,1][ smpdb.tab[,1]!=""])
   }
-  if (mean(grepl("^CHEBI:",  smpdb.tab[,2])) < 0.5) {
+  if (mean(grepl("^CHEBI:",  annot[,2])) > 0.5 && mean(grepl("^CHEBI:",  smpdb.tab[,2])) < 0.5) {
     smpdb.tab[,2][smpdb.tab[,2]!=""] <- paste0("CHEBI:", smpdb.tab[,2][ smpdb.tab[,2]!=""])
   }
-  if (mean(grepl("^C",  smpdb.tab[,3])) < 0.5) {
+  if (mean(grepl("^C:",  annot[,3])) > 0.5 && mean(grepl("^C",  smpdb.tab[,3])) < 0.5) {
     smpdb.tab[,3][smpdb.tab[,3]!=""] <- paste0("C", smpdb.tab[,3][ smpdb.tab[,3]!=""])
   }
 
