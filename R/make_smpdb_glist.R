@@ -38,14 +38,14 @@ make_smpdb_glist <- function(smpdb.tab, annot, id.cols.smpdb=c("Metabolite.ID", 
   pwys <- smpdb.tab[, pwys.name.col]
   G <- list()
   for (pwy in unique(pwys)) {
-    smp <- unique(smpdb[smpdb.tab[, pwys.name.col] == pwy, pwys.id.col])
+    smp <- unique(smpdb.tab[pwys == pwy, pwys.id.col])
     stopifnot(length(smp)==1)
 
-    hmdb.ids <- smpdb[pwys == pwy, 1]
+    hmdb.ids <- smpdb.tab[pwys == pwy, 1]
     hmdb.ids <- hmdb.ids[hmdb.ids!=""]
-    chebi.ids <- smpdb[pwys == pwy, 2]
+    chebi.ids <- smpdb.tab[pwys == pwy, 2]
     chebi.ids <- chebi.ids[chebi.ids != ""]
-    kegg.ids <- smpdb[pwys == pwy, 3]
+    kegg.ids <- smpdb.tab[pwys == pwy, 3]
     kegg.ids <- kegg.ids[kegg.ids !=""]
 
     nm <- gsub(" |/", "_" , pwy)
