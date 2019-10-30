@@ -21,7 +21,7 @@ make_smpdb_glist <- function(smpdb.tab, annot, id.cols.smpdb=c("Metabolite.ID", 
   stopifnot(id.cols.annot %in% colnames(annot), !is.null(rownames(annot)))
 
   smpdb.tab <- smpdb.tab[, c(id.cols.smpdb, pwys.name.col, pwys.id.col, pwys.type.col)]
-  smpdb.tab <- smpdb.tab[smpdb.tab[, pwys.type.col] %in% pwys.type]
+  smpdb.tab <- smpdb.tab[smpdb.tab[, pwys.type.col] %in% pwys.type, ]
   smpdb.tab[is.na(smpdb.tab) | smpdb.tab %in% c("NA", "N/A", "n/a")] <- ""
 
   if (mean(grepl("^HMBD",  annot[,1])) > 0.5 && mean(grepl("^HMBD",  smpdb.tab[,1])) < 0.5) {
