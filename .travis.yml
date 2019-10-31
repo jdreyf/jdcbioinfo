@@ -6,9 +6,10 @@ warnings_are_errors: false
 bioc_packages: 
   - edgeR
   - limma
+ # ezlp req hitman
 r_github_packages: 
   - jdreyf/ezlimma
-  - jdreyf/ezlimmaplot
   - jdreyf/Hitman
+  - jdreyf/ezlimmaplot
 after_success:
 - Rscript -e 'covr::codecov()'
