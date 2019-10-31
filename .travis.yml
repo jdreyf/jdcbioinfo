@@ -9,5 +9,6 @@ bioc_packages:
 r_github_packages: 
   - jdreyf/ezlimma
   - jdreyf/ezlimmaplot
+  - jdreyf/Hitman
 after_success:
 - Rscript -e 'covr::codecov()'
