@@ -26,6 +26,9 @@ make_smpdb_glist(smpdb.tab, annot, id.cols.smpdb = c("Metabolite.ID",
 
 \item{pwys.type}{Type of pathways to use. Default is "Metabolic".}
 }
+\value{
+A list
+}
 \description{
 Make a feature list for SMPDB pathways.
 }
