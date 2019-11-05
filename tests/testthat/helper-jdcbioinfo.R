@@ -5,6 +5,7 @@ library(ezlimma)
 library(ezlimmaplot)
 library(testthat)
 
+RNGkind(sample.kind = "Rounding")
 set.seed(100)
 means <- sample(seq(1, 20, by = 0.01), 100, replace = TRUE)
 M <-t(sapply(1:100, FUN = function(i) rnorm(n = 9, mean = means[i], sd = 1/means[i])))
