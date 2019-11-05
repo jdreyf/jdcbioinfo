@@ -8,9 +8,9 @@ hclust_and_heat(object, annot, sc = "z", clip = NA,
   dist.method = "euclidean", hc.method = "ward.D2", deepSplit = 1,
   minClusterSize = 10, verbose = TRUE, pheno.df = NULL,
   labrows = "", labcols = "", color.v = NULL,
-  main = "Log2 Expression", name = "hclust_heat",
-  reorder_cols = FALSE, gaps_col = NULL, width = NA, height = NA,
-  plot = TRUE)
+  annotation_colors = NA, main = "Log2 Expression",
+  name = "hclust_heat", reorder_cols = FALSE, gaps_col = NULL,
+  width = NA, height = NA, plot = TRUE)
 }
 \arguments{
 \item{object}{Matrix-like object with features (e.g. genes) as rows and samples as columns.}
@@ -44,6 +44,9 @@ of length \code{ncol(object)}.}
 
 \item{color.v}{Color palette for heatmap. If \code{NULL}, it's set to
 \code{colorRampPalette(rev(brewer.pal(n=9, name='RdYlBu')))(50)}.}
+
+\item{annotation_colors}{list for specifying annotation_row and annotation_col track colors manually.
+It is possible to define the colors for only some of the features. See \code{\link[pheatmap]{pheatmap}} examples.}
 
 \item{main}{Main title of plot.}
 

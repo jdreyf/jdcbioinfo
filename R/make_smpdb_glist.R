@@ -11,6 +11,7 @@
 #' @param pwys.id.col Column name in \code{smpdb.tab} for pathway IDs.
 #' @param pwys.type.col Column name in \code{smpdb.tab} for pathway types.
 #' @param pwys.type Type of pathways to use. Default is "Metabolic".
+#' @return A list
 #' @export
 
 make_smpdb_glist <- function(smpdb.tab, annot, id.cols.smpdb=c("Metabolite.ID", "ChEBI.ID", "KEGG.ID"), id.cols.annot=c("HMDB", "ChEBI", "KEGG"),

@@ -11,7 +11,7 @@
 #'
 hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclidean", hc.method="ward.D2",
                             deepSplit=1, minClusterSize=10, verbose=TRUE,
-                            pheno.df=NULL, labrows="", labcols="", color.v=NULL,
+                            pheno.df=NULL, labrows="", labcols="", color.v=NULL, annotation_colors=NA,
                             main="Log2 Expression", name="hclust_heat", reorder_cols=FALSE,
                             gaps_col=NULL, width=NA, height=NA, plot=TRUE){
 
@@ -57,9 +57,14 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
 
   # heatmap
   gaps_row <- which(diff(as.numeric(clus_df$Cluster), lag=1) != 0)
-  annotation_colors <-
+  annotation_clus_colors <-
     list(Cluster=setNames(colorRampPalette(RColorBrewer::brewer.pal(n=min(max(clus), 9), name="Set1"))(max(clus)),
                           nm=levels(clus_df$Cluster)))
+  if (!is.na(annotation_colors)) {
+    annotation_colors <- c(annotation_colors, annotation_clus_colors)
+  } else {
+    annotation_colors <- annotation_clus_colors
+  }
   ph <- ezheat(object.sc[rownames(clus_df), ], pheno.df=pheno.df, sc="none", reorder_rows=FALSE, reorder_cols=reorder_cols,
                labrows=labrows, labcols=labcols, color.v=color.v, gaps_col=gaps_col,
                gaps_row=gaps_row, annotation_row=clus_df, annotation_colors=annotation_colors,
