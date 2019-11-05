@@ -1,7 +1,7 @@
 context("correct_null_distribution")
 
 test_that("without prefix.v", {
-  expect_warning(mtt1 <- correct_null_distribution(mtt), verbose=FALSE)
+  expect_warning(mtt1 <- correct_null_distribution(mtt, verbose=FALSE))
   expect_equal(mtt1[1, "Middle3vsFirst3.p"], 1.559628e-15)
 })
 
