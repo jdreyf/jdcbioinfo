@@ -21,7 +21,8 @@ Imports:
 	methods,
 	BSgenome
 Suggests:
-    covr,
+  covr,
+  ppcor,
 	knitr,
 	testthat
 Roxygen: list(markdown = TRUE)
