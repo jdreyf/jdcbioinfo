@@ -58,7 +58,7 @@ limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100
     res[[i]] <- res_tmp
   }
   res <- Reduce(cbind, res)
-  res <- res[order(ezlimma::combine_pvalues(res)), ]
+  res <- res[rownames(object), ]
 
   if(add.means){
     mat_avg <- sapply(groups, function(g) rowMeans(object[, grp==g]))
