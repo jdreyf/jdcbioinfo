@@ -2,14 +2,14 @@
 #'
 #' Fisher exact test for enrichment of overlap in 2-way Venn.
 #'
-#' @param mat.sig Numeric matrix with {1, -1, 0} for significantly up/down, insignificant features.
+#' @param mat.sig Numeric matrix with two columns whose elements are {1, -1, 0} for significantly up, down, or
+#' insignificant genes (rows) in a test (column).
 #' @return Data frame with statistics from Fisher exact test.
 #' @export
 
 venn_fisher_test <- function(mat.sig){
-
   if (!is.matrix(mat.sig)) mat.sig <- as.matrix(mat.sig)
-  stopifnot(ncol(mat.sig)==2, mat.sig %in% c(-1, 0, 1))
+  stopifnot(ncol(mat.sig)==2, mat.sig %in% c(-1, 0, 1), length(unique(mat.sig)) > 1)
 
   mat.sig.up <- mat.sig
   mat.sig.up[mat.sig.up != 1] <- 2
