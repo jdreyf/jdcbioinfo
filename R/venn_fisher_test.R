@@ -9,11 +9,10 @@
 venn_fisher_test <- function(mat.sig){
 
   if (!is.matrix(mat.sig)) mat.sig <- as.matrix(mat.sig)
-  stopifnot(ncol(mat.sig)==2)
-  stopifnot(mat.sig %in% c(-1, 0, 1))
+  stopifnot(ncol(mat.sig)==2, mat.sig %in% c(-1, 0, 1))
 
   mat.sig.up <- mat.sig
-  mat.sig.up[mat.sig.up !=1] <-2
+  mat.sig.up[mat.sig.up != 1] <- 2
   mat.sig.up <- as.data.frame(mat.sig.up)
   mat.sig.up[,1] <- factor(mat.sig.up[,1], levels=c(1,2))
   mat.sig.up[,2] <- factor(mat.sig.up[,2], levels=c(1,2))
@@ -21,9 +20,9 @@ venn_fisher_test <- function(mat.sig){
   res.up <- stats::fisher.test(tab.up, alternative="greater")
   vec.up <- c(res.up$p.value, res.up$estimate, res.up$conf.int)
 
-  if (any(mat.sig==-1)){
+  if (any(mat.sig == -1)){
     mat.sig.down <- mat.sig
-    mat.sig.down[mat.sig.down !=-1] <- 0
+    mat.sig.down[mat.sig.down != -1] <- 0
     mat.sig.down <- as.data.frame(mat.sig.down)
     mat.sig.down[,1] <- factor(mat.sig.down[,1], levels=c(-1,0))
     mat.sig.down[,2] <- factor(mat.sig.down[,2], levels=c(-1,0))
