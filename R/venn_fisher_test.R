@@ -3,13 +3,18 @@
 #' Fisher exact test for enrichment of overlap in 2-way Venn.
 #'
 #' @param mat.sig Numeric matrix with two columns whose elements are {1, -1, 0} for significantly up, down, or
-#' insignificant genes (rows) in a test (column).
+#' insignificant genes (rows) in a test (column) if `directional=TRUE`.
+#' If `directional=FALSE`, we only consider significant and non significant genes, so elements are {0, 1}.
+#' @param directional Logical; are we considering whether significant genes are up or down?
+#' Otherwise, we only consider if genes are significant or not.
 #' @return Data frame with statistics from Fisher exact test.
 #' @export
 
-venn_fisher_test <- function(mat.sig){
+venn_fisher_test <- function(mat.sig, directional=TRUE){
+
   if (!is.matrix(mat.sig)) mat.sig <- as.matrix(mat.sig)
-  stopifnot(ncol(mat.sig)==2, mat.sig %in% c(-1, 0, 1), length(unique(mat.sig)) > 1)
+  stopifnot(!all(mat.sig == 0), ncol(mat.sig)==2, mat.sig %in% c(-1, 0, 1))
+  if (!directional) stopifnot(mat.sig %in% c(0, 1))
 
   mat.sig.up <- mat.sig
   mat.sig.up[mat.sig.up != 1] <- 2
@@ -20,7 +25,7 @@ venn_fisher_test <- function(mat.sig){
   res.up <- stats::fisher.test(tab.up, alternative="greater")
   vec.up <- c(res.up$p.value, res.up$estimate, res.up$conf.int)
 
-  if (any(mat.sig == -1)){
+  if (directional){
     mat.sig.down <- mat.sig
     mat.sig.down[mat.sig.down != -1] <- 0
     mat.sig.down <- as.data.frame(mat.sig.down)
