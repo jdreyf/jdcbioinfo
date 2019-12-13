@@ -2,7 +2,7 @@
 % Please edit documentation in R/multi_pval2z.R
 \name{multi_pval2z}
 \alias{multi_pval2z}
-\title{Convert the table of p-values to Z-scores}
+\title{Convert multiple columns of p-values to Z-scores}
 \usage{
 multi_pval2z(tab, prefix.v = NULL, p.suffix = "p",
   direction.suffix = "logFC")
@@ -14,13 +14,14 @@ multi_pval2z(tab, prefix.v = NULL, p.suffix = "p",
 These will be the columns that are used in the Venn diagram. If \code{NULL} these are inferred from
 \code{colnames(tab)} that end with \code{.p}.}
 
-\item{p.suffix}{The suffix of p-value columns}
+\item{p.suffix}{The suffix of p-value columns, i.e. the character string after the period "."}
 
-\item{direction.suffix}{The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.}
+\item{direction.suffix}{The suffix of direction columns such as log fold-change, regression slope, correlation
+coefficient, or the "Up/Down" values}
 }
 \value{
 Matrix of Z-scores.
 }
 \description{
-Convert the table of two-sided test p-values to Z-scores.
+Convert multiple columns (from a table-like object) of p-values from two-sided tests to Z-scores.
 }

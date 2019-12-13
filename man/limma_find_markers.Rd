@@ -54,5 +54,5 @@ which is \code{treat.lfc=log2(1.1)}.}
 Data frame.
 }
 \description{
-Performe limma's pairwise moderated t-tests, find sepcifically up or down-regulated markers for each group.
+Perform limma's pairwise moderated t-tests, find sepcifically up or down-regulated markers for each group.
 }

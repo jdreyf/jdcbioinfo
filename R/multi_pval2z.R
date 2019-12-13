@@ -1,9 +1,10 @@
-#' Convert the table of p-values to Z-scores
+#' Convert multiple columns of p-values to Z-scores
 #'
-#' Convert the table of two-sided test p-values to Z-scores.
+#' Convert multiple columns (from a table-like object) of p-values from two-sided tests to Z-scores.
 #'
-#' @param p.suffix The suffix of p-value columns
-#' @param direction.suffix The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.
+#' @param p.suffix The suffix of p-value columns, i.e. the character string after the period "."
+#' @param direction.suffix The suffix of direction columns such as log fold-change, regression slope, correlation
+#' coefficient, or the "Up/Down" values
 #' @inheritParams ezlimmaplot::ezvenn
 #' @return Matrix of Z-scores.
 #' @export
@@ -12,11 +13,11 @@ multi_pval2z <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="log
 
   stopifnot(length(p.suffix)==1, length(direction.suffix)==1)
 
-  if(!is.null(prefix.v)){
+  if (!is.null(prefix.v)){
     p.cols <- paste(prefix.v, p.suffix, sep = ".")
     stopifnot(p.cols %in% colnames(tab))
 
-  }else{
+  } else {
     p.suffix <- paste0("\\.", p.suffix, "$")
     p.cols <- grep(p.suffix, colnames(tab), value = TRUE)
     prefix.v <- gsub(p.suffix, "", p.cols)
