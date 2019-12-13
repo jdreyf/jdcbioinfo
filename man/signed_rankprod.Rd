@@ -4,8 +4,14 @@
 \alias{signed_rankprod}
 \title{Signed rank products of a two column matrix where larger statistics have stronger rank in the same or opposite direction}
 \usage{
-signed_rankprod(mat, nsim = 1e+07 - 1, same.dirction = FALSE,
-  reorder.rows = TRUE, prefix = NULL, seed = 100)
+signed_rankprod(
+  mat,
+  nsim = 1e+07 - 1,
+  same.dirction = FALSE,
+  reorder.rows = TRUE,
+  prefix = NULL,
+  seed = 100
+)
 }
 \arguments{
 \item{mat}{Numeric matrix with two columns holding statistics per comparison & rows are analytes.}

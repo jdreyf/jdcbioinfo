@@ -4,9 +4,16 @@
 \alias{edger_contrasts}
 \title{Apply edgeR's glmQLFit or glmFit, glmQLFTest, glmLRT, or glmWeightedF to one or more contrasts, and return a list}
 \usage{
-edger_contrasts(dge, grp = NULL, contrast.v, add.means = !is.null(grp),
-  design = NULL, cols = c("PValue", "FDR", "logFC"), test = "QLFT",
-  plot = FALSE)
+edger_contrasts(
+  dge,
+  grp = NULL,
+  contrast.v,
+  add.means = !is.null(grp),
+  design = NULL,
+  cols = c("PValue", "FDR", "logFC"),
+  test = "QLFT",
+  plot = FALSE
+)
 }
 \arguments{
 \item{dge}{DGEList object.}

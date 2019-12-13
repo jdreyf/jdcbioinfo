@@ -4,13 +4,29 @@
 \alias{hclust_and_heat}
 \title{Hierarchical Clustering & visulization by heatmap}
 \usage{
-hclust_and_heat(object, annot, sc = "z", clip = NA,
-  dist.method = "euclidean", hc.method = "ward.D2", deepSplit = 1,
-  minClusterSize = 10, verbose = TRUE, pheno.df = NULL,
-  labrows = "", labcols = "", color.v = NULL,
-  annotation_colors = NA, main = "Log2 Expression",
-  name = "hclust_heat", reorder_cols = FALSE, gaps_col = NULL,
-  width = NA, height = NA, plot = TRUE)
+hclust_and_heat(
+  object,
+  annot,
+  sc = "z",
+  clip = NA,
+  dist.method = "euclidean",
+  hc.method = "ward.D2",
+  deepSplit = 1,
+  minClusterSize = 10,
+  verbose = TRUE,
+  pheno.df = NULL,
+  labrows = "",
+  labcols = "",
+  color.v = NULL,
+  annotation_colors = NA,
+  main = "Log2 Expression",
+  name = "hclust_heat",
+  reorder_cols = FALSE,
+  gaps_col = NULL,
+  width = NA,
+  height = NA,
+  plot = TRUE
+)
 }
 \arguments{
 \item{object}{Matrix-like object with features (e.g. genes) as rows and samples as columns.}

@@ -4,8 +4,13 @@
 \alias{signed_ranksum}
 \title{Signed rank sum of a matrix where larger statistics have stronger rank in the same direction}
 \usage{
-signed_ranksum(mat, nsim = 1e+07 - 1, reorder.rows = TRUE,
-  prefix = NULL, seed = 100)
+signed_ranksum(
+  mat,
+  nsim = 1e+07 - 1,
+  reorder.rows = TRUE,
+  prefix = NULL,
+  seed = 100
+)
 }
 \arguments{
 \item{mat}{Numeric matrix with columns holding statistics per comparison & rows are analytes.}

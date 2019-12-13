@@ -4,10 +4,16 @@
 \alias{make_smpdb_glist}
 \title{Make a feature list for SMPDB pathways.}
 \usage{
-make_smpdb_glist(smpdb.tab, annot, id.cols.smpdb = c("Metabolite.ID",
-  "ChEBI.ID", "KEGG.ID"), id.cols.annot = c("HMDB", "ChEBI", "KEGG"),
-  pwys.name.col = "Pathway.Name", pwys.id.col = "SMPDB.ID",
-  pwys.type.col = "Pathway.Type", pwys.type = "Metabolic")
+make_smpdb_glist(
+  smpdb.tab,
+  annot,
+  id.cols.smpdb = c("Metabolite.ID", "ChEBI.ID", "KEGG.ID"),
+  id.cols.annot = c("HMDB", "ChEBI", "KEGG"),
+  pwys.name.col = "Pathway.Name",
+  pwys.id.col = "SMPDB.ID",
+  pwys.type.col = "Pathway.Type",
+  pwys.type = "Metabolic"
+)
 }
 \arguments{
 \item{smpdb.tab}{A dataframe of SMPDB data, whith column names in \code{id.cols.smpdb}, \code{pwys.name.col}, and \code{pwys.id.col}.}

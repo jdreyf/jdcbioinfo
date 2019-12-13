@@ -4,8 +4,14 @@
 \alias{correct_null_distribution}
 \title{Correct null distribution}
 \usage{
-correct_null_distribution(tab, prefix.v = NULL, p.suffix = "p",
-  fdr.suffix = "FDR", direction.suffix = "logFC", verbose = TRUE)
+correct_null_distribution(
+  tab,
+  prefix.v = NULL,
+  p.suffix = "p",
+  fdr.suffix = "FDR",
+  direction.suffix = "logFC",
+  verbose = TRUE
+)
 }
 \arguments{
 \item{tab}{Table of output from \code{ezlimma}.}

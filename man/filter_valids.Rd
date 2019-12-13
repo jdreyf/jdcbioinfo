@@ -4,8 +4,13 @@
 \alias{filter_valids}
 \title{Filter features}
 \usage{
-filter_valids(object, grp, min.prop = 2/3, at.least.one = FALSE,
-  only.keep.vector = FALSE)
+filter_valids(
+  object,
+  grp,
+  min.prop = 2/3,
+  at.least.one = FALSE,
+  only.keep.vector = FALSE
+)
 }
 \arguments{
 \item{object}{A dat.frame or matrix containing data for filtering.}

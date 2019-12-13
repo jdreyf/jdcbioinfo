@@ -4,8 +4,14 @@
 \alias{select_top}
 \title{Select equal numbers of top features from the topTable}
 \usage{
-select_top(tab, prefix.v = NULL, p.suffix = "p", ntop = 50,
-  ntop.offset = 5, each = TRUE)
+select_top(
+  tab,
+  prefix.v = NULL,
+  p.suffix = "p",
+  ntop = 50,
+  ntop.offset = 5,
+  each = TRUE
+)
 }
 \arguments{
 \item{tab}{Table of output from \code{ezlimma}.}

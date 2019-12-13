@@ -4,10 +4,22 @@
 \alias{limma_find_markers}
 \title{Find markers by limma's pairwise moderated t-tests}
 \usage{
-limma_find_markers(object, grp, direction = "up", nsim = 1e+07 - 2,
-  seed = 100, design = NULL, add.means = !is.null(grp),
-  adjust.method = "BH", weights = NA, trend = FALSE, block = NULL,
-  correlation = NULL, treat.lfc = NULL, moderated = TRUE)
+limma_find_markers(
+  object,
+  grp,
+  direction = "up",
+  nsim = 1e+07 - 2,
+  seed = 100,
+  design = NULL,
+  add.means = !is.null(grp),
+  adjust.method = "BH",
+  weights = NA,
+  trend = FALSE,
+  block = NULL,
+  correlation = NULL,
+  treat.lfc = NULL,
+  moderated = TRUE
+)
 }
 \arguments{
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 

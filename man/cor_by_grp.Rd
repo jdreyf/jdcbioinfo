@@ -4,8 +4,15 @@
 \alias{cor_by_grp}
 \title{Correlation test in each group}
 \usage{
-cor_by_grp(object, phenotype, grp, method = "pearson",
-  reorder.rows = TRUE, prefix = NULL, check.names = TRUE)
+cor_by_grp(
+  object,
+  phenotype,
+  grp,
+  method = "pearson",
+  reorder.rows = TRUE,
+  prefix = NULL,
+  check.names = TRUE
+)
 }
 \arguments{
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 

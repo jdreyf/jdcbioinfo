@@ -4,9 +4,18 @@
 \alias{limma_ftest_contrasts}
 \title{Apply limma's lmFit, contrasts.fit, & eBayes to one or more contrasts, perform moderated F-test, and return a table}
 \usage{
-limma_ftest_contrasts(object, grp = NULL, contrast.v,
-  add.means = !is.null(grp), weights = NA, design = NULL,
-  prefix = "", trend = FALSE, block = NULL, correlation = NULL)
+limma_ftest_contrasts(
+  object,
+  grp = NULL,
+  contrast.v,
+  add.means = !is.null(grp),
+  weights = NA,
+  design = NULL,
+  prefix = "",
+  trend = FALSE,
+  block = NULL,
+  correlation = NULL
+)
 }
 \arguments{
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 

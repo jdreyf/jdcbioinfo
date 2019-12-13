@@ -4,8 +4,7 @@
 \alias{multi_pval2z}
 \title{Convert the table of p-values to Z-scores}
 \usage{
-multi_pval2z(tab, prefix.v = NULL, p.suffix = "p",
-  direction.suffix = "logFC")
+multi_pval2z(tab, prefix.v = NULL, p.suffix = "p", direction.suffix = "logFC")
 }
 \arguments{
 \item{tab}{Table of output from \code{ezlimma}.}

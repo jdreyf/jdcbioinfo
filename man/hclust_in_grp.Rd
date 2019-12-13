@@ -4,8 +4,14 @@
 \alias{hclust_in_grp}
 \title{Hierarchical Clustering in each group}
 \usage{
-hclust_in_grp(object, grp, sc = "ctr", clip = NA,
-  dist.method = "euclidean", hc.method = "ward.D2")
+hclust_in_grp(
+  object,
+  grp,
+  sc = "ctr",
+  clip = NA,
+  dist.method = "euclidean",
+  hc.method = "ward.D2"
+)
 }
 \arguments{
 \item{object}{Matrix-like object with features (e.g. genes) as rows and samples as columns.}
