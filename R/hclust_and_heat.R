@@ -52,13 +52,11 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   clus_df <- data.frame(Cluster=factor(clus), row.names= rownames(object.sc))
   clus_df <- clus_df[hc$order, , drop=FALSE]
   clus_lev <- as.list(unique(clus_df$Cluster))
-  names(clus_lev) <- sort(unique(clus))
+  names(clus_lev) <- paste0("clus_", sort(unique(clus)))
   levels(clus_df$Cluster) <- clus_lev
 
   # order clus
   clus_df <- clus_df[order(clus_df$Cluster), , drop=FALSE]
-  clus_df$Cluster <- paste0("clus_",  clus_df$Cluster)
-  clus_df$Cluster <- factor(clus_df$Cluster, levels = unique(clus_df$Cluster))
 
   # heatmap
   gaps_row <- which(diff(as.numeric(clus_df$Cluster), lag=1) != 0)
