@@ -24,7 +24,8 @@ These will be the columns that are used in the Venn diagram. If \code{NULL} thes
 
 \item{fdr.suffix}{The suffix of FDR columns.}
 
-\item{direction.suffix}{The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.}
+\item{direction.suffix}{The suffix of direction columns such as log fold-change, regression slope, correlation
+coefficient, or the "Up/Down" values}
 
 \item{verbose}{Print out status messages.}
 }

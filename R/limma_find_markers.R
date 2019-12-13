@@ -1,6 +1,6 @@
 #' Find markers by limma's pairwise moderated t-tests
 #'
-#' Performe limma's pairwise moderated t-tests, find sepcifically up or down-regulated markers for each group.
+#' Perform limma's pairwise moderated t-tests, find sepcifically up or down-regulated markers for each group.
 #'
 #' @param direction Either "up" or "down".
 #' @inheritParams ezlimma::limma_contrasts
@@ -8,9 +8,9 @@
 #' @return Data frame.
 #' @export
 
-
-limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100, design=NULL, add.means=!is.null(grp), adjust.method="BH", weights=NA, trend=FALSE,
-                               block=NULL, correlation=NULL, treat.lfc=NULL, moderated=TRUE){
+limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100, design=NULL, add.means=!is.null(grp),
+                               adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
+                               treat.lfc=NULL, moderated=TRUE){
 
   stopifnot(ncol(object)==length(grp), colnames(object)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
 

@@ -3,9 +3,17 @@
 #' Counvert two-sided test p-values to Z-scores using \code{qnorm}.
 #'
 #' @param pval Vector of two-sided test p-values.
-#' @param direction Numeric or character vector. Examples of numeric valuses are log fold-change, regression slope, or
-#' correlation coefficient. For charecter values, only "Up" and "Down" are allowed.
+#' @param direction Numeric or character vector of same length of pvalue vector. Examples of numeric valuses are log fold-change,
+#' regression slope, or correlation coefficient. For charecter values, only "Up" and "Down" are allowed.
 #' @return Vector of Z-scores.
+#' @examples
+#' set.seed(0)
+#' n <- 10
+#' pval <- runif(n)
+#' logfc <- rnorm(n)
+#' pval2z(pval, logfc)
+#' direction <- sample(c("Up", "Down"), n, replace=TRUE)
+#' pval2z(pval, direction)
 #' @export
 
 pval2z <- function(pval, direction){
@@ -20,5 +28,5 @@ pval2z <- function(pval, direction){
   }
 
   z <- qnorm(pval/2, lower.tail=FALSE) * direction
-  return (z)
+  return(z)
 }

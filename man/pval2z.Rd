@@ -9,12 +9,21 @@ pval2z(pval, direction)
 \arguments{
 \item{pval}{Vector of two-sided test p-values.}
 
-\item{direction}{Numeric or character vector. Examples of numeric valuses are log fold-change, regression slope, or
-correlation coefficient. For charecter values, only "Up" and "Down" are allowed.}
+\item{direction}{Numeric or character vector of same length of pvalue vector. Examples of numeric valuses are log fold-change,
+regression slope, or correlation coefficient. For charecter values, only "Up" and "Down" are allowed.}
 }
 \value{
 Vector of Z-scores.
 }
 \description{
 Counvert two-sided test p-values to Z-scores using \code{qnorm}.
+}
+\examples{
+set.seed(0)
+n <- 10
+pval <- runif(n)
+logfc <- rnorm(n)
+pval2z(pval, logfc)
+direction <- sample(c("Up", "Down"), n, replace=TRUE)
+pval2z(pval, direction)
 }

@@ -20,9 +20,10 @@ combine_directional_pvalues(
 These will be the columns that are used in the Venn diagram. If \code{NULL} these are inferred from
 \code{colnames(tab)} that end with \code{.p}.}
 
-\item{p.suffix}{The suffix of p-value columns}
+\item{p.suffix}{The suffix of p-value columns, i.e. the character string after the period "."}
 
-\item{direction.suffix}{The suffix ofdirection columns such as log fold-change, regression slope, correlation coefficient, or the"Up/Down" valuses.}
+\item{direction.suffix}{The suffix of direction columns such as log fold-change, regression slope, correlation
+coefficient, or the "Up/Down" values}
 
 \item{only.p}{Logical; should only combined p-values be returned? If not, returns matrix with z-scores and FDRs also.}
 
