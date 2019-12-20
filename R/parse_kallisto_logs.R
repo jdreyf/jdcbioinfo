@@ -10,7 +10,7 @@
 parse_kallisto_logs <- function(name="kallisto_summary", path="."){
 
   out_files <- dir(path=path, pattern="\\.[0-9]+\\.out$")
-
+  stopifnot(length(out_files) > 1)
   tab <- list()
   for (f in out_files) {
     samp <- gsub("\\.[0-9]+\\.out$", "", f)
