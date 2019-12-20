@@ -9,7 +9,7 @@ parse_kallisto_logs(name = "kallisto_summary", path = ".")
 \arguments{
 \item{name}{the file name of result.}
 
-\item{path}{the full path name for the kallisto log files.}
+\item{path}{the full path name for the log files.}
 }
 \value{
 Data frame with summary of kallisto alignment.

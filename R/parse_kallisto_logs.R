@@ -3,7 +3,7 @@
 #' Parse kallisto log files.
 #'
 #' @param name  the file name of result.
-#' @param path  the full path name for the kallisto log files.
+#' @param path  the full path name for the log files.
 #' @return Data frame with summary of kallisto alignment.
 #' @export
 
