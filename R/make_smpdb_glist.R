@@ -25,6 +25,8 @@ make_smpdb_glist <- function(smpdb.tab, annot, id.cols.smpdb=c("Metabolite.ID", 
   smpdb.tab <- smpdb.tab[smpdb.tab[, pwys.type.col] %in% pwys.type, ]
   smpdb.tab[is.na(smpdb.tab) | smpdb.tab %in% c("NA", "N/A", "n/a")] <- ""
 
+  annot <- annot[, id.cols.annot]
+
   if (mean(grepl("^HMBD",  annot[,1])) > 0.5 && mean(grepl("^HMBD",  smpdb.tab[,1])) < 0.5) {
     smpdb.tab[,1][smpdb.tab[,1]!=""] <- paste0("HMBD", smpdb.tab[,1][ smpdb.tab[,1]!=""])
   }
@@ -35,7 +37,6 @@ make_smpdb_glist <- function(smpdb.tab, annot, id.cols.smpdb=c("Metabolite.ID", 
     smpdb.tab[,3][smpdb.tab[,3]!=""] <- paste0("C", smpdb.tab[,3][ smpdb.tab[,3]!=""])
   }
 
-  annot <- annot[, id.cols.annot]
   pwys <- smpdb.tab[, pwys.name.col]
   G <- list()
   for (pwy in unique(pwys)) {
