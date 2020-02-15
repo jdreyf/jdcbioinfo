@@ -11,7 +11,7 @@
 
 correct_null_distribution <- function(tab, prefix.v=NULL, p.suffix="p", fdr.suffix="FDR", direction.suffix="logFC", verbose=TRUE){
 
-  stopifnot(length(p.suffix)==1, length( fdr.suffix)==1, length(direction.suffix)==1)
+  stopifnot(length(p.suffix)==1, length(fdr.suffix)==1, length(direction.suffix)==1)
 
   mat_z <- multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix)
   res <- apply(mat_z, MARGIN=2, FUN=fdrtool::fdrtool, statistic="normal", plot=FALSE, verbose=verbose)
