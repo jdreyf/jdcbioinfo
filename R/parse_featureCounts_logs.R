@@ -14,16 +14,16 @@ parse_featureCounts_logs <- function(file, name="featureCounts_summary"){
   samps <- grep("Process BAM file", lines, value = TRUE)
   samps <- gsub(".*( |/)", "", gsub("/Aligned\\..*out\\.bam.*", "", samps))
 
-  tot.num <- grep("Total fragments", lines, value = TRUE)
+  tot.num <- grep("Total (fragments|reads)", lines, value = TRUE)
   tot.num <- sapply(strsplit(trimws(gsub("\\|\\|", "", tot.num)), split = " : "), FUN="[", 2)
 
-  mapped <- grep("Successfully assigned fragments", lines, value = TRUE)
+  mapped <- grep("Successfully assigned (fragments|reads)", lines, value = TRUE)
   mapped <- strsplit(trimws(gsub("\\|\\|", "", mapped)), split = " ")
   mapped.num <- sapply(mapped, FUN="[", 5)
   mapped.percent <- gsub("\\(|\\)", "", sapply(mapped, FUN="[", 6))
 
   tab <- t(cbind(tot.num, mapped.num, mapped.percent))
-  dimnames(tab) <- list(c("Total fragments", "Successfully assigned fragments", "Percentage of assigned fragments"),
+  dimnames(tab) <- list(c("Total", "Successfully assigned", "Percentage of assigned"),
                          samps)
 
   if (!is.na(name)) utils::write.csv(tab, paste0(name, ".csv"))
