@@ -23,6 +23,10 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
   stopifnot(sapply(contrast.v, length) %in% c(1,2))
   L <- sapply(contrast.v, FUN=function(contr) {
     variancePartition::getContrast(object, formula=formula, data=pheno, coefficient=contr)})
+  if (is.vector(L)) {
+    L <- as.matrix(L)
+    colnames(L) <- names(contrast.v)
+  }
 
   # can't set weights=NULL in lmFit when using voom, since lmFit only assigns
   # weights "if (missing(weights) && !is.null(y$weights))"
