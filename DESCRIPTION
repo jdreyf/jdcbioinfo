@@ -20,7 +20,8 @@ Imports:
 	RColorBrewer,
 	methods,
 	BSgenome,
-	variancePartition
+	variancePartition,
+	BiocParallel
 Suggests:
   covr,
   ppcor,

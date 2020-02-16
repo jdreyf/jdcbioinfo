@@ -4,6 +4,10 @@ library(limma)
 library(ezlimma)
 library(ezlimmaplot)
 library(testthat)
+library(variancePartition)
+library(BiocParallel)
+
+data(varPartData)
 
 suppressWarnings(set.seed(100, sample.kind = "Rounding"))
 means <- sample(seq(1, 20, by = 0.01), 100, replace = TRUE)
