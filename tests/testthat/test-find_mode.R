@@ -1,6 +1,7 @@
 context("find_mode")
 
 test_that("find mode", {
+  set.seed(100)
   x1 <- stats::rnorm(1000, mean=10, sd=2)
   x2 <- stats::rnorm(1000, mean=20, sd=3)
   x <- c(x1, x2)
