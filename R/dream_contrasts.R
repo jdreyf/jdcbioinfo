@@ -52,7 +52,10 @@ if (length(weights)!=1 || !is.na(weights)){
   mtt <- mtt[order(ezlimma::combine_pvalues(mtt)), ]
 
   if (add.means) {
-    mat.avg <- sapply(unique(sort(grp)), FUN=function(g) rowMeans(object[, grp==g]))
+    mat <- as.matrix(object)
+    grps <- unique(sort(grp))
+    mat.avg <- sapply(grps, FUN=function(g) rowMeans(mat[, grp==g], na.rm=TRUE))
+    colnames(mat.avg) <- paste(grps, "avg", sep=".")
     mtt <- cbind(mat.avg[rownames(mtt), ], mtt)
   }
   return(mtt)
