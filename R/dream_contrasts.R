@@ -42,7 +42,7 @@ if (length(weights)!=1 || !is.na(weights)){
 
   mtt <- list()
   for (contr.nm in colnames(L)) {
-   tt <- limma::topTable(fit, coef=contr.nm, number=Inf , sort.by="none")[, cols]
+   tt <- variancePartition::topTable(fit, coef=contr.nm, number=Inf , sort.by="none")[, cols]
    tt$FC <- sign(tt$logFC)*2^(abs(tt$logFC))
    colnames(tt) <- gsub("P\\.Value", "p", gsub("adj\\.P\\.Val", "FDR", colnames(tt)))
    colnames(tt) <- paste(contr.nm, colnames(tt), sep=".")

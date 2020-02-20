@@ -40,7 +40,7 @@ if (length(weights)!=1 || !is.na(weights)){
     fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L)
   }
 
-  tt <- limma::topTable(fit, coef=colnames(L), number=Inf , sort.by="none")
+  tt <- variancePartition::topTable(fit, coef=colnames(L), number=Inf , sort.by="none")
 
   if("F" %in% colnames(tt)){
     tt <- tt[, c("F", "P.Value", "adj.P.Val")]
