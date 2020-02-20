@@ -22,7 +22,7 @@ limma_ftest_pairwise <- function(object, grp, add.means=TRUE, weights=NA, design
   comb <- combn(unique(grp), 2)
   contrast.v <- character(0)
   for(i in 1:ncol(comb)){
-    contrast.v[i] <- paste0(comb[2, i], " - ", comb[1, i])
+    contrast.v[paste0(comb[2, i], "vs", comb[1, i])] <- paste0(comb[2, i], " - ", comb[1, i])
   }
 
   ttf <- limma_ftest_contrasts(object, grp=grp, contrast.v=contrast.v, add.means=add.means, weights=weights, design=design, prefix=prefix,
