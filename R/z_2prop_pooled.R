@@ -35,5 +35,5 @@ z_2prop_pooled <- function(x1, x2, n1, n2, delta=0, alternative=c("two.sided", "
     pval <- stats::pnorm(z.score, lower.tail=FALSE)
   }
 
-  return(pval)
+  return(unname(pval))
 }
