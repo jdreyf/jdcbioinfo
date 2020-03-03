@@ -28,7 +28,11 @@ z_2prop_pooled <- function(x1, x2, n1, n2, delta=0, alternative=c("two.sided", "
   p.diff <- (x1/n1)-(x2/n2)-delta+cc
   p.common <- (x1+x2)/(n1+n2)
   se <- sqrt(p.common * (1-p.common) * (1/n1+1/n2))
-  z.score <- p.diff/se
+  if (se==0) {
+    z.score <- NaN
+  } else {
+    z.score <- p.diff/se
+  }
 
   # get p-value
   if (alternative=="two.sided") {
