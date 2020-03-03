@@ -15,7 +15,8 @@ make_file_links(
 \item{path}{a character vector of full path names; the default
     corresponds to the working directory, \code{\link[base]{getwd}()}.  Tilde
     expansion (see \code{\link[base]{path.expand}}) is performed.  Missing
-    values will be ignored.}
+    values will be ignored.  Elements with a marked encoding will
+    be converted to the native encoding.}
 
 \item{pattern}{an optional \link[base]{regular expression}.  Only file names
     which match the regular expression will be returned.}
