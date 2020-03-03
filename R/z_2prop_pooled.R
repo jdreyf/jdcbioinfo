@@ -11,13 +11,21 @@
 #' @return a number of p-value.
 #' @export
 
-z_2prop_pooled <- function(x1, x2, n1, n2, delta=0, alternative=c("two.sided", "less", "greater")){
+z_2prop_pooled <- function(x1, x2, n1, n2, delta=0, alternative=c("two.sided", "less", "greater"), correct=TRUE){
 
   stopifnot(x1<=n1, x2<=n2, x1>=0, x2>=0, n1>0, n2>0)
   alternative <- match.arg(alternative)
 
+  # get cc
+  if (correct) {
+    cc <- (1/n1+1/n2)/2
+    cc <- ifelse(alternative=="greater", cc, -cc)
+  } else {
+    cc <- 0
+  }
+
   # get z-score
-  p.diff <- (x1/n1)-(x2/n2)-delta
+  p.diff <- (x1/n1)-(x2/n2)-delta+cc
   p.common <- (x1+x2)/(n1+n2)
   se <- sqrt(p.common * (1-p.common) * (1/n1+1/n2))
   z.score <- p.diff/se

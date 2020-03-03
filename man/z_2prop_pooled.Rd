@@ -10,7 +10,8 @@ z_2prop_pooled(
   n1,
   n2,
   delta = 0,
-  alternative = c("two.sided", "less", "greater")
+  alternative = c("two.sided", "less", "greater"),
+  correct = TRUE
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ z_2prop_pooled(
     letter.  Only used for testing the null that a single proportion
     equals a given value, or that two proportions are equal; ignored
     otherwise.}
+
+\item{correct}{a logical indicating whether Yates' continuity
+    correction should be applied where possible.}
 }
 \value{
 a number of p-value.
