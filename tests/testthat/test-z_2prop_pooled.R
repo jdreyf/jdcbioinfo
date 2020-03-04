@@ -21,7 +21,7 @@ test_that("z_2prop_pooled", {
 
   expect_error(z_2prop_pooled(20, x2, n1, n2))
 
-  expect_error(z_2prop_pooled(x1, x2, 1, n2))
+  expect_error(z_2prop_pooled(-1, x2, n1, n2))
 })
 
 

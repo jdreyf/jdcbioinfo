@@ -7,6 +7,7 @@
 #' @param n1 total number of games in group 1.
 #' @param n2 total number of games in group 2.
 #' @param delta null hypothesis of the difference in proportion.
+#' @param correct a logical indicating whether continuity correction should be applied where possible.
 #' @inheritParams stats::prop.test
 #' @return a number of p-value.
 #' @export
@@ -14,6 +15,8 @@
 z_2prop_pooled <- function(x1, x2, n1, n2, delta=0, alternative=c("two.sided", "less", "greater"), correct=TRUE){
 
   stopifnot(x1<=n1, x2<=n2, x1>=0, x2>=0, n1>0, n2>0)
+  if (x1==0 & x2==0) {return(NA)}
+
   alternative <- match.arg(alternative)
 
   # get cc
@@ -28,17 +31,13 @@ z_2prop_pooled <- function(x1, x2, n1, n2, delta=0, alternative=c("two.sided", "
   p.diff <- (x1/n1)-(x2/n2)-delta+cc
   p.common <- (x1+x2)/(n1+n2)
   se <- sqrt(p.common * (1-p.common) * (1/n1+1/n2))
-  if (se==0) {
-    z.score <- NaN
-  } else {
-    z.score <- p.diff/se
-  }
+  z.score <- p.diff/se
 
   # get p-value
   if (alternative=="two.sided") {
     pval <- stats::pnorm(z.score, lower.tail=TRUE)
-    pval <- 2*min(pval, 1-pval)
-    if (pval>1) pval <- 1
+    pval <- 2 * min(pval, 1-pval)
+    if (pval>1) {pval <- 1}
 
   } else if (alternative=="less") {
     pval <- stats::pnorm(z.score, lower.tail=TRUE)
