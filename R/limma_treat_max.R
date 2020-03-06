@@ -50,8 +50,8 @@ limma_treat_max <- function(object, grp=NULL, contrast.v, treat.lfc=log2(1.2), a
   } else {
     p.min <- apply(fit2$p.value, MARGIN=1, FUN=min)
     fdr <- p.adjust(p.min, method="BH")
-    ttf <- cbind(p = p.min, FDR = fdr)
-    ttf <- ttf[order(ttf[, "p"]), ]
+    ttf <- data.frame(p = p.min, FDR = fdr)
+    ttf <- ttf[order(ttf$p), ]
   }
 
   if (prefix!=''){ colnames(ttf) <- paste(prefix, colnames(ttf), sep='.') }
@@ -60,7 +60,7 @@ limma_treat_max <- function(object, grp=NULL, contrast.v, treat.lfc=log2(1.2), a
   if (add.means){
     grp.means <- t(apply(object, 1, FUN=function(v) tapply(v, grp, mean, na.rm=TRUE)))
     colnames(grp.means) <- paste(colnames(grp.means), 'avg', sep='.')
-    ttf <- cbind(grp.means[rownames(ttf),], ttf)
+    ttf <- data.frame(grp.means[rownames(ttf),], ttf)
   }
   return(ttf)
 }
