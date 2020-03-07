@@ -22,27 +22,27 @@ limma_ftest_contrasts <- function(object, grp=NULL, contrast.v, add.means=!is.nu
 
   # make model
   if (is.null(design)){
-    design <- model.matrix(~0+grp)
+    design <- stats::model.matrix(~0+grp)
     colnames(design) <- sub('grp', '', colnames(design), fixed=TRUE)
   }
 
   # lmFit
   if (!is.na(weights)){
     if (!is.matrix(object) && !is.null(object$weights)){ cat('object$weights are being ignored\n') }
-    fit <- lmFit(object, design, block = block, correlation = correlation, weights=weights)
+    fit <- limma::lmFit(object, design, block = block, correlation = correlation, weights=weights)
   } else {
-    fit <- lmFit(object, design, block = block, correlation = correlation)
+    fit <- limma::lmFit(object, design, block = block, correlation = correlation)
   }
 
   # contrast
-  contr.mat <- makeContrasts(contrasts=contrast.v, levels=design)
+  contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
 
   # contrasts.fit & eBayes
-  fit2 <- contrasts.fit(fit, contr.mat)
-  fit2 <- eBayes(fit2, trend=trend)
+  fit2 <- limma::contrasts.fit(fit, contr.mat)
+  fit2 <- limma::eBayes(fit2, trend=trend)
 
   # topTable
-  ttf <- topTable(fit2, number=Inf, adjust.method='BH', coef=contrast.v)
+  ttf <- limma::topTable(fit2, number=Inf, adjust.method='BH', coef=contrast.v)
 
   if("F" %in% colnames(ttf)){
     ttf <- ttf[, c('F', 'P.Value', 'adj.P.Val')]

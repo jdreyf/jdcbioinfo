@@ -11,7 +11,7 @@ dream_ftest_pairwise <- function(object, formula, pheno, grp, weights=NA, add.me
   stopifnot(ncol(object)==length(grp), colnames(object)==names(grp))
 
   # make contrast
-  comb <- combn(unique(grp), 2)
+  comb <- utils::combn(unique(grp), 2)
   contrast.v <- character(0)
   for(i in 1:ncol(comb)){
     contrast.v[paste0(comb[2, i], "vs", comb[1, i])] <- paste0(comb[2, i], " - ", comb[1, i])

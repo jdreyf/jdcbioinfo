@@ -15,7 +15,7 @@ parse_star_logs <- function(name="star_summary", path=".") {
     samp <- gsub(".*/", "", dirname(f))
     res <- utils::read.delim(f, header=FALSE)
     res[,1] <- trimws(gsub("\\|", "", res[,1]))
-    res <- setNames(trimws(res[,2]), nm=res[,1])
+    res <- stats::setNames(trimws(res[,2]), nm=res[,1])
     tab[[samp]] <- res
   }
   tab <- sapply(tab, FUN=function(v) v)

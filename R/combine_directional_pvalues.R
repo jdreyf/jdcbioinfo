@@ -16,7 +16,7 @@ combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direct
   combp.v <- 2*pmin(combp.v, 1-combp.v)
 
   if(only.p){
-    combp.v <- setNames(combp.v, nm=rownames(tab))
+    combp.v <- stats::setNames(combp.v, nm=rownames(tab))
     return(combp.v)
   }
 

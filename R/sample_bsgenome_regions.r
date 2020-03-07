@@ -2,7 +2,6 @@
 #'
 #' Rand seq.
 #'
-#' @importFrom BSgenome getSeq
 #' @param BSgenome BSgenome object.
 #' @param nsamp Numeric number of samples.
 #' @param flank Numeric length of flank on each side of region.
@@ -23,10 +22,10 @@ sample_bsgenome_regions <- function(BSgenome, nsamp, flank, seed = 123){
   }
   bed.samp <- Reduce(rbind, bed.samp)
   rownames(bed.samp) <- bed.samp$name
-  gr.samp <- as(bed.samp, "GRanges")
+  gr.samp <- methods::as(bed.samp, "GRanges")
 
   # test
-  seqs.samp <- getSeq(BSgenome, gr.samp)
+  seqs.samp <- BSgenome::getSeq(BSgenome, gr.samp)
   stopifnot(names(seqs.samp) == names(gr.samp))
 
   return(seqs.samp)

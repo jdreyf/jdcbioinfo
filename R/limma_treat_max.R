@@ -23,33 +23,33 @@ limma_treat_max <- function(object, grp=NULL, contrast.v, treat.lfc=log2(1.2), a
 
   # make model
   if (is.null(design)){
-    design <- model.matrix(~0+grp)
+    design <- stats::model.matrix(~0+grp)
     colnames(design) <- sub('grp', '', colnames(design), fixed=TRUE)
   }
 
   # lmFit
   if (!is.na(weights)){
     if (!is.matrix(object) && !is.null(object$weights)){ cat('object$weights are being ignored\n') }
-    fit <- lmFit(object, design, block = block, correlation = correlation, weights=weights)
+    fit <- limma::lmFit(object, design, block = block, correlation = correlation, weights=weights)
   } else {
-    fit <- lmFit(object, design, block = block, correlation = correlation)
+    fit <- limma::lmFit(object, design, block = block, correlation = correlation)
   }
 
   # contrast
-  contr.mat <- makeContrasts(contrasts=contrast.v, levels=design)
+  contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
 
   # contrasts.fit & treat
-  fit2 <- contrasts.fit(fit, contr.mat)
-  fit2 <- treat(fit2, lfc=treat.lfc, trend=trend)
+  fit2 <- limma::contrasts.fit(fit, contr.mat)
+  fit2 <- limma::treat(fit2, lfc=treat.lfc, trend=trend)
 
   # topTable
   if (length(contrast.v) == 1) {
-    ttf <- topTable(fit2, number=Inf, adjust.method='BH', coef=contrast.v, sort.by="p")
+    ttf <- limma::topTreat(fit2, number=Inf, adjust.method='BH', coef=contrast.v, sort.by="p")
     ttf <- ttf[, c('P.Value', 'adj.P.Val')]
     colnames(ttf) <- sub('P.Value', 'p', sub('adj.P.Val', 'FDR', colnames(ttf)))
   } else {
     p.min <- apply(fit2$p.value, MARGIN=1, FUN=min)
-    fdr <- p.adjust(p.min, method="BH")
+    fdr <- stats::p.adjust(p.min, method="BH")
     ttf <- data.frame(p = p.min, FDR = fdr)
     ttf <- ttf[order(ttf$p), ]
   }

@@ -18,7 +18,7 @@ correct_null_distribution <- function(tab, prefix.v=NULL, p.suffix="p", fdr.suff
 
   for(nm in names(res)){
     tab[, paste(nm,  p.suffix, sep=".")] <- res[[nm]]$pval
-    tab[, paste(nm,  fdr.suffix, sep=".")] <- p.adjust(res[[nm]]$pval, method="BH")
+    tab[, paste(nm,  fdr.suffix, sep=".")] <- stats::p.adjust(res[[nm]]$pval, method="BH")
   }
   return(tab)
 }

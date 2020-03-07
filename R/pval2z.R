@@ -27,6 +27,6 @@ pval2z <- function(pval, direction){
     direction <- ifelse(direction=="Up", 1, -1)
   }
 
-  z <- qnorm(pval/2, lower.tail=FALSE) * direction
+  z <- stats::qnorm(pval/2, lower.tail=FALSE) * direction
   return(z)
 }

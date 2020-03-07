@@ -52,7 +52,7 @@ limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100
       pval <- Fn(score_t)
     }
 
-    fdr <- p.adjust(pval, method=adjust.method)
+    fdr <- stats::p.adjust(pval, method=adjust.method)
     res_tmp <- data.frame(score=score_t, p=pval, FDR=fdr)
     colnames(res_tmp) <- paste(groups[i], direction, colnames(res_tmp), sep=".")
     res[[i]] <- res_tmp
