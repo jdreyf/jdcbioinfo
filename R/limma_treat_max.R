@@ -1,8 +1,9 @@
-#' Apply limma's lmFit, contrasts.fit, & eBayes to one or more contrasts, perform moderated F-test, and return a table
+#' Apply limma's lmFit, contrasts.fit, & treat to one or more contrasts, and return a table
 #'
-#' Apply \pkg{limma}'s \code{lmFit}, \code{contrasts.fit}, & \code{eBayes} to one or more contrasts,  perform moderated F-test, and return
+#' Apply \pkg{limma}'s \code{lmFit}, \code{contrasts.fit}, & \code{treat} to one or more contrasts,  and return
 #' a table.
 #'
+#' @inheritParams rankprod
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams ezlimma::limma_cor
 #' @return Data frame.
@@ -15,7 +16,7 @@
 #' @seealso \code{\link[limma]{lmFit}}; \code{\link[limma]{eBayes}}.
 #' @export
 
-limma_ftest_contrasts <- function(object, grp=NULL, contrast.v, add.means=!is.null(grp), weights=NA, design=NULL, prefix='',
+limma_treat_max <- function(object, grp=NULL, contrast.v, treat.lfc=log2(1.2), add.means=!is.null(grp), weights=NA, design=NULL, prefix='',
                                  trend=FALSE, block=NULL, correlation=NULL){
 
   if (is.null(design)|add.means) stopifnot(ncol(object)==length(grp), colnames(object)==names(grp))
@@ -37,26 +38,29 @@ limma_ftest_contrasts <- function(object, grp=NULL, contrast.v, add.means=!is.nu
   # contrast
   contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
 
-  # contrasts.fit & eBayes
+  # contrasts.fit & treat
   fit2 <- limma::contrasts.fit(fit, contr.mat)
-  fit2 <- limma::eBayes(fit2, trend=trend)
+  fit2 <- limma::treat(fit2, lfc=treat.lfc, trend=trend)
 
   # topTable
-  ttf <- limma::topTable(fit2, number=Inf, adjust.method='BH', coef=contrast.v)
-
-  if("F" %in% colnames(ttf)){
-    ttf <- ttf[, c('F', 'P.Value', 'adj.P.Val')]
-  } else if("t" %in% colnames(ttf)){
-    ttf <- ttf[, c('t', 'P.Value', 'adj.P.Val')]
+  if (length(contrast.v) == 1) {
+    ttf <- limma::topTreat(fit2, number=Inf, adjust.method='BH', coef=contrast.v, sort.by="p")
+    ttf <- ttf[, c('P.Value', 'adj.P.Val')]
+    colnames(ttf) <- sub('P.Value', 'p', sub('adj.P.Val', 'FDR', colnames(ttf)))
+  } else {
+    p.min <- apply(fit2$p.value, MARGIN=1, FUN=min)
+    fdr <- stats::p.adjust(p.min, method="BH")
+    ttf <- data.frame(p = p.min, FDR = fdr)
+    ttf <- ttf[order(ttf$p), ]
   }
-  colnames(ttf) <- sub('P.Value', 'p', sub('adj.P.Val', 'FDR', colnames(ttf)))
+
   if (prefix!=''){ colnames(ttf) <- paste(prefix, colnames(ttf), sep='.') }
 
   #cbind grp means
   if (add.means){
     grp.means <- t(apply(object, 1, FUN=function(v) tapply(v, grp, mean, na.rm=TRUE)))
     colnames(grp.means) <- paste(colnames(grp.means), 'avg', sep='.')
-    ttf <- cbind(grp.means[rownames(ttf),], ttf)
+    ttf <- data.frame(grp.means[rownames(ttf),], ttf)
   }
   return(ttf)
 }

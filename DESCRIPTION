@@ -19,7 +19,9 @@ Imports:
 	survival,
 	RColorBrewer,
 	methods,
-	BSgenome
+	BSgenome,
+	variancePartition,
+	BiocParallel
 Suggests:
   covr,
   ppcor,

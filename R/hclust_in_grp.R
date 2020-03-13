@@ -36,8 +36,8 @@ hclust_in_grp <- function(object, grp, sc="ctr", clip=NA, dist.method="euclidean
   for (group in groups) {
     if (sum(grp==group) > 1) {
       object.sc.tmp <- object.sc[grp==group, ]
-      object.dist.tmp <- dist(object.sc.tmp, method=dist.method)
-      hc.tmp <- hclust(object.dist.tmp, method=hc.method)
+      object.dist.tmp <- stats::dist(object.sc.tmp, method=dist.method)
+      hc.tmp <- stats::hclust(object.dist.tmp, method=hc.method)
       hc.labels[[group]] <- hc.tmp$labels[hc.tmp$order]
     } else {
       hc.labels[[group]] <- rownames(object.sc)[grp==group]

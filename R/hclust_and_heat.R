@@ -38,8 +38,8 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   }
 
   # cluster
-  dist_mat <- dist(object.sc, method=dist.method)
-  hc <- hclust(dist_mat, method=hc.method)
+  dist_mat <- stats::dist(object.sc, method=dist.method)
+  hc <- stats::hclust(dist_mat, method=hc.method)
 
   # cut tree
   clus <- unname(dynamicTreeCut::cutreeDynamic(hc, method="hybrid", distM=as.matrix(dist_mat),
@@ -61,7 +61,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   # heatmap
   gaps_row <- which(diff(as.numeric(clus_df$Cluster), lag=1) != 0)
   annotation_clus_colors <-
-    list(Cluster=setNames(colorRampPalette(RColorBrewer::brewer.pal(n=min(max(clus), 9), name="Set1"))(max(clus)),
+    list(Cluster=stats::setNames(grDevices::colorRampPalette(RColorBrewer::brewer.pal(n=min(max(clus), 9), name="Set1"))(max(clus)),
                           nm=levels(clus_df$Cluster)))
   if (!is.na(annotation_colors)) {
     annotation_colors <- c(annotation_colors, annotation_clus_colors)
@@ -69,7 +69,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
     annotation_colors <- annotation_clus_colors
   }
   if (labrows != "") labrows <- labrows[hc$order]
-  ph <- ezheat(object.sc[rownames(clus_df), ], pheno.df=pheno.df, sc="none", reorder_rows=FALSE, reorder_cols=reorder_cols,
+  ph <- ezlimmaplot::ezheat(object.sc[rownames(clus_df), ], pheno.df=pheno.df, sc="none", reorder_rows=FALSE, reorder_cols=reorder_cols,
                labrows=labrows, labcols=labcols, color.v=color.v, gaps_col=gaps_col,
                gaps_row=gaps_row, annotation_row=clus_df, annotation_colors=annotation_colors,
                main=main, name=name, height=height, width=width, plot=plot)[["mat"]]
