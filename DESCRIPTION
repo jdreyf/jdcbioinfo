@@ -21,7 +21,8 @@ Imports:
 	methods,
 	BSgenome,
 	variancePartition,
-	BiocParallel
+	BiocParallel,
+	biomaRt
 Suggests:
   covr,
   ppcor,

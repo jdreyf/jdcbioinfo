@@ -18,12 +18,3 @@ Vector of Z-scores.
 \description{
 Counvert two-sided test p-values to Z-scores using \code{qnorm}.
 }
-\examples{
-set.seed(0)
-n <- 10
-pval <- runif(n)
-logfc <- rnorm(n)
-pval2z(pval, logfc)
-direction <- sample(c("Up", "Down"), n, replace=TRUE)
-pval2z(pval, direction)
-}
