@@ -8,7 +8,17 @@
 
 make_file_links <- function(path=".", pattern=NULL, recursive=TRUE, full.names=TRUE) {
   full.path <- dir(path=path, pattern=pattern, recursive=recursive, full.names=full.names)
-  file.nm <- basename(full.path)
+
+  file.nm <- full.path
+  idxs <- gregexpr("/", file.nm)
+  mx <- max(sapply(idxs, length))
+
+  for(i in seq_len(mx)){
+    file.nm.tmp <- gsub("[^/]*/", "", file.nm)
+    if (sum(duplicated(file.nm.tmp)) > 0) break
+    file.nm <- file.nm.tmp
+  }
+
   links <- paste0("[", file.nm, "](", full.path, ")")
   return(links)
 }
