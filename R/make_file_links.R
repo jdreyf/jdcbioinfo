@@ -14,7 +14,7 @@ make_file_links <- function(path=".", pattern=NULL, recursive=TRUE, full.names=T
   mx <- max(sapply(idxs, length))
 
   for(i in seq_len(mx)){
-    file.nm.tmp <- gsub("[^/]*/", "", file.nm)
+    file.nm.tmp <- sub("[^/]*/", "", file.nm)
     if (sum(duplicated(file.nm.tmp)) > 0) break
     file.nm <- file.nm.tmp
   }
