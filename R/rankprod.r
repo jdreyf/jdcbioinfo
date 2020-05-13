@@ -9,8 +9,10 @@
 #' @return Data frame with statistics from rank products test.
 #' @export
 
-rankprod <- function(mat, nsim=1e7-1, reorder.rows=TRUE, prefix=NULL, seed=100){
+rankprod <- function(mat, nsim=1e7-2, reorder.rows=TRUE, prefix=NULL, seed=100){
   stopifnot(!is.null(colnames(mat)))
+  if(nsim > 1e7-2) stop("nsim too large to have enough precision")
+
   rmat <- apply(mat, 2, rank)
   rmat <- rmat/nrow(mat)
 
@@ -22,7 +24,7 @@ rankprod <- function(mat, nsim=1e7-1, reorder.rows=TRUE, prefix=NULL, seed=100){
   rankprod <- -1 * apply(rmat, 1, prod)
   rankprod.sim <- -1 * apply(rmat.sim, 1, prod)
 
-  Fn <- stats::ecdf(c(rankprod.sim, Inf))
+  Fn <- stats::ecdf(c(rankprod.sim, Inf, -Inf))
   pval <- Fn(rankprod)
   fdr <- stats::p.adjust(pval, method="BH")
 

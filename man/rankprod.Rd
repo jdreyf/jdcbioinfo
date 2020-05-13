@@ -4,7 +4,7 @@
 \alias{rankprod}
 \title{Rank products of a matrix where larger statistics have stronger rank}
 \usage{
-rankprod(mat, nsim = 1e+07 - 1, reorder.rows = TRUE, prefix = NULL, seed = 100)
+rankprod(mat, nsim = 1e+07 - 2, reorder.rows = TRUE, prefix = NULL, seed = 100)
 }
 \arguments{
 \item{mat}{Numeric matrix with columns holding statistics per comparison & rows are analytes.}

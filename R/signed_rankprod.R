@@ -8,10 +8,10 @@
 #' @return Data frame with statistics from signed rank products test.
 #' @export
 
-signed_rankprod <- function(mat, nsim=1e7-1, same.dirction=FALSE, reorder.rows=TRUE, prefix=NULL, seed=100){
+signed_rankprod <- function(mat, nsim=1e7-2, same.dirction=FALSE, reorder.rows=TRUE, prefix=NULL, seed=100){
 
   stopifnot(ncol(mat)==2,  !is.null(colnames(mat)))
-  if(nsim > 1e7-1) stop("nsim too large to have enough precision")
+  if(nsim > 1e7-2) stop("nsim too large to have enough precision")
 
   rmat <- apply(mat, 2, function(v) {
     r <- rank(abs(v))
@@ -28,7 +28,7 @@ signed_rankprod <- function(mat, nsim=1e7-1, same.dirction=FALSE, reorder.rows=T
   rankprod <- apply(rmat, 1, prod)
   rankprod.sim <- apply(rmat.sim, 1, prod)
 
-  Fn <- stats::ecdf(c(rankprod.sim, Inf))
+  Fn <- stats::ecdf(c(rankprod.sim, Inf, -Inf))
   pval <- Fn(rankprod)
 
   if(same.dirction) {

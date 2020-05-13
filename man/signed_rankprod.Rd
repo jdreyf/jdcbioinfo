@@ -6,7 +6,7 @@
 \usage{
 signed_rankprod(
   mat,
-  nsim = 1e+07 - 1,
+  nsim = 1e+07 - 2,
   same.dirction = FALSE,
   reorder.rows = TRUE,
   prefix = NULL,

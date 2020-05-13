@@ -6,7 +6,7 @@
 \usage{
 signed_ranksum(
   mat,
-  nsim = 1e+07 - 1,
+  nsim = 1e+07 - 2,
   reorder.rows = TRUE,
   prefix = NULL,
   seed = 100
