@@ -22,7 +22,8 @@ Imports:
 	BSgenome,
 	variancePartition,
 	BiocParallel,
-	biomaRt
+	biomaRt,
+	scales
 Suggests:
   covr,
   ppcor,
