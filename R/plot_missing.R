@@ -11,8 +11,8 @@
 
 plot_missing <- function(mat, name=NA, main="", alpha=1) {
 
-  na.prop <- rowMeans(is.na(mat))
-  na.prop <- na.prop[!na.prop %in% c(0,1)]
+  na.prop <- (rowSums(is.na(mat))+0.5)/(ncol(mat)+0.5)
+  na.prop <- na.prop[na.prop != 1]
   na.logit <- log2(na.prop/(1 - na.prop))
   avg.log <- rowMeans(mat[names(na.prop), ], na.rm=TRUE)
 
