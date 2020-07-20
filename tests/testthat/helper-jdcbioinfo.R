@@ -24,7 +24,7 @@ design <- cbind(First3=c(1,1,1,0,0,0,0,0,0), Middle3 = c(0,0,0,1,1,1,0,0,0),
 
 dge <- edgeR::DGEList(counts = 2^M)
 dge <- edgeR::calcNormFactors(dge)
-el <- voom(dge, design=design, plot = FALSE)
+el <- limma::voom(dge, design=design, plot = FALSE)
 
 grp <- rep(c("First3", "Middle3", "Last3"), each=3)
 contr.v <- c(Middle3vsFirst3="Middle3-First3", Last3vsFirst3="Last3-First3")
