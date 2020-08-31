@@ -23,7 +23,8 @@ Imports:
 	variancePartition,
 	BiocParallel,
 	biomaRt,
-	scales
+	scales,
+	PCAtools
 Suggests:
   covr,
   ppcor,
