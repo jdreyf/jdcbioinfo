@@ -51,5 +51,5 @@ ezwsva <- function (y, design, n.sv = 1L, weight.by.sd = FALSE, plot = FALSE, nu
   A <- rowMeans(SV^2)
   SV <- t(SV/sqrt(A))
   colnames(SV) <- paste0("SV", 1L:n.sv)
-  return(SV=SV, num=num)
+  return(list(SV=SV, num=num))
 }
