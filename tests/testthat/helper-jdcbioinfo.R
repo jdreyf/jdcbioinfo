@@ -11,7 +11,7 @@ data(varPartData)
 
 suppressWarnings(set.seed(100, sample.kind = "Rounding"))
 means <- sample(seq(1, 20, by = 0.01), 100, replace = TRUE)
-M <-t(sapply(1:100, FUN = function(i) rnorm(n = 9, mean = means[i], sd = 1/means[i])))
+M <- t(sapply(1:100, FUN = function(i) rnorm(n = 9, mean = means[i], sd = 1/means[i])))
 dimnames(M) <- list(paste0("gene", 1:nrow(M)), paste0("sample", 1:ncol(M)))
 M[1, 4:6] <- M[1, 4:6] + mean(M[1,])
 M[2, 7:9] <- M[2, 7:9] + mean(M[2,])
