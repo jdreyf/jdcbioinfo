@@ -10,7 +10,7 @@ ezwsva(
   n.sv = 1L,
   weight.by.sd = FALSE,
   plot = FALSE,
-  num = NULL,
+  prop.cutoff = 0.1,
   ...
 )
 }
@@ -26,7 +26,7 @@ ezwsva(
 
 \item{plot}{logical. If \code{TRUE}, plots the proportion of variance explained by each surrogate variable.}
 
-\item{num}{An integer scalar specifying the number of surrogate variables at the elbow point.}
+\item{prop.cutoff}{An proportion cutoff to select surrogate variables.}
 
 \item{...}{other arguments can be included that would be suitable for \code{lmFit}.}
 }

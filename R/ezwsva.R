@@ -2,12 +2,12 @@
 #'
 #' Weighted surrogate variable analysis, with selection of number of surrogate variables.
 #'
-#' @param num An integer scalar specifying the number of surrogate variables at the elbow point.
+#' @param prop.cutoff An proportion cutoff to select surrogate variables.
 #' @inheritParams limma::wsva
 #' @return Data frame with statistics from rank products test.
 #' @export
 
-ezwsva <- function (y, design, n.sv = 1L, weight.by.sd = FALSE, plot = FALSE, num = NULL,
+ezwsva <- function (y, design, n.sv = 1L, weight.by.sd = FALSE, plot = FALSE, prop.cutoff = 0.1,
                     ...)
 {
   y <- as.matrix(y)
@@ -40,9 +40,7 @@ ezwsva <- function (y, design, n.sv = 1L, weight.by.sd = FALSE, plot = FALSE, nu
     if (plot) {
       lambda <- SVD$d^2
       lambda <- lambda/sum(lambda)
-      if (is.null(num)) {
-        num <-  PCAtools::findElbowPoint(lambda)
-      }
+      num <-  sum(lambda >= prop.cutoff)
       plot(lambda, xlab = "Surrogate variable number",
            ylab = "Proportion variance explained")
       graphics::abline(v = num, col = "red")
