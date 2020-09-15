@@ -19,7 +19,6 @@ Imports:
 	edgeR,
 	fdrtool,
 	methods,
-	PCAtools,
 	RColorBrewer,
 	scales,
 	survival,
