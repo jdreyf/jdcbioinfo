@@ -22,6 +22,6 @@ pc_assoc <- function(object, pheno.df, metavars, num.pc=10, seed=100, plot=TRUE,
   num.pc <- min(num.pc, ncol(object))
   obj1 <- pheno.df[, metavars, drop=FALSE]
   obj2 <- pca$x[rownames(pheno.df), 1:num.pc, drop=FALSE]
-  pvals <-  multi_assoc(object1=obj1, object2=obj2, seed=seed, plot=plot, name=name, width=width, height=width)
+  pvals <-  multi_assoc(object1=obj1, object2=obj2, seed=seed, plot=plot, name=name, width=width, height=height)
   return(pvals)
 }

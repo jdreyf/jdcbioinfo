@@ -11,6 +11,7 @@
 plot_pvals <- function(pvals, name=NA, width=8, height=7) {
 
   stopifnot(pvals>=0, pvals<=1)
+  pvals <- t(pvals)
 
   signifSymbols <- c("***", "**", "*", "")
   signifCutpoints <- c(0, 0.001, 0.01, 0.05, 1)
@@ -47,12 +48,13 @@ plot_pvals <- function(pvals, name=NA, width=8, height=7) {
     on.exit(grDevices::dev.off())
   }
 
-  lattice::levelplot(pvals, xlab=list(label="",cex=1, rot=0, col="black", font=2),
-                     ylab=list(label="", cex=1, rot=0, col="black", font=2), panel=labels,
-                     pretty=TRUE, par.settings=list(panel.background=list(col="white")),
-                     scales=list(x=list(cex=1, rot=0, col="black", font=2), y=list(cex=1, rot=0, col="black", font=2),
-                                 tck=axisTicks, alternating=posLab), aspect="fill",
-                     col.regions=cols, cuts=100, at=seq(iLowerRange, iUpperRange, 0.01),
-                     main=list(label="p-Values", cex=2, rot=0, col="black", font=2),
-                     colorkey=list(space="right", labels=list(cex=1)))
+  l <- lattice::levelplot(pvals, xlab=list(label="", cex=1, rot=0, col="black", font=2),
+                          ylab=list(label="", cex=1, rot=0, col="black", font=2), panel=labels,
+                          pretty=TRUE, par.settings=list(panel.background=list(col="white")),
+                          scales=list(x=list(cex=1, rot=0, col="black", font=2), y=list(cex=1, rot=0, col="black", font=2),
+                                      tck=axisTicks, alternating=posLab), aspect="fill",
+                          col.regions=cols, cuts=100, at=seq(iLowerRange, iUpperRange, 0.01),
+                          main=list(label="p-Values", cex=2, rot=0, col="black", font=2),
+                          colorkey=list(space="right", labels=list(cex=1)))
+  graphics::plot(l)
 }
