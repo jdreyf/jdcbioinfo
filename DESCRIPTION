@@ -23,7 +23,8 @@ Imports:
 	scales,
 	survival,
 	variancePartition,
-	zinbwave
+	zinbwave,
+	lattice
 Suggests:
   covr,
   ppcor,
