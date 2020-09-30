@@ -19,12 +19,12 @@ Imports:
 	edgeR,
 	fdrtool,
 	methods,
-	PCAtools,
 	RColorBrewer,
 	scales,
 	survival,
 	variancePartition,
-	zinbwave
+	zinbwave,
+	lattice
 Suggests:
   covr,
   ppcor,
