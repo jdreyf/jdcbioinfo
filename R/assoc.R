@@ -9,6 +9,13 @@
 
 assoc <- function(v1, v2, seed=100) {
   stopifnot(length(v1) == length(v2))
+
+  keep1 <- !(is.na(v1) | v1 %in% c("", "NA"))
+  keep2 <- !(is.na(v2) | v2 %in% c("", "NA"))
+  keep <- keep1 & keep2
+  v1 <- v1[keep]
+  v2 <- v2[keep]
+
   is.num1 <- is.numeric(v1)
   is.num2 <- is.numeric(v2)
   is.num <- c(is.num1, is.num2)
