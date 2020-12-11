@@ -19,7 +19,7 @@ dream_contrasts(
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 
 features (e.g. genes) and columns to samples. Must have rownames that are non-duplicated and non-empty.}
 
-\item{formula}{specifies variables for the linear (mixed) model.  Must only specify covariates, since the rows of exprObj are automatically used a a response. e.g.: ~ a + b + (1|c)  Formulas with only fixed effects also work, and lmFit() followed by contrasts.fit() are run.}
+\item{formula}{specifies variables for the linear (mixed) model.  Must only specify covariates, since the rows of exprObj are automatically used a a response. e.g.: \code{~ a + b + (1|c)}  Formulas with only fixed effects also work, and lmFit() followed by contrasts.fit() are run.}
 
 \item{pheno}{data.frame with columns corresponding to formula}
 
