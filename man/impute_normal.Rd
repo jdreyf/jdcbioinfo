@@ -16,8 +16,10 @@ impute_normal(object, width = 0.3, downshift = 1.8, seed = 100)
 \item{seed}{Random seed}
 }
 \value{
-A matix with imupted values
+A matrix with imputed values
 }
 \description{
-Impute missing values by random numbers drawn from a normal distribution which has a mean down-shifted and standard deviation shrinked from the sample distribution.
+Impute missing values by random numbers drawn from a normal distribution that has a down-shifted mean
+and shrunken standard deviation from the sample distribution. This is meant to be similar to imputation
+in the Perseus software.
 }

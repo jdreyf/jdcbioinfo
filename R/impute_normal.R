@@ -1,12 +1,14 @@
 #' Impute missing values by random numbers drawn from a normal distribution
 #'
-#' Impute missing values by random numbers drawn from a normal distribution which has a mean down-shifted and standard deviation shrinked from the sample distribution.
+#' Impute missing values by random numbers drawn from a normal distribution that has a down-shifted mean
+#' and shrunken standard deviation from the sample distribution. This is meant to be similar to imputation
+#' in the Perseus software.
 #'
 #' @param object Data frame or matrix containing filtered and log-transformed data.
 #' @param width Scale factor for the standard deviation of imputed distribution relative to the sample standard deviation.
 #' @param downshift Down-shifted the mean of imputed distribution from the sample mean, in units of sample standard deviation.
 #' @param seed Random seed
-#' @return A matix with imupted values
+#' @return A matrix with imputed values
 #' @export
 
 impute_normal <- function(object, width=0.3, downshift=1.8, seed=100) {
