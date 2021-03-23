@@ -6,12 +6,16 @@
 #' @param name file names of the plot.
 #' @param main title of the plot.
 #' @param alpha Transparency of color.
+#' @param offset offset of the number of missing values when calculating the proportion of NAs with
+#'  `(rowSums(is.na(mat))+offset)/(ncol(mat)+offset)`, where need to avoid the proportion of NAs being zero
+#'  so that we can calculate its logit.
 #' @return NULL.
 #' @export
 
-plot_missing <- function(mat, name=NA, main="", alpha=1) {
+plot_missing <- function(mat, name=NA, main="", alpha=1, offset=0.5){
+  stopifnot(!is.null(rownames(mat)))
 
-  na.prop <- (rowSums(is.na(mat))+0.5)/(ncol(mat)+0.5)
+  na.prop <- (rowSums(is.na(mat))+offset)/(ncol(mat)+offset)
   na.prop <- na.prop[na.prop != 1]
   na.logit <- log2(na.prop/(1 - na.prop))
   avg.log <- rowMeans(mat[names(na.prop), ], na.rm=TRUE)
@@ -20,7 +24,7 @@ plot_missing <- function(mat, name=NA, main="", alpha=1) {
   slope <- signif(stats::coef(summary(lm1))["avg.log", "Estimate"], 3)
   pval <- signif(stats::coef(summary(lm1))["avg.log", "Pr(>|t|)"], 3)
 
-  if (!is.na(name)) {
+  if (!is.na(name)){
     grDevices::pdf(paste0(name, ".pdf"))
     on.exit(grDevices::dev.off())
   }

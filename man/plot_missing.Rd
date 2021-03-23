@@ -4,7 +4,7 @@
 \alias{plot_missing}
 \title{Plot logit missing probability by average log abundance}
 \usage{
-plot_missing(mat, name = NA, main = "", alpha = 1)
+plot_missing(mat, name = NA, main = "", alpha = 1, offset = 0.5)
 }
 \arguments{
 \item{mat}{Numeric matrix of log abundance.}
@@ -14,6 +14,10 @@ plot_missing(mat, name = NA, main = "", alpha = 1)
 \item{main}{title of the plot.}
 
 \item{alpha}{Transparency of color.}
+
+\item{offset}{offset of the number of missing values when calculating the proportion of NAs with
+\code{(rowSums(is.na(mat))+offset)/(ncol(mat)+offset)}, where need to avoid the proportion of NAs being zero
+so that we can calculate its logit.}
 }
 \value{
 NULL.
