@@ -1,11 +1,8 @@
 library(covr)
-library(ppcor)
+library(edgeR)
 library(limma)
-library(ezlimma)
-library(ezlimmaplot)
 library(testthat)
 library(variancePartition)
-library(BiocParallel)
 
 data(varPartData)
 

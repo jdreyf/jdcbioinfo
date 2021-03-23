@@ -11,7 +11,8 @@
 #' is \code{FALSE}.
 #' @export
 
-edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), design=NULL, cols=c("PValue", "FDR", "logFC"), test="QLFT", plot=FALSE){
+edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), design=NULL, cols=c("PValue", "FDR", "logFC"),
+                            test="QLFT", plot=FALSE){
 
     if (is.null(design)|add.means) { stopifnot(ncol(dge)==length(grp), colnames(dge)==names(grp)) }
     stopifnot(test %in% c("QLFT", "LRT",  "WeightedFT"))
