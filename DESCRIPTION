@@ -1,10 +1,10 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
-Description: Functions used by Joslin Diabetes Center Bioinformatics & Biostatistics Core that do not belong in other packages.
+Description: Miscellaneous functions used by Joslin Diabetes Center Bioinformatics & Biostatistics Core.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -18,13 +18,13 @@ Imports:
 	dynamicTreeCut,
 	edgeR,
 	fdrtool,
+	lattice,
 	methods,
 	RColorBrewer,
 	scales,
 	survival,
 	variancePartition,
 	zinbwave,
-	lattice
 Suggests:
   covr,
   ppcor,

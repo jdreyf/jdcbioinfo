@@ -2,8 +2,8 @@
 #'
 #' converts a DNA sequence into its reverse-complement counterpart.
 #'
-#' @param x a charater vector of strings of DNA sequences
-#' @return a charater vector of strings of the reverse-complement DNA sequences
+#' @param x a character vector of strings of DNA sequences
+#' @return a character vector of strings of the reverse-complement DNA sequences
 #' @export
 
 revcomp <- function(x){

@@ -7,10 +7,10 @@
 revcomp(x)
 }
 \arguments{
-\item{x}{a charater vector of strings of DNA sequences}
+\item{x}{a character vector of strings of DNA sequences}
 }
 \value{
-a charater vector of strings of the reverse-complement DNA sequences
+a character vector of strings of the reverse-complement DNA sequences
 }
 \description{
 converts a DNA sequence into its reverse-complement counterpart.
