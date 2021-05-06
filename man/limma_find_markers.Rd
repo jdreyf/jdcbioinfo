@@ -23,7 +23,7 @@ limma_find_markers(
 }
 \arguments{
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 
-features (e.g. genes) and columns to samples. Must have rownames that are non-duplicated and non-empty.}
+features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.}
 
 \item{grp}{Vector of sample groups. These must be valid variable names in R and the same length as 
 \code{ncol(object)}.}
@@ -45,15 +45,17 @@ list of options. A \code{NULL} value will result in the default adjustment metho
 
 \item{weights}{Non-negative observation weights. Can be a numeric matrix of individual weights of same size as the 
 \code{object}, or a numeric vector of sample weights with length \code{ncol(object)}, or a numeric vector of gene 
-weights with length equal to\code{nrow(object)}. Set to \code{NULL} to ignore \code{object$weights}. 
+weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \code{object$weights}. 
 \code{weights=NA} (with length one) doesn't pass weights to \code{limma}.}
 
 \item{trend}{Logical; should an intensity-trend be allowed for the prior variance? Default is that the prior variance 
 is constant.}
 
-\item{block}{Vector specifying a blocking variable on the samples. Has length = \code{ncol(object)}.}
+\item{block}{Vector specifying a blocking variable on the samples. Has length = \code{ncol(object)}. 
+Must be \code{NULL} if \code{ndups > 1}.}
 
-\item{correlation}{Inter-duplicate or inter-technical replicate correlation.}
+\item{correlation}{Inter-duplicate or inter-technical replicate correlation. Must be given if 
+\code{ndups>1} or \code{!is.null(block)}.}
 
 \item{treat.lfc}{Vector of logFC passed to \code{\link[limma:lmFit]{treat}} \code{lfc}. It is recycled as needed to match
 rows of \code{object}. If given, \code{length(contrast.v)} must be 1. McCarthy & Smyth suggest a 10% fold-change,

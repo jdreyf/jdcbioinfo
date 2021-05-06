@@ -16,7 +16,7 @@ dream_ftest_pairwise(
 }
 \arguments{
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 
-features (e.g. genes) and columns to samples. Must have rownames that are non-duplicated and non-empty.}
+features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.}
 
 \item{formula}{specifies variables for the linear (mixed) model.  Must only specify covariates, since the rows of exprObj are automatically used a a response. e.g.: \code{~ a + b + (1|c)}  Formulas with only fixed effects also work, and lmFit() followed by contrasts.fit() are run.}
 
@@ -27,7 +27,7 @@ features (e.g. genes) and columns to samples. Must have rownames that are non-du
 
 \item{weights}{Non-negative observation weights. Can be a numeric matrix of individual weights of same size as the 
 \code{object}, or a numeric vector of sample weights with length \code{ncol(object)}, or a numeric vector of gene 
-weights with length equal to\code{nrow(object)}. Set to \code{NULL} to ignore \code{object$weights}. 
+weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \code{object$weights}. 
 \code{weights=NA} (with length one) doesn't pass weights to \code{limma}.}
 
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
