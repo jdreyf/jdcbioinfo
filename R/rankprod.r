@@ -15,12 +15,13 @@ rankprod <- function(mat, nsim=1e7-2, reorder.rows=TRUE, prefix=NULL, seed=100){
 
   rmat <- apply(mat, 2, rank)
   rmat <- rmat/nrow(mat)
-
   colnames(rmat) <- paste(gsub("\\..$", "", colnames(mat)), "Rank.Prop", sep=".")
 
   set.seed(seed)
+  # last argument nsim is for anonymous function
   rmat.sim <- apply(rmat, 2, function(v, nsim) sample(v, size=nsim, replace=TRUE), nsim)
 
+  # make stats negative, since using lower-tail for testing
   rankprod <- -1 * apply(rmat, 1, prod)
   rankprod.sim <- -1 * apply(rmat.sim, 1, prod)
 
