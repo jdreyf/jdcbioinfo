@@ -4,6 +4,7 @@
 #' If none are found, a numeric vector of length zero is returned.
 #'
 #' @param vv Numeric vector of ones and zeroes only.
+#' @export
 
 binary_str_lengths <- function(vv){
   stopifnot(is.numeric(vv), vv %in% 0:1)
