@@ -2,7 +2,7 @@
 % Please edit documentation in R/binary_str_lengths.R
 \name{binary_str_lengths}
 \alias{binary_str_lengths}
-\title{Calculate lengths of each string of ones in a binary vector}
+\title{Calculate lengths of each string of ones in a binary vector for CGM analyses}
 \usage{
 binary_str_lengths(vv)
 }
@@ -10,5 +10,6 @@ binary_str_lengths(vv)
 \item{vv}{Numeric vector of ones and zeroes only.}
 }
 \description{
-Calculate lengths of each string of ones in a binary vector. If none are found, a numeric vector of length zero is returned.
+Calculate lengths of each string of ones in a binary vector for CGM analyses.
+If none are found, a numeric vector of length zero is returned.
 }

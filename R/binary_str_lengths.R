@@ -1,6 +1,7 @@
-#' Calculate lengths of each string of ones in a binary vector
+#' Calculate lengths of each string of ones in a binary vector for CGM analyses
 #'
-#' Calculate lengths of each string of ones in a binary vector. If none are found, a numeric vector of length zero is returned.
+#' Calculate lengths of each string of ones in a binary vector for CGM analyses.
+#' If none are found, a numeric vector of length zero is returned.
 #'
 #' @param vv Numeric vector of ones and zeroes only.
 
