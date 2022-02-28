@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.0.9005
+Version: 0.0.0.9006
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -13,6 +13,7 @@ Imports:
 	ezlimma,
 	ezlimmaplot,
 	BiocParallel,
+	bacon,
 	biomaRt,
 	BSgenome,
 	dynamicTreeCut,
@@ -23,6 +24,7 @@ Imports:
 	RColorBrewer,
 	scales,
 	survival,
+	tibble,
 	variancePartition,
 	zinbwave,
 Suggests:
