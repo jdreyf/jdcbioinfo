@@ -5,7 +5,8 @@
 #' @inheritParams multi_pval2z
 #' @inheritParams rankprod
 #' @inheritParams ezlimma::combine_pvalues
-#' @return Vector of p-values and/or direction and FDR .
+#' @return Vector of p-values or table with direction, p-values, and FDR.
+#' @details `prefix.v` specifies input column names, whereas `prefix` is appended to output column names.
 #' @export
 
 combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logFC", only.p=FALSE,
