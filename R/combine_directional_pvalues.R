@@ -8,7 +8,8 @@
 #' @return Vector of p-values and/or direction and FDR .
 #' @export
 
-combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logFC", only.p=FALSE, prefix=NULL){
+combine_directional_pvalues <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logFC", only.p=FALSE,
+                                        prefix=NULL){
 
   mat.z <- jdcbioinfo::multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix)
   combz.v <- rowSums(mat.z)/sqrt(ncol(mat.z))
