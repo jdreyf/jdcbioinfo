@@ -30,8 +30,11 @@ coefficient, or the "Up/Down" values}
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
 }
 \value{
-Vector of p-values and/or direction and FDR .
+Vector of p-values or table with direction, p-values, and FDR.
 }
 \description{
 Directionally combine two-sided test p-values.
+}
+\details{
+\code{prefix.v} specifies input column names, whereas \code{prefix} is appended to output column names.
 }
