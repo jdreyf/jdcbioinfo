@@ -4,9 +4,9 @@
 #'
 #' @param tab Matrix-like object with statistical columns, some containing z-scores.
 #' @param z.cols Indices or \code{\link{regexp}} with column names or column names suffix of numeric z-score columns.
+#' @importFrom magrittr %>%
 #' @return Data frame with bacon columns (z, p, FDR) inserted.
 #' @export
-
 
 # have not yet implemented alternative argument
 ezbacon <- function(tab, z.cols="z"){

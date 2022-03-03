@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.0.9006
+Version: 0.0.0.9007
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -20,6 +20,7 @@ Imports:
 	edgeR,
 	fdrtool,
 	lattice,
+	magrittr,
 	methods,
 	RColorBrewer,
 	scales,
@@ -29,8 +30,8 @@ Imports:
 	zinbwave,
 Suggests:
   covr,
-  ppcor,
   knitr,
+  ppcor,
   testthat
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
