@@ -28,6 +28,10 @@ Imports:
 	tibble,
 	variancePartition,
 	zinbwave,
+	DOSE,
+	clusterProfiler,
+	qvalue,
+	statmod
 Suggests:
   covr,
   knitr,
