@@ -130,16 +130,11 @@ enrichFLY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
     iset <- index[[i]]
     if(is.factor(iset)) iset <- as.character(iset)
     if(is.character(iset)) iset <- which(geneid %in% iset)
+
+    sig.gene.set[[i]] <- sig.gene.all[iset]
+
     EffectsSet <- Effects[iset,,drop=FALSE]
-
     MeanEffectsSet <- colMeans(EffectsSet)
-
-    t.stat.set <- sapply(EffectsSet[,1], function(x) x / sqrt(mean(MeanEffectsSet[-1]^2)))
-    sig.gene.set[[i]] <- rep_len(0L, length.out = length(t.stat.set))
-    names(sig.gene.set[[i]]) <- names(t.stat.set)
-    sig.gene.set[[i]][t.stat.set > t.cutoff] <- 1L
-    sig.gene.set[[i]][t.stat.set < -t.cutoff] <- -1L
-
     t.stat[i] <- MeanEffectsSet[1] / sqrt(mean(MeanEffectsSet[-1]^2))
     NGenes[i] <- nrow(EffectsSet)
 
@@ -219,9 +214,8 @@ enrichFLY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
 
   tab.reg <- data.frame(ID          = names(index),
                         Description = names(index),
-                        GeneRatio   = paste0(count.reg, "/", NGenes),
-                        BgRatio     = ifelse(Direction == "Up", paste0(sum(sig.gene.all == 1), "/", length(sig.gene.all)),
-                                             paste0(sum(sig.gene.all == -1), "/", length(sig.gene.all))),
+                        GeneRatio   = paste0(count.reg, "/", ifelse(Direction == "Up", sum(sig.gene.all == 1), sum(sig.gene.all == -1))),
+                        BgRatio     = paste0(NGenes, "/", length(sig.gene.all)),
                         pvalue      = PValue,
                         p.adjust    = FDR,
                         qvalue      = qvalues,
@@ -235,8 +229,8 @@ enrichFLY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
 
   tab.mix <- data.frame(ID          = names(index),
                         Description = names(index),
-                        GeneRatio   = paste0(count.mix, "/", NGenes),
-                        BgRatio     = paste0(sum(sig.gene.all != 0), "/", length(sig.gene.all)),
+                        GeneRatio   = paste0(count.mix, "/", sum(sig.gene.all != 0)),
+                        BgRatio     = paste0(NGenes, "/", length(sig.gene.all)),
                         pvalue      = PValue.Mixed,
                         p.adjust    = FDR.Mixed,
                         qvalue      = qvalues.mix,
