@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -16,22 +16,22 @@ Imports:
 	bacon,
 	biomaRt,
 	BSgenome,
+	clusterProfiler,
+	DOSE,
 	dynamicTreeCut,
 	edgeR,
 	fdrtool,
 	lattice,
 	magrittr,
 	methods,
+	qvalue,
 	RColorBrewer,
 	scales,
+	statmod,
 	survival,
 	tibble,
 	variancePartition,
-	zinbwave,
-	DOSE,
-	clusterProfiler,
-	qvalue,
-	statmod
+	zinbwave
 Suggests:
   covr,
   knitr,
