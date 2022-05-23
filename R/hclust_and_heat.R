@@ -63,7 +63,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   annotation_clus_colors <-
     list(Cluster=stats::setNames(grDevices::colorRampPalette(RColorBrewer::brewer.pal(n=min(max(clus), 9), name="Set1"))(max(clus)),
                           nm=levels(clus_df$Cluster)))
-  if (!is.na(annotation_colors)) {
+  if (!is.na(annotation_colors[[1]][1])) {
     annotation_colors <- c(annotation_colors, annotation_clus_colors)
   } else {
     annotation_colors <- annotation_clus_colors
