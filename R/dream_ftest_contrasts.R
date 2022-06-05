@@ -4,12 +4,13 @@
 #' a table using \pkg{limma}'s \code{topTable}.
 #'
 #' @param pheno data.frame with columns corresponding to formula
+#' @param ncores number of cores
 #' @inheritParams limma_ftest_contrasts
 #' @inheritParams dream_contrasts
 #' @return Data frame.
 #' @export
 
-dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), prefix=""){
+dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), prefix="", ncores=1){
 
   stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) ||
               length(weights)==ncol(object))
@@ -33,12 +34,17 @@ dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA
   # can't make this into separate function, since then !missing(weights)
   # length(NULL)=0; other weights should have length > 1
 
-if (length(weights)!=1 || !is.na(weights)){
-  if (!is.matrix(object) && !is.null(object$weights)){ warning("object$weights are being ignored") }
-    fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, weights=weights)
-  } else {
-    fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L)
-  }
+  cl_type <- ifelse(.Platform$OS.type=="windows", "SOCK", "FORK")
+  bp <- BiocParallel::SnowParam(workers=ncores, type=cl_type)
+  BiocParallel::register(BiocParallel::bpstart(bp))
+
+  if (length(weights)!=1 || !is.na(weights)){
+    if (!is.matrix(object) && !is.null(object$weights)){ warning("object$weights are being ignored") }
+      fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, weights=weights)
+    } else {
+      fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L)
+    }
+  BiocParallel::bpstop(bp)
 
   tt <- variancePartition::topTable(fit, coef=colnames(L), number=Inf , sort.by="none")
 

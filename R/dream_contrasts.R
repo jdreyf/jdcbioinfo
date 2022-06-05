@@ -4,12 +4,14 @@
 #' a table using \pkg{limma}'s \code{topTable}.
 #'
 #' @param pheno data.frame with columns corresponding to formula
+#' @param ncores number of cores
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams variancePartition::dream
 #' @return Data frame.
 #' @export
 
-dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), cols=c("P.Value", "adj.P.Val", "logFC")){
+dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), cols=c("P.Value", "adj.P.Val", "logFC"),
+                            ncores=1){
 
   stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) ||
               length(weights)==ncol(object))
@@ -33,12 +35,17 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
   # can't make this into separate function, since then !missing(weights)
   # length(NULL)=0; other weights should have length > 1
 
-if (length(weights)!=1 || !is.na(weights)){
-  if (!is.matrix(object) && !is.null(object$weights)){ warning("object$weights are being ignored") }
-    fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, weights=weights)
-  } else {
-    fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L)
-  }
+  cl_type <- ifelse(.Platform$OS.type=="windows", "SOCK", "FORK")
+  bp <- BiocParallel::SnowParam(workers=ncores, type=cl_type)
+  BiocParallel::register(BiocParallel::bpstart(bp))
+
+  if (length(weights)!=1 || !is.na(weights)){
+    if (!is.matrix(object) && !is.null(object$weights)){ warning("object$weights are being ignored") }
+      fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, weights=weights, BPPARAM=bp)
+    } else {
+      fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, BPPARAM=bp)
+    }
+  BiocParallel::bpstop(bp)
 
   mtt <- list()
   for (contr.nm in colnames(L)) {
