@@ -1,7 +1,7 @@
-##' Enrichment analyzer using \code{\link[limma]{roast}} with function \code{fry}
+##' @title enrichFRY
 ##'
+##' @description Enrichment analyzer using \code{\link[limma]{roast}} with function \code{fry}
 ##'
-##' @title enrichFLY
 ##' @param object Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to
 ##' features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.
 ##' @param G Gene set list as returned from \code{\link{read_gmt}}.
@@ -32,7 +32,7 @@
 ##' @importClassesFrom DOSE enrichResult
 ##' @export
 
-enrichFLY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast = ncol(design), design = NULL,
+enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast = ncol(design), design = NULL,
                       weights = NULL, trend = FALSE, block = NULL, correlation = NULL, adjust.method = c("BH", "none"),
                       min.nfeats = 3, max.nfeats = 1000, pvalueCutoff = 0.25, qvalueCutoff = 1) {
   stopifnot(!is.null(dim(object)), !is.null(rownames(object)),
@@ -279,12 +279,11 @@ enrichFLY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
 
   # subset
   up <- DOSE:::get_enriched(up)
-  if (nrow(up@result) == 0) warning("No up-regualted gene sets are enriched")
+  if (nrow(up@result) == 0) warning("No up-regulated gene sets are enriched")
   down <- DOSE:::get_enriched(down)
-  if (nrow(down@result) == 0) warning("No down-regualted gene sets are enriched")
+  if (nrow(down@result) == 0) warning("No down-regulated gene sets are enriched")
   mix <- DOSE:::get_enriched(mix)
-  if (nrow(mix@result) == 0) warning("No mixed-regualted gene sets are enriched")
+  if (nrow(mix@result) == 0) warning("No mixed-regulated gene sets are enriched")
 
   return(list(Up = up, Down = down, Mixed = mix))
 }
-

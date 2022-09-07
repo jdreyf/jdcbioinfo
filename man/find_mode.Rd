@@ -9,14 +9,6 @@ find_mode(x, xlab = NULL, main = "", by = NULL, bin = 20, plot = TRUE)
 \arguments{
 \item{x}{a vector of values for which the histogram is desired.}
 
-\item{xlab}{main title and axis labels: these arguments to
-    \code{\link[graphics]{title}()} get \dQuote{smart} defaults here, e.g., the default
-    \code{ylab} is \code{"Frequency"} iff \code{freq} is true.}
-
-\item{main}{main title and axis labels: these arguments to
-    \code{\link[graphics]{title}()} get \dQuote{smart} defaults here, e.g., the default
-    \code{ylab} is \code{"Frequency"} iff \code{freq} is true.}
-
 \item{by}{increment of the bins i.e. the width of bins.}
 
 \item{bin}{the number of bins for the histogram.}

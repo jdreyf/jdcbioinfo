@@ -11,8 +11,9 @@
 
 dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), cols=c("P.Value", "adj.P.Val", "logFC")){
 
-  stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) ||
-              length(weights)==ncol(object))
+  if (!requireNamespace("variancePartition", quietly = TRUE)) stop("Package \"variancePartition\" must be installed to use this function.", call. = FALSE)
+
+  stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) || length(weights)==ncol(object))
   stopifnot(!(is.null(grp) & add.means))
 
   if (is.vector(object)) stop("'object' must be a matrix-like object; you can coerce it to one with 'as.matrix()'")
@@ -21,7 +22,7 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
 
   contrast.v <- strsplit(contrast.v, split=" *- *")
   stopifnot(sapply(contrast.v, length) %in% c(1,2))
-  L <- sapply(contrast.v, FUN=function(contr) {
+  L <- sapply(contrast.v, FUN=function(contr){
     variancePartition::getContrast(object, formula=formula, data=pheno, coefficient=contr)})
   if (is.vector(L)) {
     L <- as.matrix(L)

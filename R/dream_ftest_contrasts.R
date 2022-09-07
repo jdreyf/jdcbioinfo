@@ -1,6 +1,6 @@
 #' Apply variancePartition's dream to one or more contrasts, perform moderated F-test, and return a table using limma's topTable
 #'
-#' Apply \pkg{variancePartition}'s \code{dream}, to one or more contrasts,  perform perform moderated F-test, and return
+#' Apply \pkg{variancePartition}'s \code{dream}, to one or more contrasts, perform perform moderated F-test, and return
 #' a table using \pkg{limma}'s \code{topTable}.
 #'
 #' @param pheno data.frame with columns corresponding to formula
@@ -10,9 +10,8 @@
 #' @export
 
 dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), prefix=""){
-
-  stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) ||
-              length(weights)==ncol(object))
+  if (!requireNamespace("variancePartition", quietly = TRUE)) stop("Package \"variancePartition\" must be installed to use this function.", call. = FALSE)
+  stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) || length(weights)==ncol(object))
   stopifnot(!(is.null(grp) & add.means))
 
   if (is.vector(object)) stop("'object' must be a matrix-like object; you can coerce it to one with 'as.matrix()'")

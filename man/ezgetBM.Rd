@@ -2,7 +2,7 @@
 % Please edit documentation in R/ezgetBM.R
 \name{ezgetBM}
 \alias{ezgetBM}
-\title{Get gene anotation from biomart}
+\title{Get gene annotation from biomart}
 \usage{
 ezgetBM(ids, organism = c("hsa", "mmu"))
 }
@@ -15,5 +15,5 @@ ezgetBM(ids, organism = c("hsa", "mmu"))
 Data frame with gene anotation.
 }
 \description{
-Get gene anotation from biomart.
+Get gene annotation from biomart.
 }

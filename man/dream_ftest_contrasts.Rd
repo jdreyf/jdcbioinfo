@@ -41,6 +41,6 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 Data frame.
 }
 \description{
-Apply \pkg{variancePartition}'s \code{dream}, to one or more contrasts,  perform perform moderated F-test, and return
+Apply \pkg{variancePartition}'s \code{dream}, to one or more contrasts, perform perform moderated F-test, and return
 a table using \pkg{limma}'s \code{topTable}.
 }

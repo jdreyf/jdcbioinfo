@@ -8,6 +8,8 @@
 #' @inheritParams ezlimma::roast_contrasts
 
 sample_bsgenome_regions <- function(BSgenome, nsamp, flank, seed = 123){
+  if (!requireNamespace("BSgenome", quietly = TRUE)) stop("Package \"BSgenome\" must be installed to use this function.", call. = FALSE)
+
   bed.samp <- vector("list", nsamp)
   set.seed(seed)
   for(samp.ind in seq_along(bed.samp)){

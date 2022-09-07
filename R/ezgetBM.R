@@ -1,6 +1,6 @@
-#' Get gene anotation from biomart
+#' Get gene annotation from biomart
 #'
-#' Get gene anotation from biomart.
+#' Get gene annotation from biomart.
 #'
 #' @param ids Ensembl gene IDs
 #' @param organism "hsa" or "mmu" for human or mouse
@@ -8,10 +8,11 @@
 #' @export
 #'
 ezgetBM <- function(ids, organism=c("hsa", "mmu")){
+  if (!requireNamespace("biomaRt", quietly = TRUE)) stop("Package \"biomaRt\" must be installed to use this function.", call. = FALSE)
 
   organism <- match.arg(organism)
 
-  if (organism=="mmu") {
+  if (organism=="mmu"){
     ensembl <- biomaRt::useMart(biomart="ensembl", dataset="mmusculus_gene_ensembl")
     annot <- biomaRt::getBM(attributes=c("ensembl_gene_id", "mgi_symbol", "entrezgene_id", "description", "gene_biotype"),
                   filters="ensembl_gene_id", values=ids, mart=ensembl)

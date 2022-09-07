@@ -42,6 +42,7 @@ edger_contrasts <- function(dge, grp=NULL, contrast.v, add.means=!is.null(grp), 
         } else if (test=="LRT") {
             tres <- edgeR::glmLRT(fit, contrast=contr.mat[, i])
         } else if (test=="WeightedFT") {
+            if (!requireNamespace("zinbwave", quietly = TRUE)) stop("Package \"zinbwave\" must be installed to use this function.", call. = FALSE)
             tres <- zinbwave::glmWeightedF(fit, contrast=contr.mat[, i], filter=base_mean)
         }
         if (plot) limma::plotMD(tres)
