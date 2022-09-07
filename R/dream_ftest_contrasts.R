@@ -11,6 +11,8 @@
 #' @export
 
 dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), prefix="", ncores=1){
+  if (!requireNamespace("BiocParallel", quietly = TRUE)) stop("Package \"BiocParallel\" must be installed to use this function.", call. = FALSE)
+  if (!requireNamespace("variancePartition", quietly = TRUE)) stop("Package \"variancePartition\" must be installed to use this function.", call. = FALSE)
 
   stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) ||
               length(weights)==ncol(object))

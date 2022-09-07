@@ -25,9 +25,11 @@ Imports:
 	RColorBrewer,
 	scales,
 	statmod,
+	stats,
 	tibble
 Suggests:
   biomaRt,
+  BiocParallel,
   BSgenome,
   covr,
   knitr,

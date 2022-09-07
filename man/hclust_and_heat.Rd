@@ -18,7 +18,7 @@ hclust_and_heat(
   labrows = "",
   labcols = "",
   color.v = NULL,
-  annotation_colors = NA,
+  annotation_colors = NULL,
   main = "Log2 Expression",
   name = "hclust_heat",
   reorder_cols = FALSE,

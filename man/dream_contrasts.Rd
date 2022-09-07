@@ -12,7 +12,8 @@ dream_contrasts(
   weights = NA,
   grp = NULL,
   add.means = !is.null(grp),
-  cols = c("P.Value", "adj.P.Val", "logFC")
+  cols = c("P.Value", "adj.P.Val", "logFC"),
+  ncores = 1
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 \item{cols}{Columns of \code{topTable} output to include. Possibilities include 
 \code{"logFC", "AveExpr", "z", "t", "P.Value", "adj.P.Val", "B"}. Some of these column names are then changed here. 
 If \code{logFC} is specified, \code{FC} will automatically also be given.}
+
+\item{ncores}{number of cores}
 }
 \value{
 Data frame.

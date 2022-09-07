@@ -12,7 +12,8 @@ dream_ftest_contrasts(
   weights = NA,
   grp = NULL,
   add.means = !is.null(grp),
-  prefix = ""
+  prefix = "",
+  ncores = 1
 )
 }
 \arguments{
@@ -36,11 +37,13 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
 
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
+
+\item{ncores}{number of cores}
 }
 \value{
 Data frame.
 }
 \description{
-Apply \pkg{variancePartition}'s \code{dream}, to one or more contrasts, perform perform moderated F-test, and return
+Apply \pkg{variancePartition}'s \code{dream}, to one or more contrasts,  perform perform moderated F-test, and return
 a table using \pkg{limma}'s \code{topTable}.
 }
