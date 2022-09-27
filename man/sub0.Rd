@@ -23,6 +23,8 @@ sub0(
     is used with a warning.  Missing values are allowed except for
     \code{regexpr}, \code{gregexpr} and \code{regexec}.}
 
+\item{x}{character vector where matches are sought or an object which can be coerced by \code{as.character} to a character vector.}
+
 \item{replacement}{a replacement for matched pattern in \code{sub} and
     \code{gsub}.  Coerced to character if possible.  For
     \code{fixed = FALSE} this can include backreferences \code{"\1"} to

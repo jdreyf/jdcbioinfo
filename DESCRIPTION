@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -23,7 +23,6 @@ Imports:
 	methods,
 	qvalue,
 	RColorBrewer,
-	scales,
 	statmod,
 	stats,
 	tibble
@@ -34,6 +33,7 @@ Suggests:
   covr,
   knitr,
   ppcor,
+  scales,
   testthat,
   variancePartition,
   zinbwave

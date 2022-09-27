@@ -173,14 +173,14 @@ enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
 
   # qval
   qobj <- tryCatch(qvalue::qvalue(p = PValue, lambda = 0.05, pi0.method = "bootstrap"), error=function(e) NULL)
-  if (class(qobj) == "qvalue") {
+  if (inherits(qobj, "qvalue")){
     qvalues <- qobj$qvalues
   } else {
     qvalues <- NA
   }
 
   qobj.mix <- tryCatch(qvalue::qvalue(p = PValue.Mixed, lambda = 0.05, pi0.method = "bootstrap"), error=function(e) NULL)
-  if (class(qobj.mix) == "qvalue") {
+  if (inherits(qobj.mix, "qvalue")) {
     qvalues.mix <- qobj.mix$qvalues
   } else {
     qvalues.mix <- NA

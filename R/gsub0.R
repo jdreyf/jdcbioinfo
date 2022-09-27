@@ -2,7 +2,8 @@
 #'
 #' Gsub with empty replacement.
 #'
-#' @inheritParams base::grep
+#' @inheritParams sub0
+#' @inheritParams base::gsub
 #' @export
 
 gsub0 <- function(pattern, x, replacement="", ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE){

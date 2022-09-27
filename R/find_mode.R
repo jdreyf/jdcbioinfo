@@ -6,6 +6,7 @@
 #' @param by increment of the bins i.e. the width of bins.
 #' @param plot logical for ploting the histogram.
 #' @inheritParams graphics::hist
+#' @inheritParams graphics::plot
 #' @return Data frame with modes values and densities.
 #' @export
 

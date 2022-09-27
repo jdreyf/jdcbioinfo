@@ -9,6 +9,10 @@ find_mode(x, xlab = NULL, main = "", by = NULL, bin = 20, plot = TRUE)
 \arguments{
 \item{x}{a vector of values for which the histogram is desired.}
 
+\item{xlab}{a label for the x axis, defaults to a description of \code{x}.}
+
+\item{main}{a main title for the plot, see also \code{\link[graphics]{title}}.}
+
 \item{by}{increment of the bins i.e. the width of bins.}
 
 \item{bin}{the number of bins for the histogram.}
