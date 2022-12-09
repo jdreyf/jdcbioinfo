@@ -68,7 +68,7 @@ hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclide
   } else {
     annotation_colors <- annotation_clus_colors
   }
-  if (labrows != "") labrows <- labrows[hc$order]
+  if (labrows[1] != "") labrows <- labrows[hc$order]
   ph <- ezlimmaplot::ezheat(object.sc[rownames(clus_df), ], pheno.df=pheno.df, sc="none", reorder_rows=FALSE, reorder_cols=reorder_cols,
                labrows=labrows, labcols=labcols, color.v=color.v, gaps_col=gaps_col,
                gaps_row=gaps_row, annotation_row=clus_df, annotation_colors=annotation_colors,
