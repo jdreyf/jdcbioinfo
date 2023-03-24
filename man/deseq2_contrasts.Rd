@@ -10,7 +10,8 @@ deseq2_contrasts(
   contrast.v,
   add.means = !is.null(grp),
   cols = c("pvalue", "padj", "log2FoldChange"),
-  ncore = 1
+  ncore = 1,
+  shrunken = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ deseq2_contrasts(
 If \code{logFC} is specified, \code{FC} will automatically also be given.}
 
 \item{ncore}{Number of cores to use.}
+
+\item{shrunken}{logical, whether to shrink the log fold-change}
 }
 \description{
 Apply \pkg{DESeq2}'s \code{DESeq}, \code{results},and \code{lfcShrink} to one or more contrasts, and return a data.frame
