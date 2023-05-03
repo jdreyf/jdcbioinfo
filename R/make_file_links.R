@@ -1,6 +1,6 @@
-#' Make file links forR Markdown
+#' Make file links for R Markdown
 #'
-#'Make file links forR Markdown
+#' Make file links for R Markdown.
 #'
 #' @inheritParams base::dir
 #' @return Vector of file links.
@@ -8,6 +8,7 @@
 
 make_file_links <- function(path=".", pattern=NULL, recursive=TRUE, full.names=TRUE) {
   full.path <- dir(path=path, pattern=pattern, recursive=recursive, full.names=full.names)
+  if (length(full.path) == 0) stop("No file found.")
 
   file.nm <- full.path
   idxs <- gregexpr("/", file.nm)
