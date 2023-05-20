@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_file_links.R
 \name{make_file_links}
 \alias{make_file_links}
-\title{Make file links forR Markdown}
+\title{Make file links for R Markdown}
 \usage{
 make_file_links(
   path = ".",
@@ -32,5 +32,5 @@ make_file_links(
 Vector of file links.
 }
 \description{
-Make file links forR Markdown
+Make file links for R Markdown.
 }

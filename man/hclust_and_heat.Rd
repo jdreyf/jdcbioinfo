@@ -2,12 +2,12 @@
 % Please edit documentation in R/hclust_and_heat.R
 \name{hclust_and_heat}
 \alias{hclust_and_heat}
-\title{Hierarchical Clustering & visulization by heatmap}
+\title{Hierarchical Clustering & visualization by heatmap}
 \usage{
 hclust_and_heat(
   object,
   annot,
-  sc = "z",
+  sc = c("z", "ctr", "none"),
   clip = NA,
   dist.method = "euclidean",
   hc.method = "ward.D2",
@@ -79,7 +79,7 @@ It is possible to define the colors for only some of the features. See \code{\li
 \item{plot}{Logical; should plot be generated?}
 }
 \value{
-A data.frame of the clusters assingment and feature annotation.
+A data.frame of the clusters assignment and feature annotation.
 }
 \description{
 Hierarchical cluster analysis and visualization by \pkg{ezlimmaplot} \code{ezheat}.

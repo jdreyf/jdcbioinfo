@@ -1,4 +1,4 @@
-#' Hierarchical Clustering & visulization by heatmap
+#' Hierarchical Clustering & visualization by heatmap
 #'
 #' Hierarchical cluster analysis and visualization by \pkg{ezlimmaplot} \code{ezheat}.
 #'
@@ -6,19 +6,20 @@
 #' @inheritParams hclust_in_grp
 #' @inheritParams ezlimmaplot::ezheat
 #' @inheritParams dynamicTreeCut::cutreeDynamic
-#' @return A data.frame of the clusters assingment and feature annotation.
+#' @return A data.frame of the clusters assignment and feature annotation.
 #' @export
 #'
-hclust_and_heat <- function(object, annot, sc="z", clip=NA, dist.method="euclidean", hc.method="ward.D2",
+hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, dist.method="euclidean", hc.method="ward.D2",
                             deepSplit=1, minClusterSize=10, verbose=TRUE,
                             pheno.df=NULL, labrows="", labcols="", color.v=NULL, annotation_colors=NULL,
                             main="Log2 Expression", name="hclust_heat", reorder_cols=FALSE,
                             gaps_col=NULL, width=NA, height=NA, plot=TRUE){
 
   stopifnot(rownames(object) %in% rownames(annot))
+  sc <- match.arg(sc)
 
   # sc
-  stopifnot(length(sc)==1, sc %in% c("ctr", "z", "none"))
+  # stopifnot(length(sc)==1, sc %in% c("ctr", "z", "none"))
   if (sc=="ctr"){
     object.sc <- t(scale(x=t(object), center=TRUE, scale=FALSE))
     main <- paste("Centered", main)
