@@ -9,12 +9,13 @@
 #' @return Vector of the labels.
 #' @export
 
-hclust_in_grp <- function(object, grp, sc="ctr", clip=NA, dist.method="euclidean", hc.method="ward.D2"){
+hclust_in_grp <- function(object, grp, sc=c("ctr", "z", "none"), clip=NA, dist.method="euclidean", hc.method="ward.D2"){
 
+  sc <- match.arg(sc)
   stopifnot(nrow(object)==length(grp))
 
   # sc
-  stopifnot(sc %in% c("ctr", "z", "none"))
+  # stopifnot(sc %in% c("ctr", "z", "none"))
   if (sc=="ctr") {
     object.sc <- t(scale(x=t(object), scale=FALSE))
   } else if (sc=="z") {

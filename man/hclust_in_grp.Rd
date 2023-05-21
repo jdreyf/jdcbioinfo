@@ -7,7 +7,7 @@
 hclust_in_grp(
   object,
   grp,
-  sc = "ctr",
+  sc = c("ctr", "z", "none"),
   clip = NA,
   dist.method = "euclidean",
   hc.method = "ward.D2"

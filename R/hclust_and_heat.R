@@ -15,8 +15,8 @@ hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, di
                             main="Log2 Expression", name="hclust_heat", reorder_cols=FALSE,
                             gaps_col=NULL, width=NA, height=NA, plot=TRUE){
 
-  stopifnot(rownames(object) %in% rownames(annot))
   sc <- match.arg(sc)
+  stopifnot(rownames(object) %in% rownames(annot))
 
   # sc
   # stopifnot(length(sc)==1, sc %in% c("ctr", "z", "none"))
