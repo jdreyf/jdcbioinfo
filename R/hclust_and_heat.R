@@ -8,7 +8,7 @@
 #' @inheritParams dynamicTreeCut::cutreeDynamic
 #' @return A data.frame of the clusters assignment and feature annotation.
 #' @export
-#'
+
 hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, dist.method="euclidean", hc.method="ward.D2",
                             deepSplit=1, minClusterSize=10, verbose=TRUE,
                             pheno.df=NULL, labrows="", labcols="", color.v=NULL, annotation_colors=NULL,
@@ -26,16 +26,8 @@ hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, di
   } else if (sc=="z"){
     object.sc <- t(scale(x=t(object), center=TRUE, scale=TRUE))
     main <- paste("Z-scored", main)
-  } else{
+  } else {
     object.sc <- object
-  }
-
-  # clip
-  if (!is.na(clip)){
-    stopifnot(length(clip)==1, clip > 0)
-    object.sc[object.sc < -clip] <- -clip
-    object.sc[object.sc > clip] <- clip
-    main <- paste("Clipped", main)
   }
 
   # cluster
@@ -59,6 +51,14 @@ hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, di
   # order clus
   clus_df <- clus_df[order(clus_df$Cluster), , drop=FALSE]
 
+  # clip
+  if (!is.na(clip)){
+    stopifnot(length(clip)==1, clip > 0)
+    object.sc[object.sc < -clip] <- -clip
+    object.sc[object.sc > clip] <- clip
+    main <- paste("Clipped", main)
+  }
+
   # heatmap
   gaps_row <- which(diff(as.numeric(clus_df$Cluster), lag=1) != 0)
   annotation_clus_colors <-
@@ -75,7 +75,7 @@ hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, di
                gaps_row=gaps_row, annotation_row=clus_df, annotation_colors=annotation_colors,
                main=main, name=name, height=height, width=width, plot=plot)[["mat"]]
 
-  clus_df <- data.frame(clus_df[rownames(ph), ,drop=FALSE], annot[rownames(ph), , drop=FALSE], check.names=FALSE)
+  clus_df <- data.frame(clus_df[rownames(ph), , drop=FALSE], annot[rownames(ph), , drop=FALSE], check.names=FALSE)
 
   return(clus_df)
 }
