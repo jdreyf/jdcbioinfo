@@ -13,7 +13,7 @@ select_top <-  function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logF
 
   if(nrow(tab)<=ntop) return(rownames(tab))
 
-  mat.z <- multi_pval2z (tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix)
+  mat.z <- multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix)
 
   if(!each){
     top <- rownames(tab)[order(ezlimma::combine_pvalues(tab[, p.cols]))][1:ntop]
