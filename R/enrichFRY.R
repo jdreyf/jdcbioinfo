@@ -1,36 +1,36 @@
-##' @title enrichFRY
-##'
-##' @description Enrichment analyzer using \code{\link[limma]{roast}} with function \code{fry}
-##'
-##' @param object Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to
-##' features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.
-##' @param G Gene set list as returned from \code{\link{read_gmt}}.
-##' @param annot annotation for the features that has a column of the same type as in gene set list `G`.
-##' @param sep.str strings that separates symbols if there are multiple symbols for a feature.
-##' @param symbol.col column name or index for the symbol column in `annot`.
-##' @param grp Vector of sample groups. These must be valid variable names in R and the same length as
-##' \code{ncol(object)}.
-##' @param contrast contrast for which the test is required. Can be an integer specifying a column of `design`,
-##' or the name of a column of `design`, or a numeric contrast vector of length equal to the number of columns of `design`.
-##' @param design Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be
-##' estimated.
-##' @param weights Non-negative observation weights. Can be a numeric matrix of individual weights of same size as the
-##' \code{object}, or a numeric vector of sample weights with length \code{ncol(object)}, or a numeric vector of gene
-##' weights with length equal to \code{nrow(object)}.
-##' @param trend Logical; should an intensity-trend be allowed for the prior variance? Default is that the prior variance
-##' is constant.
-##' @param block Vector specifying a blocking variable on the samples. Has length = \code{ncol(object)}.
-##' Must be \code{NULL} if \code{ndups > 1}.
-##' @param correlation Inter-duplicate or inter-technical replicate correlation. Must be given if
-##' \code{ndups>1} or \code{!is.null(block)}.
-##' @param adjust.method Method used to adjust the p-values for multiple testing. Options,
-##' @param min.nfeats Minimum number of features (e.g. genes) needed in a gene set for testing.
-##' @param max.nfeats Maximum number of features (e.g. genes) needed in a gene set for testing.
-##' @param pvalueCutoff Cutoff value of pvalue.
-##' @param qvalueCutoff Cutoff value of qvalue.
-##' @return  A list of 3 \code{enrichResult} instance for up-regulated, down-regulated, and mixed-regulated enriched gene sets.
-##' @importClassesFrom DOSE enrichResult
-##' @export
+#' @title enrichFRY
+#'
+#' @description Enrichment analyzer using \code{\link[limma]{roast}} with function \code{fry}
+#'
+#' @param object Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to
+#' features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.
+#' @param G Gene set list as returned from \code{\link{read_gmt}}.
+#' @param annot annotation for the features that has a column of the same type as in gene set list `G`.
+#' @param sep.str strings that separates symbols if there are multiple symbols for a feature.
+#' @param symbol.col column name or index for the symbol column in `annot`.
+#' @param grp Vector of sample groups. These must be valid variable names in R and the same length as
+#' \code{ncol(object)}.
+#' @param contrast contrast for which the test is required. Can be an integer specifying a column of `design`,
+#' or the name of a column of `design`, or a numeric contrast vector of length equal to the number of columns of `design`.
+#' @param design Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be
+#' estimated.
+#' @param weights Non-negative observation weights. Can be a numeric matrix of individual weights of same size as the
+#' \code{object}, or a numeric vector of sample weights with length \code{ncol(object)}, or a numeric vector of gene
+#' weights with length equal to \code{nrow(object)}.
+#' @param trend Logical; should an intensity-trend be allowed for the prior variance? Default is that the prior variance
+#' is constant.
+#' @param block Vector specifying a blocking variable on the samples. Has length = \code{ncol(object)}.
+#' Must be \code{NULL} if \code{ndups > 1}.
+#' @param correlation Inter-duplicate or inter-technical replicate correlation. Must be given if
+#' \code{ndups>1} or \code{!is.null(block)}.
+#' @param adjust.method Method used to adjust the p-values for multiple testing. Options,
+#' @param min.nfeats Minimum number of features (e.g. genes) needed in a gene set for testing.
+#' @param max.nfeats Maximum number of features (e.g. genes) needed in a gene set for testing.
+#' @param pvalueCutoff Cutoff value of pvalue.
+#' @param qvalueCutoff Cutoff value of qvalue.
+#' @return  A list of 3 \code{enrichResult} instance for up-regulated, down-regulated, and mixed-regulated enriched gene sets.
+#' @importClassesFrom DOSE enrichResult
+#' @export
 
 enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast = ncol(design), design = NULL,
                       weights = NULL, trend = FALSE, block = NULL, correlation = NULL, adjust.method = c("BH", "none"),
@@ -97,12 +97,12 @@ enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
   geneid <- rownames(Effects)
 
   # Fry effect
-  nfeatrues <- nrow(Effects)
+  nfeatures <- nrow(Effects)
   neffects <- ncol(Effects)
   df.residual <- neffects - 1L
 
   #	Check index
-  if(is.null(index)) index <- list(set1 = 1L:nfeatrues)
+  if(is.null(index)) index <- list(set1 = 1L:nfeatures)
   if(!is.list(index)) index <- list(set1=index)
   nsets <- length(index)
   if(nsets == 0L) stop("index is empty")

@@ -1,6 +1,6 @@
 context("dream_contrasts")
 
-test_that("test dream_contrasts", {
+test_that("compare to dream", {
   info$Batch <- paste0("B", info$Batch)
   form <- ~ Batch + (1|Individual) + (1|Tissue)
   L <- getContrast( geneExpr, form, info, c("BatchB2", "BatchB3"))
