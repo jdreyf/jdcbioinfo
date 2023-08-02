@@ -5,12 +5,13 @@
 #'
 #' @param pheno data.frame with columns corresponding to formula
 #' @param ncores number of cores
-#' @inheritParams ezlimma::limma_contrasts
+#' @param coef column name of the mixed model
+#' @inheritParams ezlimma::limma_cor
 #' @inheritParams variancePartition::dream
 #' @return Data frame.
 #' @export
 
-dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), cols=c("P.Value", "adj.P.Val", "logFC"),
+dream_cor <- function(object, formula, pheno, weights=NA, coef="", cols=c("P.Value", "adj.P.Val", "logFC"),
                             ncores=1){
 
   if (!requireNamespace("BiocParallel", quietly = TRUE)) stop("Package \"BiocParallel\" must be installed to use this function.", call. = FALSE)
@@ -23,15 +24,6 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
   if (any(duplicated(rownames(object)))) stop("object cannot have duplicated rownames.")
   if (any(rownames(object)=="")) stop("object cannot have an empty rowname ''.")
 
-  contrast.v <- strsplit(contrast.v, split=" *- *")
-  stopifnot(sapply(contrast.v, length) %in% c(1,2))
-  L <- sapply(contrast.v, FUN=function(contr){
-    variancePartition::getContrast(object, formula=formula, data=pheno, coefficient=contr)})
-  if (is.vector(L)) {
-    L <- as.matrix(L)
-    colnames(L) <- names(contrast.v)
-  }
-
   # can't set weights=NULL in lmFit when using voom, since lmFit only assigns
   # weights "if (missing(weights) && !is.null(y$weights))"
   # can't make this into separate function, since then !missing(weights)
@@ -43,30 +35,16 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
 
   if (length(weights)!=1 || !is.na(weights)){
     if (!is.matrix(object) && !is.null(object$weights)){ warning("object$weights are being ignored") }
-      fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, weights=weights, BPPARAM=bp)
+      fit <- variancePartition::dream(object, formula=formula, data=pheno, weights=weights, BPPARAM=bp)
     } else {
-      fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, BPPARAM=bp)
+      fit <- variancePartition::dream(object, formula=formula, data=pheno, BPPARAM=bp)
     }
   fit <- variancePartition::eBayes(fit)
   BiocParallel::bpstop(bp)
 
-  mtt <- list()
-  for (contr.nm in colnames(L)) {
-   tt <- variancePartition::topTable(fit, coef=contr.nm, number=Inf , sort.by="none")[, cols]
-   tt$FC <- sign(tt$logFC)*2^(abs(tt$logFC))
-   colnames(tt) <- gsub("P\\.Value", "p", gsub("adj\\.P\\.Val", "FDR", colnames(tt)))
-   colnames(tt) <- paste(contr.nm, colnames(tt), sep=".")
-   mtt[[contr.nm]] <- tt
-  }
-  mtt <- Reduce(cbind, mtt)
-  mtt <- mtt[order(ezlimma::combine_pvalues(mtt)), ]
+  tt <- variancePartition::topTable(fit, coef=coef, number=Inf , sort.by="p")[, cols]
+  colnames(tt) <- gsub("P\\.Value", "p", gsub("adj\\.P\\.Val", "FDR", gsub("logFC", "slope", colnames(tt))))
+  colnames(tt) <- paste(coef, colnames(tt), sep=".")
 
-  if (add.means) {
-    mat <- as.matrix(object)
-    grps <- unique(sort(grp))
-    mat.avg <- sapply(grps, FUN=function(g) rowMeans(mat[, grp==g], na.rm=TRUE))
-    colnames(mat.avg) <- paste(grps, "avg", sep=".")
-    mtt <- cbind(mat.avg[rownames(mtt), ], mtt)
-  }
-  return(mtt)
+  return(tt)
 }

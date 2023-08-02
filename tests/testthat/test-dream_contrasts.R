@@ -5,6 +5,7 @@ test_that("test dream_contrasts", {
   form <- ~ Batch + (1|Individual) + (1|Tissue)
   L <- getContrast( geneExpr, form, info, c("BatchB2", "BatchB3"))
   fit1 <- dream(geneExpr[1:10,], formula=form, data=info, L=L)
+  fit1 <- eBayes(fit1)
   tt1 <- topTable(fit1, coef="L1", sort.by="p")
 
   contr.v <- c(Batch2vs3 = "BatchB2 - BatchB3")

@@ -46,6 +46,7 @@ dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA
   } else {
     fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L)
   }
+  fit <- variancePartition::eBayes(fit)
   BiocParallel::bpstop(bp)
 
   tt <- variancePartition::topTable(fit, coef=colnames(L), number=Inf , sort.by="none")
