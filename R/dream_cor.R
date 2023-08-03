@@ -18,7 +18,6 @@ dream_cor <- function(object, formula, pheno, weights=NA, coef="", cols=c("P.Val
   if (!requireNamespace("variancePartition", quietly = TRUE)) stop("Package \"variancePartition\" must be installed to use this function.", call. = FALSE)
 
   stopifnot(is.na(weights) || is.null(weights) || dim(weights)==dim(object) || length(weights)==nrow(object) || length(weights)==ncol(object))
-  stopifnot(!(is.null(grp) & add.means))
 
   if (is.vector(object)) stop("'object' must be a matrix-like object; you can coerce it to one with 'as.matrix()'")
   if (any(duplicated(rownames(object)))) stop("object cannot have duplicated rownames.")

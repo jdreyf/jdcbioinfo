@@ -22,14 +22,7 @@ dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA
   if (any(duplicated(rownames(object)))) stop("object cannot have duplicated rownames.")
   if (any(rownames(object)=="")) stop("object cannot have an empty rowname ''.")
 
-  contrast.v <- strsplit(contrast.v, split=" *- *")
-  stopifnot(sapply(contrast.v, length) %in% c(1,2))
-  L <- sapply(contrast.v, FUN=function(contr) {
-    variancePartition::getContrast(object, formula=formula, data=pheno, coefficient=contr)})
-  if (is.vector(L)) {
-    L <- as.matrix(L)
-    colnames(L) <- names(contrast.v)
-  }
+  L <- variancePartition::makeContrastsDream(formula, data=pheno, contrasts=contrast.v)
 
   # can't set weights=NULL in lmFit when using voom, since lmFit only assigns
   # weights "if (missing(weights) && !is.null(y$weights))"
