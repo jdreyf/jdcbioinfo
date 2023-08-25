@@ -7,7 +7,7 @@
 make_file_links(
   path = ".",
   pattern = NULL,
-  recursive = TRUE,
+  recursive = FALSE,
   full.names = TRUE
 )
 }

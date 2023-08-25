@@ -6,7 +6,7 @@
 #' @return Vector of file links.
 #' @export
 
-make_file_links <- function(path=".", pattern=NULL, recursive=TRUE, full.names=TRUE) {
+make_file_links <- function(path=".", pattern=NULL, recursive=FALSE, full.names=TRUE) {
   full.path <- dir(path=path, pattern=pattern, recursive=recursive, full.names=full.names)
   if (length(full.path) == 0) stop("No file found.")
 
