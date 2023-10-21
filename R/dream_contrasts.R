@@ -5,12 +5,13 @@
 #'
 #' @param pheno data.frame with columns corresponding to formula
 #' @param ncores number of cores
+#' #' @param moderated Logical; should \code{\link[limma]{eBayes}} be used?
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams variancePartition::dream
 #' @return Data frame.
 #' @export
 
-dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), cols=c("P.Value", "adj.P.Val", "logFC"),
+dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), moderated=TRUE, cols=c("P.Value", "adj.P.Val", "logFC"),
                             ncores=1){
 
   if (!requireNamespace("BiocParallel", quietly = TRUE)) stop("Package \"BiocParallel\" must be installed to use this function.", call. = FALSE)
@@ -40,7 +41,9 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
     } else {
       fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L, BPPARAM=bp)
     }
-  fit <- variancePartition::eBayes(fit)
+  if (moderated) {
+    fit <- variancePartition::eBayes(fit)
+  }
   BiocParallel::bpstop(bp)
 
   mtt <- list()
