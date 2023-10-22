@@ -12,6 +12,7 @@ dream_ftest_contrasts(
   weights = NA,
   grp = NULL,
   add.means = !is.null(grp),
+  moderated = TRUE,
   prefix = "",
   ncores = 1
 )
@@ -35,6 +36,8 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 \code{ncol(object)}.}
 
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
+
+\item{moderated}{Logical; should variancePartition::eBayes be used?}
 
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
 

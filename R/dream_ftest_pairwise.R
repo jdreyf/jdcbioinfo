@@ -1,12 +1,12 @@
-#' Perform dream's moderated F-test for all pairwise comparions, and return a table
+#' Perform dream's moderated F-test for all pairwise comparisons, and return a table
 #'
-#' Make contrasts for all pairwise comparions, and pass them to \code{\link[jdcbioinfo]{dream_ftest_contrasts}}.
+#' Make contrasts for all pairwise comparisons, and pass them to \code{\link[jdcbioinfo]{dream_ftest_contrasts}}.
 #'
 #' @inheritParams dream_ftest_contrasts
 #' @return Data frame.
 #' @export
 
-dream_ftest_pairwise <- function(object, formula, pheno, grp, weights=NA, add.means=TRUE, prefix=""){
+dream_ftest_pairwise <- function(object, formula, pheno, grp, weights=NA, add.means=TRUE, moderated=TRUE, prefix=""){
 
   stopifnot(ncol(object)==length(grp), colnames(object)==names(grp))
 
@@ -17,6 +17,6 @@ dream_ftest_pairwise <- function(object, formula, pheno, grp, weights=NA, add.me
     contrast.v[paste0(comb[2, i], "vs", comb[1, i])] <- paste0(comb[2, i], " - ", comb[1, i])
   }
 
-  tt <- dream_ftest_contrasts(object=object, formula=formula, pheno=pheno, contrast.v=contrast.v, weights=weights, grp=grp, add.means=add.means, prefix=prefix)
+  tt <- dream_ftest_contrasts(object=object, formula=formula, pheno=pheno, contrast.v=contrast.v, weights=weights, grp=grp, add.means=add.means, moderated=moderated, prefix=prefix)
   return(tt)
 }

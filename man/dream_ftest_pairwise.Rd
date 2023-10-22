@@ -2,7 +2,7 @@
 % Please edit documentation in R/dream_ftest_pairwise.R
 \name{dream_ftest_pairwise}
 \alias{dream_ftest_pairwise}
-\title{Perform dream's moderated F-test for all pairwise comparions, and return a table}
+\title{Perform dream's moderated F-test for all pairwise comparisons, and return a table}
 \usage{
 dream_ftest_pairwise(
   object,
@@ -11,6 +11,7 @@ dream_ftest_pairwise(
   grp,
   weights = NA,
   add.means = TRUE,
+  moderated = TRUE,
   prefix = ""
 )
 }
@@ -32,11 +33,13 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
 
+\item{moderated}{Logical; should variancePartition::eBayes be used?}
+
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
 }
 \value{
 Data frame.
 }
 \description{
-Make contrasts for all pairwise comparions, and pass them to \code{\link[jdcbioinfo]{dream_ftest_contrasts}}.
+Make contrasts for all pairwise comparisons, and pass them to \code{\link[jdcbioinfo]{dream_ftest_contrasts}}.
 }

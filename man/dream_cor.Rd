@@ -10,6 +10,7 @@ dream_cor(
   pheno,
   weights = NA,
   coef = "",
+  moderated = TRUE,
   cols = c("P.Value", "adj.P.Val", "logFC"),
   ncores = 1
 )
@@ -28,6 +29,8 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 \code{weights=NA} (with length one) doesn't pass weights to \code{limma}.}
 
 \item{coef}{column name of the mixed model}
+
+\item{moderated}{Logical; should variancePartition::eBayes be used?}
 
 \item{cols}{Columns of \code{topTable} output to include. Possibilities include 
 \code{"logFC", "AveExpr", "z", "t", "P.Value", "adj.P.Val", "B"}. Some of these column names are then changed here. 

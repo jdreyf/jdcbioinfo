@@ -5,12 +5,13 @@
 #'
 #' @param pheno data.frame with columns corresponding to formula
 #' @param ncores number of cores
+#' @param moderated Logical; should variancePartition::eBayes be used?
 #' @inheritParams limma_ftest_contrasts
 #' @inheritParams dream_contrasts
 #' @return Data frame.
 #' @export
 
-dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), prefix="", ncores=1){
+dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), moderated=TRUE, prefix="", ncores=1){
   if (!requireNamespace("BiocParallel", quietly = TRUE)) stop("Package \"BiocParallel\" must be installed to use this function.", call. = FALSE)
   if (!requireNamespace("variancePartition", quietly = TRUE)) stop("Package \"variancePartition\" must be installed to use this function.", call. = FALSE)
 
@@ -39,7 +40,9 @@ dream_ftest_contrasts <- function(object, formula, pheno, contrast.v, weights=NA
   } else {
     fit <- variancePartition::dream(object, formula=formula, data=pheno, L=L)
   }
-  fit <- variancePartition::eBayes(fit)
+  if (moderated) {
+    fit <- variancePartition::eBayes(fit)
+  }
   BiocParallel::bpstop(bp)
 
   tt <- variancePartition::topTable(fit, coef=colnames(L), number=Inf , sort.by="none")

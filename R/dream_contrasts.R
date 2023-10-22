@@ -5,7 +5,7 @@
 #'
 #' @param pheno data.frame with columns corresponding to formula
 #' @param ncores number of cores
-#' @param moderated Logical; should \code{\link[variancePartition]{eBayes}} be used?
+#' @param moderated Logical; should variancePartition::eBayes be used?
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams variancePartition::dream
 #' @return Data frame.

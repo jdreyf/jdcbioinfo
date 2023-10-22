@@ -6,12 +6,13 @@
 #' @param pheno data.frame with columns corresponding to formula
 #' @param ncores number of cores
 #' @param coef column name of the mixed model
+#' @param moderated Logical; should variancePartition::eBayes be used?
 #' @inheritParams ezlimma::limma_cor
 #' @inheritParams variancePartition::dream
 #' @return Data frame.
 #' @export
 
-dream_cor <- function(object, formula, pheno, weights=NA, coef="", cols=c("P.Value", "adj.P.Val", "logFC"),
+dream_cor <- function(object, formula, pheno, weights=NA, coef="", moderated=TRUE, cols=c("P.Value", "adj.P.Val", "logFC"),
                             ncores=1){
 
   if (!requireNamespace("BiocParallel", quietly = TRUE)) stop("Package \"BiocParallel\" must be installed to use this function.", call. = FALSE)
@@ -38,7 +39,9 @@ dream_cor <- function(object, formula, pheno, weights=NA, coef="", cols=c("P.Val
     } else {
       fit <- variancePartition::dream(object, formula=formula, data=pheno, BPPARAM=bp)
     }
-  fit <- variancePartition::eBayes(fit)
+  if (moderated) {
+    fit <- variancePartition::eBayes(fit)
+  }
   BiocParallel::bpstop(bp)
 
   tt <- variancePartition::topTable(fit, coef=coef, number=Inf , sort.by="p")[, cols]
