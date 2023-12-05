@@ -20,6 +20,6 @@ make_file_links <- function(path=".", pattern=NULL, recursive=FALSE, full.names=
     file.nm <- file.nm.tmp
   }
 
-  links <- paste0("[", file.nm, "](", full.path, ")")
+  links <- paste(paste0("[", file.nm, "](", full.path, ")"), collapse = " & ")
   return(links)
 }
