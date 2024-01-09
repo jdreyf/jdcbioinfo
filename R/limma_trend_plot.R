@@ -38,7 +38,7 @@ limma_trend_plot <- function(object, design=NULL, name=NA, span=0.5, alpha=0.5, 
 
   gp <- ggplot2::ggplot(dat=dat, mapping=ggplot2::aes(x=sx, y=sy)) + ggplot2::geom_point(alpha=alpha)
   gp <- gp + ggplot2::geom_line(mapping=ggplot2::aes(x=x, y=y), data=l, color="blue", linewidth=1)
-  gp <- gp + ggplot2::labs(title="Mean-variance Trend", x="Mean Log2 Values", y="Sqrt( Srandard Deviation )")
+  gp <- gp + ggplot2::labs(title="Mean-variance Trend", x="Mean Log2 Values", y="Sqrt( Standard Deviation )")
 
   graphics::plot(gp)
   return(invisible(gp))
