@@ -11,7 +11,9 @@ multi_assoc(
   plot = TRUE,
   name = "assoc_pvals",
   width = 8,
-  height = 7
+  height = 7,
+  xrot = 0,
+  yrot = 0
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ multi_assoc(
 \item{width}{Width of the plot.}
 
 \item{height}{Height of the plot.}
+
+\item{xrot}{rot angle (in degrees) by which the x- axis labels are to be rotated}
+
+\item{yrot}{rot angle (in degrees) by which the y- axis labels are to be rotated}
 }
 \value{
 Matrix of p-values.

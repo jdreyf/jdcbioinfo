@@ -9,10 +9,12 @@
 #' @param name Name of the plot file.
 #' @param width Width of the plot.
 #' @param height Height of the plot.
+#' @param xrot rot angle (in degrees) by which the x- axis labels are to be rotated
+#' @param yrot rot angle (in degrees) by which the y- axis labels are to be rotated
 #' @return Matrix of p-values.
 #' @export
 
-multi_assoc <- function(object1, object2, seed=100, plot=TRUE, name="assoc_pvals", width=8, height=7) {
+multi_assoc <- function(object1, object2, seed=100, plot=TRUE, name="assoc_pvals", width=8, height=7, xrot=0, yrot=0) {
   if (is.vector(object1)) {
     nm1 <- deparse(substitute(object1))
     object1 <- as.matrix(object1)
@@ -32,7 +34,7 @@ multi_assoc <- function(object1, object2, seed=100, plot=TRUE, name="assoc_pvals
     }
   }
 
-  if (plot) {plot_pvals(pvals, name=name, width=width, height=height)}
+  if (plot) {plot_pvals(pvals, name=name, width=width, height=height, xrot=xrot, yrot=yrot)}
 
   return(pvals)
 }

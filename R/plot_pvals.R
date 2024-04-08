@@ -6,9 +6,11 @@
 #' @param name Name of the plot file.
 #' @param width Width of the plot.
 #' @param height Height of the plot.
+#' @param xrot rot angle (in degrees) by which the x- axis labels are to be rotated
+#' @param yrot rot angle (in degrees) by which the y- axis labels are to be rotated
 #' @return NULL
 
-plot_pvals <- function(pvals, name=NA, width=8, height=7) {
+plot_pvals <- function(pvals, name=NA, width=8, height=7, xrot=0, yrot=0) {
 
   stopifnot(pvals>=0, pvals<=1)
   pvals <- t(pvals)
@@ -51,7 +53,7 @@ plot_pvals <- function(pvals, name=NA, width=8, height=7) {
   l <- lattice::levelplot(pvals, xlab=list(label="", cex=1, rot=0, col="black", font=2),
                           ylab=list(label="", cex=1, rot=0, col="black", font=2), panel=labels,
                           pretty=TRUE, par.settings=list(panel.background=list(col="white")),
-                          scales=list(x=list(cex=1, rot=0, col="black", font=2), y=list(cex=1, rot=0, col="black", font=2),
+                          scales=list(x=list(cex=1, rot=xrot, col="black", font=2), y=list(cex=1, rot=yrot, col="black", font=2),
                                       tck=axisTicks, alternating=posLab), aspect="fill",
                           col.regions=cols, cuts=100, at=seq(iLowerRange, iUpperRange, 0.01),
                           main=list(label="p-Values", cex=2, rot=0, col="black", font=2),
