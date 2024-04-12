@@ -11,23 +11,23 @@
 
 make_piechart <- function(tab, Count = "Count", Category = "Category", title = NULL) {
   tab <- tab %>%
-    mutate(csum = rev(cumsum(rev(!!sym(Count)))),
+    dplyr::mutate(csum = rev(cumsum(rev(!!rlang::sym(Count)))),
            pos = !!sym(Count)/2 + lead(csum, 1),
            pos = if_else(is.na(pos), !!sym(Count)/2, pos))
 
-  plt <- ggplot(tab, aes(x = "" , y = !!sym(Count), fill = fct_inorder(!!sym(Category)))) +
-    geom_col(width = 1, color = 1) +
-    coord_polar(theta = "y") +
-    scale_fill_brewer(palette = "Set3") +
-    geom_label_repel(aes(y = pos, label = !!sym(Count)),
+  plt <- ggplot2::ggplot(tab, ggplot2::aes(x = "" , y = !!rlang::sym(Count), fill = forcats::fct_inorder(!!rlang::sym(Category)))) +
+    ggplot2::geom_col(width = 1, color = 1) +
+    ggplot2::coord_polar(theta = "y") +
+    ggplot2::scale_fill_brewer(palette = "Set3") +
+    ggrepel::geom_label_repel(ggplot2::aes(y = pos, label = !!rlang::sym(Count)),
                      size = 4.5, nudge_x = 1, show.legend = FALSE) +
-    guides(fill = guide_legend(title = Category)) +
-    theme_void()
+    ggplot2::guides(fill = guide_legend(title = Category)) +
+    ggplot2::theme_void()
 
   if (!is.null(title)) {
-    plt <- plt + ggtitle(title)
+    plt <- plt + ggplot2::ggtitle(title)
   }
-  plot(plt)
+  graphics::plot(plt)
 
   return(invisible(plt))
 }

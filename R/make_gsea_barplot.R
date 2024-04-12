@@ -9,16 +9,16 @@
 
 make_gsea_barplot <- function(gseaObj, ntop = 10) {
   ggp <- gseaObj@result %>%
-    mutate(Direction = ifelse(NES > 0, "Positive", "Negative")) %>%
-    group_by(Direction) %>%
-    top_n(ntop, wt = abs(NES)) %>%
-    ungroup() %>%
-    arrange(NES) %>%
-    mutate(Description = factor(Description, levels = unique(Description))) %>%
-    ggplot(mapping = aes(x = Description, y = NES, fill = Direction)) + geom_col() + coord_flip()
-  ggp <- ggp + ggtitle(nm) + scale_fill_manual(values = c(Negative = "blue", Positive = "red"))
-  ggp <- ggp + scale_x_discrete(labels = scales::label_wrap(60))
-  plot(ggp)
+    dplyr::mutate(Direction = ifelse(NES > 0, "Positive", "Negative")) %>%
+    dplyr::group_by(Direction) %>%
+    dplyr::top_n(ntop, wt = abs(NES)) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(NES) %>%
+    dplyr::mutate(Description = factor(Description, levels = unique(Description))) %>%
+    ggplot2::ggplot(mapping = ggplot2::aes(x = Description, y = NES, fill = Direction)) + ggplot2::geom_col() + ggplot2::coord_flip()
+  ggp <- ggp + ggplot2::ggtitle(nm) + ggplot2::scale_fill_manual(values = c(Negative = "blue", Positive = "red"))
+  ggp <- ggp + ggplot2::scale_x_discrete(labels = scales::label_wrap(60))
+  graphics::plot(ggp)
 
   return(invisible(ggp))
 }

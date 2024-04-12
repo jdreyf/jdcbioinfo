@@ -14,7 +14,7 @@ multi_pval2zlist <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix=
   zList <- multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix) %>%
     as.data.frame() %>%
     as.list() %>%
-    lapply(FUN=setNames, nm=nm)
+    lapply(FUN=stats::setNames, nm=nm)
 
   if(sort) {
     zList <- zList %>%
