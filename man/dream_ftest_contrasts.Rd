@@ -13,8 +13,7 @@ dream_ftest_contrasts(
   grp = NULL,
   add.means = !is.null(grp),
   moderated = TRUE,
-  prefix = "",
-  ncores = 1
+  prefix = ""
 )
 }
 \arguments{

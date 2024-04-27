@@ -4,15 +4,14 @@
 #' a table using \pkg{limma}'s \code{topTable}.
 #'
 #' @param pheno data.frame with columns corresponding to formula
-#' @param ncores number of cores
 #' @param moderated Logical; should variancePartition::eBayes be used?
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams variancePartition::dream
 #' @return Data frame.
 #' @export
 
-dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), moderated=TRUE, cols=c("P.Value", "adj.P.Val", "logFC"),
-                            ncores=1){
+dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=NULL, add.means=!is.null(grp), moderated=TRUE,
+                            cols=c("P.Value", "adj.P.Val", "logFC")) {
 
   if (!requireNamespace("BiocParallel", quietly = TRUE)) stop("Package \"BiocParallel\" must be installed to use this function.", call. = FALSE)
   if (!requireNamespace("variancePartition", quietly = TRUE)) stop("Package \"variancePartition\" must be installed to use this function.", call. = FALSE)
@@ -31,8 +30,7 @@ dream_contrasts <- function(object, formula, pheno, contrast.v, weights=NA, grp=
   # can't make this into separate function, since then !missing(weights)
   # length(NULL)=0; other weights should have length > 1
 
-  cl_type <- ifelse(.Platform$OS.type=="windows", "SOCK", "FORK")
-  bp <- BiocParallel::SnowParam(workers=ncores, type=cl_type)
+  bp <- BiocParallel::SerialParam(progressbar=TRUE)
   BiocParallel::register(BiocParallel::bpstart(bp))
 
   if (length(weights)!=1 || !is.na(weights)){
