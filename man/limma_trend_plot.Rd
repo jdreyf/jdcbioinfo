@@ -26,7 +26,8 @@ limma_trend_plot(
 
 \item{span}{
     width of the smoothing window used for the lowess mean-variance trend.
-    Expressed as a proportion between 0 and 1.}
+    Expressed as a proportion between 0 and 1.
+  }
 
 \item{alpha}{Transparency, passed to \code{\link[ggplot2]{geom_point}}.}
 
