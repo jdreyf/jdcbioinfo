@@ -4,7 +4,7 @@
 \alias{make_gsea_cnet}
 \title{Make cnets plot for a list of GSEA results}
 \usage{
-make_gsea_cnet(gseaRes, fc)
+make_gsea_cnet(gseaRes, fc, resolution = 1, label = "Z-scores")
 }
 \arguments{
 \item{gseaRes}{a named list of GSEA object}
