@@ -27,6 +27,7 @@ find_pc_curve_elbow <- function(object, method=1, maxPC=50, plot=TRUE, name=NA, 
   ggp <- ggplot2::ggplot(pcaDf, mapping=ggplot2::aes(x=PC, y=PVE)) +ggplot2::geom_point(shape=1, size=2)
   ggp <- ggp + ggplot2::geom_vline(xintercept=elbow, linetype="dashed", linewidth=0.75, color="blue")
   ggp <- ggp + ggplot2::labs(title=title, x="Principal Components", y="Percent of Variance Explained")
+  ggp <- ggplot2::scale_x_continuous(limits=c(1, length(pve)), breaks=seq(1, length(pve), round(length(pve)/5)))
 
   if (!is.na(name)){
     grDevices::pdf(paste0(name, ".pdf"), width=width, height=height)
