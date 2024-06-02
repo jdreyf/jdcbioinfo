@@ -10,6 +10,7 @@ find_pc_curve_elbow(
   maxPC = 50,
   plot = TRUE,
   name = NA,
+  title = "Importance of PCs",
   width = 6,
   height = 4
 )
@@ -18,6 +19,8 @@ find_pc_curve_elbow(
 \item{method}{1 or 2. 1 = use \code{\link[pathviewr]{find_curve_elbow}}, 2 = use \code{\link[PCAtools]{findElbowPoint}}, default is 1.}
 
 \item{maxPC}{maximum PCs to be considered. Default is 50.}
+
+\item{title}{figure title.}
 
 \item{width}{figure width.}
 
