@@ -32,7 +32,7 @@ estimated.}
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
 
 \item{cols}{Columns of \code{topTable} output to include. Possibilities include 
-\code{"logFC", "AveExpr", "z", "t", "P.Value", "adj.P.Val", "B"}. Some of these column names are then changed here. 
+\code{"logFC", "SE", "AveExpr", "z", "t", "P.Value", "adj.P.Val", "CI.L", "CI.R", "B"}. Some of these column names are then changed here. 
 If \code{logFC} is specified, \code{FC} will automatically also be given.}
 
 \item{test}{QLFT, LRT or WeightedFT.}
