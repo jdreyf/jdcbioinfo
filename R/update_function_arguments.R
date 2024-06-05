@@ -11,17 +11,14 @@
 #' @param envir environment to place the function if package_name not set
 #'
 #' @return TRUE otherwise should throw an error
-#'
-#' @importFrom rlang dots_definitions f_rhs
 #' @export
 #-----------------------------------------------------------------------------
 update_function_arguments <- function(function_name, package_name=NULL, envir=parent.frame(), ...) {
 
   #---------------------------------------------------------------------------
-  # rlang::dots_definitions() always captures empty values whereas
   # rlang::quos() drops an empty argument if it's the last one.
   #---------------------------------------------------------------------------
-  dots  <- rlang::dots_definitions(...)$dots
+  dots  <- rlang::dots_list(..., .preserve_empty=TRUE)
 
   #---------------------------------------------------------------------------
   # Get the named function and its formal arguments.
@@ -40,7 +37,7 @@ update_function_arguments <- function(function_name, package_name=NULL, envir=pa
   #---------------------------------------------------------------------------
   for (i in seq(dots)) {
     argument_name <- names(dots)[i]
-    fargs[argument_name] <- list(rlang::f_rhs(dots[[i]]))
+    fargs[argument_name] <- dots[[i]]
   }
 
   #---------------------------------------------------------------------------
