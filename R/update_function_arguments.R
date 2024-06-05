@@ -18,7 +18,7 @@ update_function_arguments <- function(function_name, package_name=NULL, envir=pa
   #---------------------------------------------------------------------------
   # rlang::quos() drops an empty argument if it's the last one.
   #---------------------------------------------------------------------------
-  dots  <- rlang::dots_list(..., .preserve_empty=TRUE)
+  dots  <- rlang::list2(...)
 
   #---------------------------------------------------------------------------
   # Get the named function and its formal arguments.
