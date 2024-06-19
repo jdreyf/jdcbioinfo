@@ -27,7 +27,8 @@ multivariate_pc_regression <- function(object, pheno.df, metavars, num.pc=10, pl
     avRes <- avRes[metavars, ] %>%
       dplyr::pull(`Pr(>F)`)
   })
-  colnames(pval) <- pcs
+  colnames(pvals) <- pcs
+  rownames(pvals) <- metavars
 
   if (plot) {plot_pvals(pvals, name=name, width=width, height=height, xrot=xrot, yrot=yrot)}
 
