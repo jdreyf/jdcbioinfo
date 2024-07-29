@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.1.9003
+Version: 0.0.1.9004
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -12,39 +12,47 @@ Imports:
 	limma,
 	ezlimma,
 	ezlimmaplot,
-	bacon,
-	boot,
-	clusterProfiler,
-	DOSE,
+	DESeq2,
 	dplyr,
-	dynamicTreeCut,
+	DOSE,
 	edgeR,
-	fdrtool,
+	forcats,
+	ggplot2,
+	ggrepel,
 	lattice,
 	magrittr,
 	methods,
-	qvalue,
 	RColorBrewer,
+	rlang,
 	statmod,
 	stats,
 	tibble,
 	tidyselect,
-	DESeq2,
-	ggplot2,
-	umap
+	utils
 Suggests:
-  biomaRt,
-  BiocParallel,
-  BSgenome,
-  covr,
-  knitr,
-  ppcor,
-  scales,
-  testthat,
-  variancePartition,
-  zinbwave,
-  BiocGenerics,
-  SummarizedExperiment
+	bacon,
+	biomaRt,
+	BiocGenerics,
+	BiocParallel,
+	boot,
+	BSgenome,
+	clusterProfiler,
+	covr,
+	dynamicTreeCut,
+	enrichplot,
+	fdrtool,
+	igraph,
+	knitr,
+	PCAtools,
+	pathviewr,
+	ppcor,
+	qvalue,
+	scales,
+	SummarizedExperiment,
+	testthat,
+	umap,
+	variancePartition,
+	zinbwave
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 VignetteBuilder: knitr

@@ -16,7 +16,7 @@ ezumap<- function(object, pheno.df, name='umap', pca=TRUE, initial_dims=nrow(phe
                   method=c("naive", "umap-learn"), preserve.seed=TRUE,
                   alpha=1, all.size=NULL, facet=NULL, title=NULL, subtitle=NULL, rm.leg.title=FALSE, labels=FALSE,
                   manual.color=NULL, manual.shape=NULL, plot=TRUE, ...){
-
+  if (!requireNamespace("umap", quietly = TRUE)) stop("Package \"umap\" must be installed to use this function.", call. = FALSE)
   stopifnot(ncol(object)==nrow(pheno.df), colnames(object)==rownames(pheno.df))
 
   if(pca) {

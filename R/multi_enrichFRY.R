@@ -11,6 +11,9 @@
 multi_enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast.v = ncol(design), design = NULL,
                       weights = NULL, trend = FALSE, block = NULL, correlation = NULL, adjust.method = c("BH", "none"),
                       min.nfeats = 3, max.nfeats = 1000, pvalueCutoff = 0.25, qvalueCutoff = 1) {
+
+  if (!requireNamespace("clusterProfiler", quietly = TRUE)) stop("Package \"clusterProfiler\" must be installed to use this function.", call. = FALSE)
+
   enrichResultList <- lapply(contrast.v, function(contrast) {
     enrichFRY(object, G = G, annot = annot, sep.str = sep.str, symbol.col = symbol.col, grp = grp, contrast = contrast, design = design,
               weights = weights, trend = trend, block = block, correlation = correlation, adjust.method = adjust.method,
@@ -26,4 +29,3 @@ multi_enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "s
 
   return(list(Up = up, Down = down, Mixed = mix) )
 }
-

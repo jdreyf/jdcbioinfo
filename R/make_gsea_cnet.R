@@ -4,12 +4,14 @@
 #'
 #' @param gseaRes a named list of GSEA object
 #' @param fc a list of Z-scores with the same names as gseaRes
-#' @resolution Optional resolution parameter
-#' @label label for color bar
+#' @param resolution Optional resolution parameter
+#' @param label label for color bar
 #' @return a list of ggplot2 objects.
 #' @export
 
 make_gsea_cnet <- function(gseaRes, fc, resolution = 1, label = "Z-scores") {
+  if (!requireNamespace("igraph", quietly = TRUE)) stop("Package \"igraph\" must be installed to use this function.", call. = FALSE)
+  if (!requireNamespace("enrichplot", quietly = TRUE)) stop("Package \"enrichplot\" must be installed to use this function.", call. = FALSE)
   gseaRes <- lapply(gseaRes, FUN = enrichplot::pairwise_termsim, method = "JC")
 
   pltList <- list()

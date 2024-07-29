@@ -15,6 +15,7 @@ hclust_and_heat <- function(object, annot, sc=c("z", "ctr", "none"), clip=NA, di
                             main="Log2 Expression", name="hclust_heat", reorder_cols=FALSE,
                             gaps_col=NULL, width=NA, height=NA, plot=TRUE){
 
+  if (!requireNamespace("dynamicTreeCut", quietly = TRUE)) stop("Package \"dynamicTreeCut\" must be installed to use this function.", call. = FALSE)
   sc <- match.arg(sc)
   stopifnot(rownames(object) %in% rownames(annot))
 

@@ -19,6 +19,8 @@ to be updated within the package namespace.  If this is unset
 then the changed function is placed in the specified environment}
 
 \item{envir}{environment to place the function if package_name not set}
+
+\item{...}{Dots sent to \code{rlang::list2}}
 }
 \value{
 TRUE otherwise should throw an error

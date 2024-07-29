@@ -35,6 +35,9 @@
 enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast = ncol(design), design = NULL,
                       weights = NULL, trend = FALSE, block = NULL, correlation = NULL, adjust.method = c("BH", "none"),
                       min.nfeats = 3, max.nfeats = 1000, pvalueCutoff = 0.25, qvalueCutoff = 1) {
+
+  if (!requireNamespace("qvalue", quietly = TRUE)) stop("Package \"qvalue\" must be installed to use this function.", call. = FALSE)
+
   stopifnot(!is.null(dim(object)), !is.null(rownames(object)),
             !is.null(colnames(object)),
             ncol(object) > 1,

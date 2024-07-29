@@ -10,6 +10,7 @@
 
 # have not yet implemented alternative argument
 ezbacon <- function(tab, z.cols="z"){
+  if (!requireNamespace("bacon", quietly = TRUE)) stop("Package \"bacon\" must be installed to use this function.", call. = FALSE)
   stopifnot(ncol(tab) >= 1, nrow(tab) >= 1, !is.null(colnames(tab)))
   z.colnms <- ezlimma:::grep_cols(tab, stat.cols=z.cols)
   # tab.z <- as.matrix(tab[, z.colnms])

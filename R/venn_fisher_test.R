@@ -2,9 +2,9 @@
 #'
 #' Fisher exact test for enrichment of overlap in 2-way Venn.
 #'
-#' @param mat.sig Numeric matrix with two columns whose elements are {1, -1, 0} for significantly up, down, or
+#' @param mat.sig Numeric matrix with two columns whose elements are 1, -1, or 0 for significantly up, down, or
 #' insignificant genes (rows) in a test (column) if `directional=TRUE`.
-#' If `directional=FALSE`, we only consider significant and non significant genes, so elements are {0, 1}.
+#' If `directional=FALSE`, we only consider significant and non significant genes, so elements are 0 or 1.
 #' @param directional Logical; are we considering whether significant genes are up or down?
 #' Otherwise, we only consider if genes are significant or not.
 #' @return Data frame with statistics from Fisher exact test.

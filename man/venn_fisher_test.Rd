@@ -7,9 +7,9 @@
 venn_fisher_test(mat.sig, directional = TRUE)
 }
 \arguments{
-\item{mat.sig}{Numeric matrix with two columns whose elements are {1, -1, 0} for significantly up, down, or
+\item{mat.sig}{Numeric matrix with two columns whose elements are 1, -1, or 0 for significantly up, down, or
 insignificant genes (rows) in a test (column) if \code{directional=TRUE}.
-If \code{directional=FALSE}, we only consider significant and non significant genes, so elements are {0, 1}.}
+If \code{directional=FALSE}, we only consider significant and non significant genes, so elements are 0 or 1.}
 
 \item{directional}{Logical; are we considering whether significant genes are up or down?
 Otherwise, we only consider if genes are significant or not.}

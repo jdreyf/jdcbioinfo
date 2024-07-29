@@ -39,8 +39,6 @@ weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \
 \item{moderated}{Logical; should variancePartition::eBayes be used?}
 
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
-
-\item{ncores}{number of cores}
 }
 \value{
 Data frame.

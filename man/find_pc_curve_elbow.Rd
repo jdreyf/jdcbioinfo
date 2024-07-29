@@ -16,9 +16,15 @@ find_pc_curve_elbow(
 )
 }
 \arguments{
+\item{object}{Matrix-like object with features (e.g. genes) as rows and samples as columns.}
+
 \item{method}{1 or 2. 1 = use \code{\link[pathviewr]{find_curve_elbow}}, 2 = use \code{\link[PCAtools]{findElbowPoint}}, default is 1.}
 
 \item{maxPC}{maximum PCs to be considered. Default is 50.}
+
+\item{plot}{Logical; should plot be generated?}
+
+\item{name}{Name of file to create. Set to \code{NA} to plot to screen instead of to file.}
 
 \item{title}{figure title.}
 

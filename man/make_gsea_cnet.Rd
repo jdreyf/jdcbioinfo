@@ -10,6 +10,10 @@ make_gsea_cnet(gseaRes, fc, resolution = 1, label = "Z-scores")
 \item{gseaRes}{a named list of GSEA object}
 
 \item{fc}{a list of Z-scores with the same names as gseaRes}
+
+\item{resolution}{Optional resolution parameter}
+
+\item{label}{label for color bar}
 }
 \value{
 a list of ggplot2 objects.

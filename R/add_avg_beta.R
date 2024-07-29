@@ -7,6 +7,7 @@
 #' @export
 
 add_avg_beta <- function(tt){
+  if (!requireNamespace("boot", quietly = TRUE)) stop("Package \"boot\" must be installed to use this function.", call. = FALSE)
   stopifnot(any(grepl(pattern = ".avg", x=colnames(tt), fixed = TRUE)), !grepl(pattern = "_beta.avg", x=colnames(tt), fixed = TRUE))
   tt <- tt |> dplyr::select(tidyselect::ends_with("avg")) |>
     dplyr::mutate(dplyr::across(.cols = tidyselect::everything(), .fn = boot::inv.logit)) |>

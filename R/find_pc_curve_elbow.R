@@ -7,11 +7,14 @@
 #' @param title figure title.
 #' @param width figure width.
 #' @param height figure height.
-#' @inheritParams ezheat
+#' @inheritParams ezlimmaplot::ezheat
 #' @return the PC number at elbow point.
 #' @export
 
 find_pc_curve_elbow <- function(object, method=1, maxPC=50, plot=TRUE, name=NA, title="Importance of PCs", width=6, height=4) {
+
+  if (!requireNamespace("pathviewr", quietly = TRUE)) stop("Package \"pathviewr\" must be installed to use this function.", call. = FALSE)
+  if (!requireNamespace("PCAtools", quietly = TRUE)) stop("Package \"PCAtools\" must be installed to use this function.", call. = FALSE)
 
   pca <- stats::prcomp(t(object[rowSums(is.na(object))==0,]), scale. = FALSE)
   numPC <- min(ncol(object), maxPC)

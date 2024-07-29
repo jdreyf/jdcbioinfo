@@ -9,6 +9,7 @@
 #'                     to be updated within the package namespace.  If this is unset
 #'                     then the changed function is placed in the specified environment
 #' @param envir environment to place the function if package_name not set
+#' @param ... Dots sent to `rlang::list2`
 #'
 #' @return TRUE otherwise should throw an error
 #' @export
@@ -25,7 +26,7 @@ update_function_arguments <- function(function_name, package_name=NULL, envir=pa
   if (is.null(package_name)) {
     func <- get(function_name, envir = envir)
   } else {
-    func  <- getFromNamespace(function_name, ns=package_name)
+    func  <- utils::getFromNamespace(function_name, ns=package_name)
   }
   fargs <- formals(func)
 

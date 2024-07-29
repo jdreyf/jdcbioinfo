@@ -4,7 +4,6 @@
 #' a table using \pkg{limma}'s \code{topTable}.
 #'
 #' @param pheno data.frame with columns corresponding to formula
-#' @param ncores number of cores
 #' @param moderated Logical; should variancePartition::eBayes be used?
 #' @inheritParams limma_ftest_contrasts
 #' @inheritParams dream_contrasts
