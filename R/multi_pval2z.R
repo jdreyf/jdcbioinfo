@@ -26,6 +26,13 @@ multi_pval2z <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="log
   direction.cols <- paste(prefix.v, direction.suffix, sep = ".")
   stopifnot(direction.cols %in% colnames(tab))
 
+  # clip 0 and 1
+  pvals <- as.matrix(tab[, p.cols])
+  stopifnot(pvals>=0, pvals<=1)
+  LB <- min(pvals[pvals>0])/2
+  UB <- 1-(1-max(pvals[pvals<1]))/2
+  tab[, p.cols] <- vapply(p.cols, FUN=function(col) pmax(LB, pmin(UB, tab[, col])),  FUN.VALUE=numeric(nrow(tab)))
+
   res <- vapply(seq_along(prefix.v), FUN=function(i) {pval2z(tab[,p.cols[i]], direction=tab[,direction.cols[i]])}, FUN.VALUE=numeric(nrow(tab)))
   dimnames(res) <-  list(rownames(tab), prefix.v)
 

@@ -18,6 +18,10 @@ pval2z <- function(pval, direction){
     stopifnot(direction %in% c("Up", "Down"))
     direction <- ifelse(direction=="Up", 1, -1)
   }
+  # clip 0 and 1
+  LB <- min(pvals[pval>0])/2
+  UB <- 1-(1-max(pval[pval<1]))/2
+  pval <- pmax(LB, pmin(UB, pval))
 
   z <- stats::qnorm(pval/2, lower.tail=FALSE) * direction
   return(z)
