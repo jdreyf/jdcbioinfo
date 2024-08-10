@@ -4,14 +4,22 @@
 \alias{make_gsea_cnet}
 \title{Make cnets plot for a list of GSEA results}
 \usage{
-make_gsea_cnet(gseaRes, fc, resolution = 1, label = "Z-scores")
+make_gsea_cnet(
+  gseaRes,
+  fc,
+  resolution = 1,
+  algorithm = "louvain",
+  label = "Z-scores"
+)
 }
 \arguments{
 \item{gseaRes}{a named list of GSEA object}
 
 \item{fc}{a list of Z-scores with the same names as gseaRes}
 
-\item{resolution}{Optional resolution parameter}
+\item{resolution}{optional resolution parameter}
+
+\item{algorithm}{either "louvain" or "leiden"}
 
 \item{label}{label for color bar}
 }
