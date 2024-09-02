@@ -31,7 +31,7 @@ map_t2g <- function(t2g, annot, sep.str=" /// ", symbol.col="Gene.Symbol", fixed
   for(i in seq_along(t2g)){
     gene <- unique(map$Rowname[ map$Symbol %in% toupper(t2g[[i]][,2]) ])
 
-    if (length(gene == 0)) {
+    if (length(gene) == 0) {
       mapped.t2g[[i]] <- NULL
     } else {
       mapped.t2g[[i]] <- data.frame(term = unique(t2g[[i]][,1]), gene = gene)
