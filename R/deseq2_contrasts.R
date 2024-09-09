@@ -23,7 +23,7 @@ deseq2_contrasts <- function(dds, grp=NULL, contrast.v, add.means=!is.null(grp),
     colnames(contr.mat) <- names(contrast.v)
 
     for (i in 1:ncol(contr.mat)) {
-      tt <- DESeq2::results(dds, contrast=contr.mat[, i], test="Wald", parallel=TRUE, BPPARAM=bp)
+      tt <- DESeq2::results(dds, contrast=contr.mat[, i], cooksCutoff=FALSE, test="Wald", parallel=TRUE, BPPARAM=bp)
       if (shrunken) {
         shrunkenTT <- DESeq2::lfcShrink(dds, contrast=contr.mat[, i], res=tt, type="ashr", parallel=TRUE, BPPARAM=bp)
       } else {
