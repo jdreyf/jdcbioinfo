@@ -12,7 +12,12 @@ deseq2_contrasts <- function(dds, grp=NULL, contrast.v, add.means=!is.null(grp),
 
     if (add.means) { stopifnot(ncol(dds)==length(grp), colnames(dds)==names(grp)) }
 
-    bp <- BiocParallel::SnowParam(workers=ncore, type="SOCK")
+    if (.Platform$OS.type=="windows") {
+      bp <- BiocParallel::SnowParam(workers=ncore, type="SOCK")
+    } else {
+      bp <- BiocParallel::MulticoreParam(workers=ncore)
+    }
+
     BiocParallel::register(BiocParallel::bpstart(bp))
 
     # Differential expression analysis based on the Negative Binomial (a.k.a. Gamma-Poisson) distribution
