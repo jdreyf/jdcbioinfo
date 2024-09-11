@@ -4,12 +4,14 @@
 \alias{make_gsea_barplot}
 \title{Make a barplot for GSEA results}
 \usage{
-make_gsea_barplot(gseaObj, ntop = 10)
+make_gsea_barplot(gseaObj, title = "GSEA", ntop = 10)
 }
 \arguments{
 \item{gseaObj}{GSEA object}
 
-\item{ntop}{number of up and down top patwys to shown}
+\item{title}{plot title}
+
+\item{ntop}{number of up and down top pathways to shown}
 }
 \value{
 ggplot2 object.
