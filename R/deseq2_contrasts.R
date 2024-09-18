@@ -50,13 +50,12 @@ deseq2_contrasts <- function(dds, grp=NULL, contrast.v, add.means=!is.null(grp),
     BiocParallel::bpstop(bp)
     mtt <- mtt[order(ezlimma::combine_pvalues(mtt)), ]
 
-    mat <- SummarizedExperiment::assay(DESeq2::rlog(dds, blind = TRUE))
-
     if (add.means) {
-        groups <- unique(sort(grp))
-        grp.means <- vapply(groups, function(g) rowMeans(mat[, grp==g, drop = FALSE]), numeric(nrow(mat)))
-        colnames(grp.means) <- paste(groups, "avg", sep=".")
-        mtt <- cbind(grp.means[rownames(mtt),], mtt)
+      mat <- SummarizedExperiment::assay(DESeq2::rlog(dds, blind = TRUE))
+      groups <- unique(sort(grp))
+      grp.means <- vapply(groups, function(g) rowMeans(mat[, grp==g, drop = FALSE]), numeric(nrow(mat)))
+      colnames(grp.means) <- paste(groups, "avg", sep=".")
+      mtt <- cbind(grp.means[rownames(mtt),], mtt)
     }
     return(mtt)
 }
