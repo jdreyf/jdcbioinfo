@@ -11,6 +11,7 @@
 deseq2_find_markers <- function(dds, grp, direction="up", nsim=1e7-2, seed=100, design=NULL, add.means=!is.null(grp),
                                 adjust.method="BH", ncore=1, shrunken=TRUE){
 
+  cat("deseq2_find_markers is depreciated, please use deseq2_find_all_markers")
   stopifnot(ncol(dds)==length(grp), colnames(dds)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
 
   # make contrast
