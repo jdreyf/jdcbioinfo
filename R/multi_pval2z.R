@@ -7,6 +7,10 @@
 #' coefficient, or the "Up/Down" values
 #' @inheritParams ezlimmaplot::ezvenn
 #' @return Matrix of Z-scores.
+#' @details
+#' P-values of zero are changed to half the lowest non-zero p-value and p-values of one are analogously changed, as p-values of zero or one
+#' would yield infinite z-scores.
+#'
 #' @export
 
 multi_pval2z <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix="logFC"){

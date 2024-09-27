@@ -24,3 +24,7 @@ Matrix of Z-scores.
 \description{
 Convert multiple columns (from a table-like object) of p-values from two-sided tests to Z-scores.
 }
+\details{
+P-values of zero are changed to half the lowest non-zero p-value and p-values of one are analogously changed, as p-values of zero or one
+would yield infinite z-scores.
+}

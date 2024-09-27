@@ -12,7 +12,7 @@ limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100
                                adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
                                treat.lfc=NULL, moderated=TRUE){
 
-  cat("limma_find_markers is depreciated, please use limma_find_all_markers")
+  warning("limma_find_markers is depreciated, please use limma_find_all_markers", call. = FALSE)
   stopifnot(ncol(object)==length(grp), colnames(object)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
 
   # make contrast

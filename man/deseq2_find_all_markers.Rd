@@ -23,7 +23,14 @@ deseq2_find_all_markers(
 
 \item{direction}{Either "up" or "down" or both}
 
+\item{design}{Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be 
+estimated.}
+
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
+
+\item{adjust.method}{Method used to adjust the p-values for multiple testing. Options, in increasing conservatism, 
+include \code{"none"}, \code{"BH"}, \code{"BY"}, and \code{"holm"}. See \code{\link[stats]{p.adjust}} for the complete
+list of options. A \code{NULL} value will result in the default adjustment method, which is \code{"BH"}.}
 
 \item{ncore}{Number of cores to use.}
 

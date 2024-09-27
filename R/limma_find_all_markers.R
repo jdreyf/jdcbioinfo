@@ -45,9 +45,9 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
 
       n <- length(groups)-1
       if(d=="up"){
-        pval <- (1 - pnorm(score))^n
+        pval <- (1 - stats::pnorm(score))^n
       }else if(d=="down"){
-        pval <- pnorm(score)^n
+        pval <- stats::pnorm(score)^n
       }
 
       fdr <- stats::p.adjust(pval, method=adjust.method)

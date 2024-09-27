@@ -3,9 +3,13 @@
 #' Counvert two-sided test p-values to Z-scores using \code{qnorm}.
 #'
 #' @param pval Vector of two-sided test p-values.
-#' @param direction Numeric or character vector of same length of pvalue vector. Examples of numeric valuses are log fold-change,
-#' regression slope, or correlation coefficient. For charecter values, only "Up" and "Down" are allowed.
+#' @param direction Numeric or character vector of same length of p-value vector. Examples of numeric values are log fold-change,
+#' regression slope, or correlation coefficient. For character values, only "Up" and "Down" are allowed.
 #' @return Vector of Z-scores.
+#' @details
+#' P-values of zero are changed to half the lowest non-zero p-value and p-values of one are analogously changed, as p-values of zero or one
+#' would yield infinite z-scores.
+#'
 #' @export
 
 pval2z <- function(pval, direction){

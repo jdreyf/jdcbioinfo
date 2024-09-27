@@ -4,6 +4,7 @@
 #'
 #' @param direction Either "up" or "down".
 #' @inheritParams deseq2_contrasts
+#' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams rankprod
 #' @return Data frame.
 #' @export
@@ -11,7 +12,7 @@
 deseq2_find_markers <- function(dds, grp, direction="up", nsim=1e7-2, seed=100, design=NULL, add.means=!is.null(grp),
                                 adjust.method="BH", ncore=1, shrunken=TRUE){
 
-  cat("deseq2_find_markers is depreciated, please use deseq2_find_all_markers")
+  warning("deseq2_find_markers is depreciated, please use deseq2_find_all_markers")
   stopifnot(ncol(dds)==length(grp), colnames(dds)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
 
   # make contrast
@@ -25,7 +26,7 @@ deseq2_find_markers <- function(dds, grp, direction="up", nsim=1e7-2, seed=100, 
   if (!is.null(design)) {
     design(dds) <- design
   }
-  mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts, add.means=FALSE, cols=c("stat","pvalue"),
+  mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts.v, add.means=FALSE, cols=c("stat","pvalue"),
                           ncore=ncore, shrunken=shrunken)
   mtt <- mtt[, grep("\\.stat$", colnames(mtt))]
   mtt_rev <- -1*mtt

@@ -4,6 +4,7 @@
 #'
 #' @param direction Either "up" or "down" or both
 #' @inheritParams deseq2_contrasts
+#' @inheritParams ezlimma::limma_contrasts
 #' @return Data frame.
 #' @export
 
@@ -23,7 +24,7 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
   if (!is.null(design)) {
     design(dds) <- design
   }
-  mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts, add.means=FALSE, cols=c("stat","pvalue"),
+  mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts.v, add.means=FALSE, cols=c("stat","pvalue"),
                           ncore=ncore, shrunken=shrunken)
   mtt <- mtt[, grep("\\.stat$", colnames(mtt))]
   mtt_rev <- -1*mtt
@@ -44,10 +45,10 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
       score[is.infinite(score)] <- NA # for min/max of all NAs
 
       n <- length(groups)-1
-      if(d=="up"){
-        pval <- (1 - pnorm(score))^n
-      }else if(d=="down"){
-        pval <- pnorm(score)^n
+      if (d=="up"){
+        pval <- (1 - stats::pnorm(score))^n
+      } else if (d=="down"){
+        pval <- stats::pnorm(score)^n
       }
 
       fdr <- stats::p.adjust(pval, method=adjust.method)

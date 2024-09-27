@@ -5,7 +5,6 @@
 #' @param reduced model matrix of the reduced model
 #' @param prefix the prefix for the test result columns
 #' @param ncore Number of cores to use.
-#' @param shrunken logical, whether to shrink the log fold-change
 #' @inheritParams ezlimma::limma_contrasts
 #' @details  \code{grp} isn't needed if \code{add.means} is \code{FALSE}.
 #' @export

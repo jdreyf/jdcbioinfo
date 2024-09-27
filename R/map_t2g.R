@@ -10,7 +10,6 @@
 #' @param sep.str strings that separates symbols if there are multiple symbols for a feature.
 #' @param symbol.col column name or index for the symbol column in *annot*.
 #' @param fixed logical passed to \code{strsplit}; if \code{TRUE}, match \code{sep.str} exactly, otherwise use regular expression.
-#' @inheritParams roast_contrasts
 #' @return TERM TO GENE data.frame with the symbols replaced by the mapped IDs.
 #' @details Gene annotations are transformed to upper-case to avoid missing matches of different cases.
 #' @export

@@ -32,7 +32,7 @@ cor_by_grp <- function(object, phenotype, grp, method="pearson", reorder.rows=TR
   }
   ct <- Reduce(cbind, ct)
 
-  # conmine directional p-values
+  # combine directional p-values
   direction_suffix <- gsub(".*\\.", "", colnames(ct)[1])
   comb <- combine_directional_pvalues(ct, direction.suffix=direction_suffix, prefix=prefix)
   ct <- cbind(ct, comb)
