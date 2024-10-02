@@ -12,7 +12,7 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
                                    adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
                                    treat.lfc=NULL, moderated=TRUE){
 
-  stopifnot(ncol(object)==length(grp), colnames(object)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
+  stopifnot(ncol(object)==length(grp), colnames(object)==names(grp), length(unique(grp))>1)
 
   # make contrast
   groups <- unique(sort(grp))
