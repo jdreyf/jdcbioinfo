@@ -24,7 +24,7 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
 
   mtt <- ezlimma::limma_contrasts(object, grp=grp, contrast.v=contrasts.v, design=design, weights=weights, trend=trend, block=block,
                                   correlation=correlation, adjust.method=adjust.method, add.means=FALSE, treat.lfc=treat.lfc, moderated=moderated,
-                                  check.names=TRUE, cols=c("P.Value", "logCF"))
+                                  check.names=TRUE, cols=c("P.Value", "logFC"))
   mtt <- multi_pval2z(mtt)
   mtt_rev <- -1*mtt
   nms_rev <- sapply(1:ncol(comb), function(i) paste0(comb[1, i], "_vs_", comb[2, i]))
