@@ -52,7 +52,7 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
 
       fdr <- stats::p.adjust(pval, method=adjust.method)
       res_tmp <- data.frame(score=score, p=pval, FDR=fdr)
-      colnames(res_tmp) <- paste(groups[i], direction, colnames(res_tmp), sep=".")
+      colnames(res_tmp) <- paste(groups[i], d, colnames(res_tmp), sep=".")
       res[[i]] <- res_tmp
     }
     res <- Reduce(cbind, res)
