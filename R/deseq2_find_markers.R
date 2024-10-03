@@ -26,7 +26,7 @@ deseq2_find_markers <- function(dds, grp, direction="up", nsim=1e7-2, seed=100, 
   if (!is.null(design)) {
     design(dds) <- design
   }
-  mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts.v, add.means=FALSE, cols=c("stat","pvalue"),
+  mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts.v, add.means=FALSE, cols=c("stat","pvalue", "padj", "log2FoldChange"),
                           ncore=ncore, shrunken=shrunken)
   mtt <- mtt[, grep("\\.stat$", colnames(mtt))]
   mtt_rev <- -1*mtt
