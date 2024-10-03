@@ -11,7 +11,7 @@
 deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=NULL, add.means=!is.null(grp),
                                 adjust.method="BH", ncore=1, shrunken=TRUE){
 
-  stopifnot(ncol(dds)==length(grp), colnames(dds)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
+  stopifnot(ncol(dds)==length(grp), colnames(dds)==names(grp), length(unique(grp))>1)
 
   # make contrast
   groups <- unique(sort(grp))
