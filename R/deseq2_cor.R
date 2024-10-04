@@ -31,7 +31,7 @@ deseq2_cor <- function(dds, name = colnames(design(dds))[2], cols=c("pvalue", "p
 
     shrunkenTT <- as.data.frame(shrunkenTT)[, cols]
     colnames(shrunkenTT) <- gsub("pvalue", "p", gsub("padj", "FDR", gsub("log2FoldChange", "slope", colnames(shrunkenTT))))
-    colnames(shrunkenTT) <- paste(colnames(contr.mat)[i], colnames(shrunkenTT), sep=".")
+    colnames(shrunkenTT) <- paste(name, colnames(shrunkenTT), sep=".")
 
     BiocParallel::bpstop(bp)
 
