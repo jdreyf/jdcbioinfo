@@ -30,18 +30,17 @@ deseq2_lrt <- function(dds, grp=NULL, reduced=design(dds)[,1], prefix = "Group",
 
     tt <- as.data.frame(tt)[, cols]
     colnames(tt) <- gsub("pvalue", "p", gsub("padj", "FDR", colnames(tt)))
-    colnames(tt) <- paste(prefix, colnames(tt), sep=".")
+    colnames(tt) <- paste
 
     BiocParallel::bpstop(bp)
-    tt <- tt[order(tt[, paste0(prefix, ".p")]), ]
-
-    mat <- SummarizedExperiment::assay(DESeq2::rlog(dds, blind = TRUE))
+    tt <- tt[order(tt[, paste0(prefix, ".p")]), ](prefix, colnames(tt), sep=".")
 
     if (add.means) {
-        groups <- unique(sort(grp))
-        grp.means <- vapply(groups, function(g) rowMeans(mat[, grp==g, drop = FALSE]), numeric(nrow(mat)))
-        colnames(grp.means) <- paste(groups, "avg", sep=".")
-        tt <- cbind(grp.means[rownames(tt),], tt)
+      mat <- SummarizedExperiment::assay(DESeq2::rlog(dds, blind = TRUE))
+      groups <- unique(sort(grp))
+      grp.means <- vapply(groups, function(g) rowMeans(mat[, grp==g, drop = FALSE]), numeric(nrow(mat)))
+      colnames(grp.means) <- paste(groups, "avg", sep=".")
+      tt <- cbind(grp.means[rownames(tt),], tt)
     }
     return(tt)
 }
