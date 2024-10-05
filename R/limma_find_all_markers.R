@@ -1,12 +1,14 @@
 #' Find markers for each group by limma's pairwise moderated t-tests
 #'
-#' Perform limma's pairwise moderated t-tests, find specifically up and down-regulated markers for each group.
+#' Perform limma's pairwise moderated t-tests, find specifically up or down-regulated markers for each group.
 #'
+#' @param direction Either "up" or "down" or both
 #' @inheritParams ezlimma::limma_contrasts
+#' @inheritParams rankprod
 #' @return Data frame.
 #' @export
 
-limma_find_all_markers <- function(object, grp, design=NULL, add.means=!is.null(grp),
+limma_find_all_markers <- function(object, grp, direction= c("up", "down"), design=NULL, add.means=!is.null(grp),
                                    adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
                                    treat.lfc=NULL, moderated=TRUE){
 
@@ -30,45 +32,39 @@ limma_find_all_markers <- function(object, grp, design=NULL, add.means=!is.null(
   mtt <- cbind(mtt, mtt_rev)
   rm(mtt_rev)
 
-  n <- length(groups)-1
-  res <- list()
-  for(i in seq_along(groups)){
-    nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
-    mtt_tmp <- mtt[, paste0(nms)]
+  resAll <- list()
+  for (d in direction) {
+    res <- list()
+    score_fn <- switch(d, up=min, down=max)
 
-    up_score <- apply(mtt_tmp, 1, min, na.rm=TRUE)
-    up_score[is.infinite(up_score)] <- NA # for min/max of all NAs
-    dn_score <- apply(mtt_tmp, 1, max, na.rm=TRUE)
-    dn_score[is.infinite(dn_score)] <- NA
+    for(i in seq_along(groups)){
+      nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
+      mtt_tmp <- mtt[, paste0(nms)]
+      score <- apply(mtt_tmp, 1, score_fn, na.rm=TRUE)
+      score[is.infinite(score)] <- NA # for min/max of all NAs
 
-    score_tab <- cbind(up_score, dn_score)
-    score_rev_tab <- cbind(up_score, -1*dn_score)
-    pidx <- apply(score_rev_tab, MARGIN = 1, FUN = which.max)
+      n <- length(groups)-1
+      if(d=="up"){
+        pval <- (1 - stats::pnorm(score))^n
+      }else if(d=="down"){
+        pval <- stats::pnorm(score)^n
+      }
 
-    score <- unlist(Map(function(rnum, idx) {
-      score_tab[rnum, idx]
-    }, 1:nrow(score_tab), pidx))
-    score[score == numeric(0)] <- NA
-
-    score_rev <- unlist(Map(function(rnum, idx) {
-      score_rev_tab[rnum, idx]
-    }, 1:nrow(score_rev_tab), pidx))
-    score_rev[score_rev == numeric(0)] <- NA
-
-    pval <- (stats::pnorm(-1*score_rev))^n
-    fdr <- stats::p.adjust(pval, method=adjust.method)
-    res_tmp <- data.frame(score=score, p=pval, FDR=fdr)
-    colnames(res_tmp) <- paste(groups[i], colnames(res_tmp), sep=".")
-    res[[i]] <- res_tmp
+      fdr <- stats::p.adjust(pval, method=adjust.method)
+      res_tmp <- data.frame(score=score, p=pval, FDR=fdr)
+      colnames(res_tmp) <- paste(groups[i], d, colnames(res_tmp), sep=".")
+      res[[i]] <- res_tmp
+    }
+    res <- Reduce(cbind, res)
+    res <- res[rownames(object), ]
+    resAll[[d]] <- res
   }
-  res <- Reduce(cbind, res)
-  rownames(res) <- rownames(mtt)
-  res <- res[rownames(object), ]
 
+  resAll <- Reduce(cbind, resAll)
   if(add.means){
-    mat_avg <- sapply(groups, function(g) rowMeans(object[, grp==g, drop = FALSE]))
+    mat_avg <- sapply(groups, function(g) rowMeans(object[, grp==g]))
     colnames(mat_avg) <- paste0(groups, ".avg")
-    res <- cbind(mat_avg[rownames(res), ], res)
+    resAll <- cbind(mat_avg[rownames(resAll), ], resAll)
   }
-  return(res)
+  return(resAll)
 }

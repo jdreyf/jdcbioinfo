@@ -7,6 +7,7 @@
 limma_find_all_markers(
   object,
   grp,
+  direction = c("up", "down"),
   design = NULL,
   add.means = !is.null(grp),
   adjust.method = "BH",
@@ -24,6 +25,8 @@ features (e.g. genes) and columns to samples. Must have row names that are non-d
 
 \item{grp}{Vector of sample groups. These must be valid variable names in R and the same length as 
 \code{ncol(object)}.}
+
+\item{direction}{Either "up" or "down" or both}
 
 \item{design}{Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be 
 estimated.}
@@ -59,5 +62,5 @@ which is \code{treat.lfc=log2(1.1)}.}
 Data frame.
 }
 \description{
-Perform limma's pairwise moderated t-tests, find specifically up and down-regulated markers for each group.
+Perform limma's pairwise moderated t-tests, find specifically up or down-regulated markers for each group.
 }
