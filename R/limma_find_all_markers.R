@@ -45,17 +45,17 @@ limma_find_all_markers <- function(object, grp, design=NULL, add.means=!is.null(
     score_rev_tab <- cbind(up_score, -1*dn_score)
     pidx <- apply(score_rev_tab, MARGIN = 1, FUN = which.max)
 
-    score <- Map(function(rnum, idx) {
+    score <- unlist(Map(function(rnum, idx) {
       score_tab[rnum, idx]
-    }, 1:nrow(score_tab), pidx)
+    }, 1:nrow(score_tab), pidx))
     score[score == numeric(0)] <- NA
 
-    score_rev <- Map(function(rnum, idx) {
+    score_rev <- unlist(Map(function(rnum, idx) {
       score_rev_tab[rnum, idx]
-    }, 1:nrow(score_rev_tab), pidx)
+    }, 1:nrow(score_rev_tab), pidx))
     score_rev[score_rev == numeric(0)] <- NA
 
-    pval <- (2*stats::pnorm(-1*score_rev))^n
+    pval <- (stats::pnorm(-1*score_rev))^n
     fdr <- stats::p.adjust(pval, method=adjust.method)
     res_tmp <- data.frame(score=score, p=pval, FDR=fdr)
     colnames(res_tmp) <- paste(groups[i], colnames(res_tmp), sep=".")
