@@ -7,12 +7,10 @@
 deseq2_find_all_markers(
   dds,
   grp,
-  direction = c("up", "down"),
   design = NULL,
   add.means = !is.null(grp),
   adjust.method = "BH",
-  ncore = 1,
-  shrunken = TRUE
+  ncore = 1
 )
 }
 \arguments{
@@ -20,8 +18,6 @@ deseq2_find_all_markers(
 
 \item{grp}{Vector of sample groups. These must be valid variable names in R and the same length as 
 \code{ncol(object)}.}
-
-\item{direction}{Either "up" or "down" or both}
 
 \item{design}{Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be 
 estimated.}
@@ -33,12 +29,10 @@ include \code{"none"}, \code{"BH"}, \code{"BY"}, and \code{"holm"}. See \code{\l
 list of options. A \code{NULL} value will result in the default adjustment method, which is \code{"BH"}.}
 
 \item{ncore}{Number of cores to use.}
-
-\item{shrunken}{logical, whether to shrink the log fold-change}
 }
 \value{
 Data frame.
 }
 \description{
-Perform DESeq2's pairwise wald tests, find specifically up or down-regulated markers for each group.
+Perform DESeq2's pairwise wald tests, find specifically up and down-regulated markers for each group.
 }

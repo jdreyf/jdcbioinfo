@@ -1,15 +1,14 @@
 #' Find markers by DESeq2's pairwise wald tests
 #'
-#' Perform DESeq2's pairwise wald tests, find specifically up or down-regulated markers for each group.
+#' Perform DESeq2's pairwise wald tests, find specifically up and down-regulated markers for each group.
 #'
-#' @param direction Either "up" or "down" or both
 #' @inheritParams deseq2_contrasts
 #' @inheritParams ezlimma::limma_contrasts
 #' @return Data frame.
 #' @export
 
-deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=NULL, add.means=!is.null(grp),
-                                adjust.method="BH", ncore=1, shrunken=TRUE){
+deseq2_find_all_markers <- function(dds, grp, design=NULL, add.means=!is.null(grp),
+                                adjust.method="BH", ncore=1){
 
   stopifnot(ncol(dds)==length(grp), colnames(dds)==names(grp), length(unique(grp))>1)
 
@@ -25,7 +24,7 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
     design(dds) <- design
   }
   mtt <- deseq2_contrasts(dds, grp=grp, contrast.v=contrasts.v, add.means=FALSE, cols=c("stat","pvalue", "padj", "log2FoldChange"),
-                          ncore=ncore, shrunken=shrunken)
+                          ncore=ncore, shrunken=FALSE)
   mtt <- mtt[, grep("\\.stat$", colnames(mtt))]
   mtt_rev <- -1*mtt
   nms_rev <- sapply(1:ncol(comb), function(i) paste0(comb[1, i], "_vs_", comb[2, i]))
@@ -33,40 +32,45 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
   mtt <- cbind(mtt, mtt_rev)
   rm(mtt_rev)
 
-  resAll <- list()
-  for (d in direction) {
-    res <- list()
-    score_fn <- switch(d, up=min, down=max)
+  n <- length(groups)-1
+  res <- list()
+  for(i in seq_along(groups)){
+    nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
+    mtt_tmp <- mtt[, paste0(nms, ".stat")]
 
-    for(i in seq_along(groups)){
-      nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
-      mtt_tmp <- mtt[, paste0(nms, ".stat")]
-      score <- apply(mtt_tmp, 1, score_fn, na.rm=TRUE)
-      score[is.infinite(score)] <- NA # for min/max of all NAs
+    up_score <- apply(mtt_tmp, 1, min, na.rm=TRUE)
+    up_score[is.infinite(up_score)] <- NA # for min/max of all NAs
+    dn_score <- apply(mtt_tmp, 1, max, na.rm=TRUE)
+    dn_score[is.infinite(dn_score)] <- NA
 
-      n <- length(groups)-1
-      if (d=="up"){
-        pval <- (1 - stats::pnorm(score))^n
-      } else if (d=="down"){
-        pval <- stats::pnorm(score)^n
-      }
+    score_tab <- cbind(up_score, dn_score)
+    score_rev_tab <- cbind(up_score, -1*dn_score)
+    pidx <- apply(score_rev_tab, MARGIN = 1, FUN = which.max)
 
-      fdr <- stats::p.adjust(pval, method=adjust.method)
-      res_tmp <- data.frame(score=score, p=pval, FDR=fdr)
-      colnames(res_tmp) <- paste(groups[i], d, colnames(res_tmp), sep=".")
-      res[[i]] <- res_tmp
-    }
-    res <- Reduce(cbind, res)
-    res <- res[rownames(dds), ]
-    resAll[[d]] <- res
+    score <- Map(function(rnum, idx) {
+      score_tab[rnum, idx]
+    }, 1:nrow(score_tab), pidx)
+    score[score == numeric(0)] <- NA
+
+    score_rev <- Map(function(rnum, idx) {
+      score_rev_tab[rnum, idx]
+    }, 1:nrow(score_rev_tab), pidx)
+    score_rev[score_rev == numeric(0)] <- NA
+
+    pval <- (2*stats::pnorm(-1*score_rev))^n
+    fdr <- stats::p.adjust(pval, method=adjust.method)
+    res_tmp <- data.frame(score=score, p=pval, FDR=fdr)
+    colnames(res_tmp) <- paste(groups[i], colnames(res_tmp), sep=".")
+    res[[i]] <- res_tmp
   }
+  res <- Reduce(cbind, res)
+  res <- res[rownames(object), ]
 
-  resAll <- Reduce(cbind, resAll)
   if(add.means){
     mat <- SummarizedExperiment::assay(DESeq2::rlog(dds, blind = TRUE))
     mat_avg <- sapply(groups, function(g) rowMeans(mat[, grp==g, drop=FALSE]))
     colnames(mat_avg) <- paste0(groups, ".avg")
-    resAll <- cbind(mat_avg[rownames(resAll), ], resAll)
+    res <- cbind(mat_avg[rownames(res), ], res)
   }
-  return(resAll)
+  return(res)
 }
