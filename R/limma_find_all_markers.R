@@ -62,6 +62,7 @@ limma_find_all_markers <- function(object, grp, design=NULL, add.means=!is.null(
     res[[i]] <- res_tmp
   }
   res <- Reduce(cbind, res)
+  rownames(res) <- rownames(mtt)
   res <- res[rownames(object), ]
 
   if(add.means){

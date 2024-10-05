@@ -64,6 +64,7 @@ deseq2_find_all_markers <- function(dds, grp, design=NULL, add.means=!is.null(gr
     res[[i]] <- res_tmp
   }
   res <- Reduce(cbind, res)
+  rownames(res) <- rownames(mtt)
   res <- res[rownames(object), ]
 
   if(add.means){
