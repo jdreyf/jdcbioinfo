@@ -62,7 +62,7 @@ limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100
   res <- res[rownames(object), ]
 
   if(add.means){
-    mat_avg <- sapply(groups, function(g) rowMeans(object[, grp==g]))
+    mat_avg <- sapply(groups, function(g) rowMeans(object[, grp==g, drop = FALSE]))
     colnames(mat_avg) <- paste0(groups, ".avg")
     res <- cbind(mat_avg[rownames(res), ], res)
   }
