@@ -39,7 +39,7 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
 
     for(i in seq_along(groups)){
       nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
-      mtt_tmp <- mtt[, paste0(nms)]
+      mtt_tmp <- mtt[, nms, drop=FASLE]
       score <- apply(mtt_tmp, 1, score_fn, na.rm=TRUE)
       score[is.infinite(score)] <- NA # for min/max of all NAs
 

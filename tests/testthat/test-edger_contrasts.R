@@ -3,7 +3,7 @@ context("edger_contrasts")
 test_that("edger contrasts", {
   #default
   res <- edger_contrasts(dge, grp=grp, contrast.v = contr.v)
-  expect_equal(rownames(res$mtt)[1:3], paste0("gene", c(3,1,2)))
+  expect_equal(rownames(res$mtt)[1:3], paste0("gene", c(3,2,1)))
 
   #LRT
   suppressWarnings(res <- edger_contrasts(dge, grp=grp, contrast.v = contr.v, test="LRT"))

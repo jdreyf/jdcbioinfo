@@ -40,7 +40,7 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
 
     for(i in seq_along(groups)){
       nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
-      mtt_tmp <- mtt[, paste0(nms, ".stat")]
+      mtt_tmp <- mtt[, paste0(nms, ".stat"), drop=FALSE]
       score <- apply(mtt_tmp, 1, score_fn, na.rm=TRUE)
       score[is.infinite(score)] <- NA # for min/max of all NAs
 
