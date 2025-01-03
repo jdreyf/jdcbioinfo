@@ -41,7 +41,7 @@ make_gsea_cnet <- function(gseaRes, fc, resolution = 1, algorithm = "louvain", l
       dplyr::filter(Description %in% pwys)
 
     set.seed(100)
-    plt <- enrichplot::cnetplot(gsea2, categorySize = "geneNum",  showCategory = length(pwys), node_label = "category",
+    plt <- enrichplot::cnetplot(gsea2, foldChange = fc[[nm]], categorySize = "geneNum",  showCategory = length(pwys), node_label = "category",
                     color.params = list(foldChange = fc[[nm]], edge = TRUE, category = "orange"), cex.params = list(category_node = 1.5))
     plt <- plt + ggplot2::scale_colour_gradient2(name = label, low = "blue", mid = "white", high = "red") + ggplot2::ggtitle(nm)
     graphics::plot(plt)
