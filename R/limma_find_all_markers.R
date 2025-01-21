@@ -62,8 +62,8 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
 
   resAll <- Reduce(cbind, resAll)
   if(add.means){
-    mat_avg <- sapply(groups, function(g) rowMeans(object[, grp==g, drop = FALSE]))
-    colnames(mat_avg) <- paste0(groups, ".avg")
+    mat_avg <-  t(apply(object, 1, FUN=function(v) tapply(v, grp, mean, na.rm=TRUE)))
+    colnames(mat_avg) <- paste0(colnames(mat_avg), ".avg")
     resAll <- cbind(mat_avg[rownames(resAll), ], resAll)
   }
   return(resAll)
