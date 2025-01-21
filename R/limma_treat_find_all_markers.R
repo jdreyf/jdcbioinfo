@@ -45,7 +45,8 @@ limma_treat_find_all_markers <- function(object, grp, direction= c("up", "down")
 
   # topTable
   for (i in seq_along(contrasts.v)) {
-    tt <- limma::topTreat(fit2, number=Inf, coef=contrasts.v[i])
+    #tt <- limma::topTreat(fit2, number=Inf, coef=contrasts.v[i])
+    tt <- limma::topTable(fit2, number=Inf, coef=contrasts.v[i]) # use topTable instead
     tt <- tt[, c("P.Value", "logFC")]
     colnames(tt) <- paste(names(contrasts.v)[i], c("p", "logFC"), sep = ".")
 
