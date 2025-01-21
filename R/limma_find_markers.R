@@ -50,7 +50,7 @@ limma_find_markers <- function(object, grp, direction= c("up", "down"), nsim=1e7
       score_t_sim[is.infinite(score_t_sim)] <- NA
       Fn <- stats::ecdf(c(score_t_sim, Inf, -Inf))
 
-      if(direction=="up"){
+      if(d=="up"){
         pval <- 1 - Fn(score_t)
       }else if(direction=="down"){
         pval <- Fn(score_t)

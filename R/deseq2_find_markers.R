@@ -52,7 +52,7 @@ deseq2_find_markers <- function(dds, grp, direction= c("up", "down"), nsim=1e7-2
       score_stat_sim[is.infinite(score_stat_sim)] <- NA
       Fn <- stats::ecdf(c(score_stat_sim, Inf, -Inf))
 
-      if(direction=="up"){
+      if(d=="up"){
         pval <- 1 - Fn(score_stat)
       }else if(direction=="down"){
         pval <- Fn(score_stat)
