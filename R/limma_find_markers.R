@@ -52,7 +52,7 @@ limma_find_markers <- function(object, grp, direction= c("up", "down"), nsim=1e7
 
       if(d=="up"){
         pval <- 1 - Fn(score_t)
-      }else if(direction=="down"){
+      }else if(d=="down"){
         pval <- Fn(score_t)
       }
 

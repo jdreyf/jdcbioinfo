@@ -54,7 +54,7 @@ deseq2_find_markers <- function(dds, grp, direction= c("up", "down"), nsim=1e7-2
 
       if(d=="up"){
         pval <- 1 - Fn(score_stat)
-      }else if(direction=="down"){
+      }else if(d=="down"){
         pval <- Fn(score_stat)
       }
 
