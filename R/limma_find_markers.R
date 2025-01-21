@@ -10,7 +10,7 @@
 
 limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100, design=NULL, add.means=!is.null(grp),
                                adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
-                               treat.lfc=NULL, moderated=TRUE){
+                               moderated=TRUE){
 
   warning("limma_find_markers is depreciated, please use limma_find_all_markers", call. = FALSE)
   stopifnot(ncol(object)==length(grp), colnames(object)==names(grp), length(unique(grp))>1, nsim<=1e7-2)
@@ -24,7 +24,7 @@ limma_find_markers <- function(object, grp, direction="up", nsim=1e7-2, seed=100
   }
 
   mtt <- ezlimma::limma_contrasts(object, grp=grp, contrast.v=contrasts.v, design=design, weights=weights, trend=trend, block=block,
-                                  correlation=correlation, adjust.method=adjust.method, add.means=FALSE, treat.lfc=treat.lfc, moderated=moderated,
+                                  correlation=correlation, adjust.method=adjust.method, add.means=FALSE, treat.lfc=NULL, moderated=moderated,
                                   check.names=TRUE, cols=c("t", "P.Value"))
   mtt <- mtt[, grep("\\.t$", colnames(mtt))]
   mtt_rev <- -1*mtt

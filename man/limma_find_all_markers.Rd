@@ -15,7 +15,6 @@ limma_find_all_markers(
   trend = FALSE,
   block = NULL,
   correlation = NULL,
-  treat.lfc = NULL,
   moderated = TRUE
 )
 }
@@ -50,10 +49,6 @@ Must be \code{NULL} if \code{ndups > 1}.}
 
 \item{correlation}{Inter-duplicate or inter-technical replicate correlation. Must be given if 
 \code{ndups>1} or \code{!is.null(block)}.}
-
-\item{treat.lfc}{Vector of logFC passed to \code{\link[limma:lmFit]{treat}} \code{lfc}. It is recycled as needed to match
-rows of \code{object}. If given, \code{length(contrast.v)} must be 1. McCarthy & Smyth suggest a 10% fold-change,
-which is \code{treat.lfc=log2(1.1)}.}
 
 \item{moderated}{Logical; should \code{\link[limma]{eBayes}} be used? Otherwise an unmoderated version for 
 \pkg{limma} to produce ordinary least squares statistics is used.}

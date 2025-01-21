@@ -1,6 +1,6 @@
-#' Find markers for each group by limma's pairwise moderated t-tests
+#' Find markers for each group by limma's pairwise moderated t-tests over a logFC cutoff
 #'
-#' Perform limma's pairwise moderated t-tests, find specifically up or down-regulated markers for each group.
+#' Perform limma's pairwise moderated t-tests, find specifically up or down-regulated markers for each group over a logFC cutoff.
 #'
 #' @param direction Either "up" or "down" or both
 #' @inheritParams ezlimma::limma_contrasts
@@ -8,11 +8,26 @@
 #' @return Data frame.
 #' @export
 
-limma_find_all_markers <- function(object, grp, direction= c("up", "down"), design=NULL, add.means=!is.null(grp),
-                                   adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
-                                   moderated=TRUE){
+limma_treat_find_all_markers <- function(object, grp, direction= c("up", "down"), treat.lfc=log2(1.2), design=NULL,
+                                         add.means=!is.null(grp),
+                                         adjust.method="BH", weights=NA, trend=FALSE, block=NULL, correlation=NULL,
+                                         moderated=TRUE){
 
   stopifnot(ncol(object)==length(grp), colnames(object)==names(grp), length(unique(grp))>1)
+
+  # make model
+  if (is.null(design)){
+    design <- stats::model.matrix(~0+grp)
+    colnames(design) <- sub('grp', '', colnames(design), fixed=TRUE)
+  }
+
+  # lmFit
+  if (!is.na(weights)){
+    if (!is.matrix(object) && !is.null(object$weights)){ cat('object$weights are being ignored\n') }
+    fit <- limma::lmFit(object, design, block = block, correlation = correlation, weights=weights)
+  } else {
+    fit <- limma::lmFit(object, design, block = block, correlation = correlation)
+  }
 
   # make contrast
   groups <- unique(sort(grp))
@@ -22,9 +37,25 @@ limma_find_all_markers <- function(object, grp, direction= c("up", "down"), desi
     contrasts.v[paste0(comb[2, i], "_vs_", comb[1, i])] <- paste0(comb[2, i], " - ", comb[1, i])
   }
 
-  mtt <- ezlimma::limma_contrasts(object, grp=grp, contrast.v=contrasts.v, design=design, weights=weights, trend=trend, block=block,
-                                  correlation=correlation, adjust.method=adjust.method, add.means=FALSE, treat.lfc=NULL, moderated=moderated,
-                                  check.names=TRUE, cols=c("P.Value", "logFC"))
+  contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
+
+  # contrasts.fit & treat
+  fit2 <- limma::contrasts.fit(fit, contr.mat)
+  fit2 <- limma::treat(fit2, lfc=treat.lfc, trend=trend)
+
+  # topTable
+  for (i in seq_along(contrasts.v)) {
+    tt <- limma::topTreat(fit2, number=Inf, coef=contrasts.v[i])
+    tt <- ttf[, c("P.Value", "logFC")]
+    colnames(tt) <- paste(names(contrasts.v)[i], c("p", "logFC"), sep = ".")
+
+    if(i == 1) {
+      mtt <- tt
+    } else {
+      mtt <- cbind(mtt, tt[rownames(mtt), ])
+    }
+  }
+
   mtt <- multi_pval2z(mtt)
   mtt_rev <- -1*mtt
   nms_rev <- sapply(1:ncol(comb), function(i) paste0(comb[1, i], "_vs_", comb[2, i]))
