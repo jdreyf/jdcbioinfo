@@ -37,7 +37,7 @@ limma_treat_find_all_markers <- function(object, grp, direction= c("up", "down")
     contrasts.v[paste0(comb[2, i], "_vs_", comb[1, i])] <- paste0(comb[2, i], " - ", comb[1, i])
   }
 
-  contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
+  contr.mat <- limma::makeContrasts(contrasts=contrasts.v, levels=design)
 
   # contrasts.fit & treat
   fit2 <- limma::contrasts.fit(fit, contr.mat)
