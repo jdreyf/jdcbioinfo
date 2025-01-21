@@ -7,7 +7,7 @@
 deseq2_find_markers(
   dds,
   grp,
-  direction = "up",
+  direction = c("up", "down"),
   nsim = 1e+07 - 2,
   seed = 100,
   design = NULL,

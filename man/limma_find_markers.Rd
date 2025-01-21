@@ -7,7 +7,7 @@
 limma_find_markers(
   object,
   grp,
-  direction = "up",
+  direction = c("up", "down"),
   nsim = 1e+07 - 2,
   seed = 100,
   design = NULL,
