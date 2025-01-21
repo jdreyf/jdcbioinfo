@@ -37,7 +37,7 @@ limma_find_markers <- function(object, grp, direction= c("up", "down"), nsim=1e7
   resAll <- list()
   for (d in direction) {
     res <- list()
-    score_fn <- switch(direction, up=min, down=max)
+    score_fn <- switch(d, up=min, down=max)
     set.seed(seed)
     for(i in seq_along(groups)){
       nms <- sapply(setdiff(seq_along(groups), i), function(j) paste0(groups[i], "_vs_", groups[j]))
