@@ -44,10 +44,11 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
       score <- apply(mtt_tmp, 1, score_fn, na.rm=TRUE)
       score[is.infinite(score)] <- NA # for min/max of all NAs
 
+      n <- length(groups) - 1
       if(d=="up"){
-        pval <- apply(mtt_tmp, MARGIN = 1, FUN = function(scores) prod(1 - stats::pnorm(scores)))
+        pval <- (1 - stats::pnorm(score))^n
       }else if(d=="down"){
-        pval <-  apply(mtt_tmp, MARGIN = 1, FUN = function(scores) prod(stats::pnorm(scores)))
+        pval <- (stats::pnorm(score))^n
       }
 
       fdr <- stats::p.adjust(pval, method=adjust.method)
