@@ -13,7 +13,7 @@
 #' @export
 
 pval2z <- function(pval, direction){
-  stopifnot(length(pval)==length(direction), names(pval)==names(direction))
+  stopifnot(length(pval)==length(direction))
   if(any(pval<0 | pval>1, na.rm = TRUE)) stop("p-values should be within [0, 1]")
 
   if(is.numeric(direction)){
