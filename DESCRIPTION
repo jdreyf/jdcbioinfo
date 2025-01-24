@@ -12,6 +12,7 @@ Imports:
 	limma,
 	ezlimma,
 	ezlimmaplot,
+	DirectionalMaxPTest,
 	DESeq2,
 	dplyr,
 	DOSE,
