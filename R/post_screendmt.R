@@ -24,7 +24,7 @@ post_screendmt <- function(tab, cols=1:4, reorder.rows=FALSE, p.adj.rate=c("FDR"
   resList <- list()
   for (nm in names(prod.sgns)) {
     resList[[nm]] <- DirectionalMaxPTest::screendmt(tab, cols=cols, prod.sgn=prod.sgns[nm], reorder.rows=FALSE,
-                                                    p.adj.rate=p.adj.rate, prefix=NULL, keep.input=FALSE)
+                                                    p.adj.rate=p.adj.rate, prefix=NULL)
   }
 
   stat.cols <- cols[c(1, 3)]
