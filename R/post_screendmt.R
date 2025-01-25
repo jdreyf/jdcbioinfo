@@ -30,7 +30,7 @@ post_screendmt <- function(tab, cols=1:4, reorder.rows=FALSE, p.adj.rate=c("FDR"
   stat.cols <- cols[c(1, 3)]
   sign.mat <- apply(tab[, stat.cols], MARGIN = 2, FUN = sign)
   sign.sum <- apply(sign.mat, MARGIN = 1, FUN = sum)
-  direction.v <- switch (sign.sum, `2` = "Up", `-2` = "Down", `0` = "Oposite")
+  direction.v <- sapply(sign.sum, FUN = switch,`2` = "Up", `-2` = "Down", `0` = "Oposite")
 
   res <- resList[["same"]]
   res[direction.v == "opposite", ] <- resList[["opposite"]][direction.v == "opposite", ]
