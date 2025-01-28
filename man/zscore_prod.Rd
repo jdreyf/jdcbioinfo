@@ -7,7 +7,7 @@
 zscore_prod(
   mat,
   nsim = 1e+07 - 2,
-  same.dirction = FALSE,
+  direction = c("both", "same", "opposite"),
   reorder.rows = TRUE,
   prefix = NULL,
   seed = 100
@@ -18,7 +18,7 @@ zscore_prod(
 
 \item{nsim}{Numeric number of simulations.}
 
-\item{same.dirction}{Logical indicates whether the two ranks should be in the same direction.}
+\item{direction}{Character, either "same", "opposite", or default "both"}
 
 \item{reorder.rows}{Logical, should rows be reordered by p-value?}
 
@@ -30,5 +30,5 @@ zscore_prod(
 Data frame with statistics from Z-score products test.
 }
 \description{
-Z-score products of a two column matrix where larger scores in the same or opposite directio.
+Z-score products of a two column matrix where larger scores in the same or opposite direction.
 }
