@@ -3,11 +3,13 @@
 #' Z-score products of a two column matrix where larger scores in the same or opposite direction.
 #'
 #' @param direction Character, either "same", "opposite", or default "both"
+#' @param use.logspline Logical, whether use logspline appoximation
 #' @inheritParams signed_rankprod
 #' @return Data frame with statistics from Z-score products test.
 #' @export
 
-zscore_prod <- function(mat, nsim=1e7-2, direction = c("both", "same", "opposite"), reorder.rows=TRUE, prefix=NULL, seed=100){
+zscore_prod <- function(mat, nsim=1e7-2, direction = c("both", "same", "opposite"), use.logspline = FALSE,
+                        reorder.rows=TRUE, prefix=NULL, seed=100){
 
   direction <- match.arg(direction,  c("both", "same", "opposite"))
   stopifnot(ncol(mat)==2,  !is.null(colnames(mat)))
@@ -21,7 +23,13 @@ zscore_prod <- function(mat, nsim=1e7-2, direction = c("both", "same", "opposite
   prod <- apply(mat, 1, prod)
   prod.sim <- apply(mat.sim, 1, prod)
 
-  Fn <- stats::ecdf(c(prod.sim, Inf, -Inf))
+  if(use.logspline) {
+    fit <- logspline::logspline(prod.sim)
+    Fn <- logspline::plogspline(fit)
+  } else {
+    Fn <- stats::ecdf(c(prod.sim, Inf, -Inf))
+  }
+
   pval <- Fn(prod)
 
   if(direction=="same") {

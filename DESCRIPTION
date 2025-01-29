@@ -12,7 +12,6 @@ Imports:
 	limma,
 	ezlimma,
 	ezlimmaplot,
-	DirectionalMaxPTest,
 	DESeq2,
 	dplyr,
 	DOSE,
@@ -29,7 +28,8 @@ Imports:
 	stats,
 	tibble,
 	tidyselect,
-	utils
+	utils,
+	logspline
 Suggests:
 	bacon,
 	biomaRt,

@@ -8,6 +8,7 @@ zscore_prod(
   mat,
   nsim = 1e+07 - 2,
   direction = c("both", "same", "opposite"),
+  use.logspline = FALSE,
   reorder.rows = TRUE,
   prefix = NULL,
   seed = 100
@@ -19,6 +20,8 @@ zscore_prod(
 \item{nsim}{Numeric number of simulations.}
 
 \item{direction}{Character, either "same", "opposite", or default "both"}
+
+\item{use.logspline}{Logical, whether use logspline appoximation}
 
 \item{reorder.rows}{Logical, should rows be reordered by p-value?}
 
