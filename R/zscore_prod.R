@@ -42,7 +42,7 @@ zscore_prod <- function(mat, nsim=1e7-2, direction = c("both", "same", "opposite
 
   sign.mat <- apply(mat, MARGIN = 2, FUN = sign)
   sign.sum <- as.character(rowSums(sign.mat))
-  direction.v <- sapply(sign.sum, FUN = switch, "2" = "Up", "-2" = "Down", "0" = "Opposite")
+  direction.v <- unlist(sapply(sign.sum, FUN = switch, "2" = "Up", "-2" = "Down", "0" = "Opposite"))
 
   res <- data.frame(mat, Direction=direction.v, Prod.p=pval, Prod.FDR=fdr, row.names=rownames(mat))
   if(reorder.rows) res <- res[order(res$Prod.p), ]
