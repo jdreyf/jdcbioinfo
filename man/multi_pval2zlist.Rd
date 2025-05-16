@@ -37,4 +37,5 @@ List of Z-scores.
 }
 \description{
 Convert multiple columns (from a table-like object) of p-values from two-sided tests to list of named and sorted Z-scores.
+Z-scores that are \code{NA} are removed.
 }

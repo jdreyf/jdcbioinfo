@@ -25,7 +25,7 @@ sub0(
 
 \item{x}{character vector where matches are sought or an object which can be coerced by \code{as.character} to a character vector.}
 
-\item{replacement}{a replacement for matched pattern in \code{sub} and
+\item{replacement}{a replacement for the matched pattern in \code{sub} and
     \code{gsub}.  Coerced to character if possible.  For
     \code{fixed = FALSE} this can include backreferences \code{"\1"} to
     \code{"\9"} to parenthesized subexpressions of \code{pattern}.  For
@@ -37,12 +37,12 @@ sub0(
     corresponding to matches will be set to \code{NA}.
   }
 
-\item{ignore.case}{if \code{FALSE}, the pattern matching is \emph{case
+\item{ignore.case}{logical. if \code{FALSE}, the pattern matching is \emph{case
       sensitive} and if \code{TRUE}, case is ignored during matching.}
 
 \item{perl}{logical.  Should Perl-compatible regexps be used?}
 
-\item{fixed}{logical.  If \code{TRUE}, \code{pattern} is a string to be
+\item{fixed}{logical. If \code{TRUE}, \code{pattern} is a string to be
     matched as is.  Overrides all conflicting arguments.}
 
 \item{useBytes}{logical.  If \code{TRUE} the matching is done

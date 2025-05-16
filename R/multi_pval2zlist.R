@@ -1,6 +1,7 @@
 #' Convert multiple columns of p-values to list of named and sorted Z-scores
 #'
 #' Convert multiple columns (from a table-like object) of p-values from two-sided tests to list of named and sorted Z-scores.
+#' Z-scores that are \code{NA} are removed.
 #'
 #' @param sort Logical. Should the Z-scores be sorted?
 #' @param decreasing Logical. Should the sort be increasing or decreasing?
@@ -14,7 +15,10 @@ multi_pval2zlist <- function(tab, prefix.v=NULL, p.suffix="p", direction.suffix=
   zList <- multi_pval2z(tab, prefix.v=prefix.v, p.suffix=p.suffix, direction.suffix=direction.suffix) %>%
     as.data.frame() %>%
     as.list() %>%
-    lapply(FUN=stats::setNames, nm=nm)
+    lapply(FUN=\(x){
+      y <- stats::setNames(x, nm=nm)
+      y[!is.na(y)]
+    })
 
   if(sort) {
     zList <- zList %>%
