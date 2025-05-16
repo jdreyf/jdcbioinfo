@@ -23,3 +23,11 @@ test_that("Direction input", {
   res <- multi_pval2z(mtt_d, direction.suffix="Direction")
   expect_equal(as.vector(res[1, ]), c(7.972129881, 7.96543488))
 })
+
+test_that("NAs", {
+  mtt_na <- mtt
+  mtt_na[1:2, c("Middle3vsFirst3.p", "Middle3vsFirst3.FDR", "Middle3vsFirst3.logFC", "Middle3vsFirst3.FC")] <- NA
+  mtt_na[2, c("Last3vsFirst3.p", "Last3vsFirst3.FDR", "Last3vsFirst3.logFC", "Last3vsFirst3.FC")] <- NA
+  res <- multi_pval2z(mtt_na)
+  expect_true(is.na(res[1,1]) & is.na(res[2,1]) & is.na(res[2,2]) & !is.na(res[1,2]))
+})
