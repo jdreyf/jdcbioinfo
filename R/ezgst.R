@@ -54,11 +54,11 @@ ezgst <- function(stats.tab, G, feat.tab, name=NA, adjust.method ="BH", alternat
   # order rows by p-values
   tab <- tab[order(combine_pvalues(tab)), ]
 
-  res.xl <- df_signif(as.data.frame(tab), digits=3)
+  res.xl <- ezlimma::df_signif(as.data.frame(tab), digits=3)
   # write xlsx file with links
   if (!is.na(name)){
     nm <- paste(name, "GST", sep="_")
-    write_linked_xl(pwy.tab=res.xl, feat.lst=index, feat.tab=feat.tab, name=nm)
+    ezlimma::write_linked_xl(pwy.tab=res.xl, feat.lst=index, feat.tab=feat.tab, name=nm)
   }
   return(tab)
 }
