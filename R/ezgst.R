@@ -20,15 +20,15 @@
 #' rounded to 3 significant figures.
 #' @export
 
-ezgst <- function(stats.tab, G, feat.tab, name=NA, adjust.method ="BH", alternative = "mixed", type= "auto",
-                  ranks.only = TRUE, nsim=9999, min.nfeats=3, max.nfeats=1000){
+ezgst <- function(stats.tab, G, feat.tab, name=NA, adjust.method ="BH", alternative ="mixed", type="auto",
+                  ranks.only=TRUE, nsim=9999, min.nfeats=3, max.nfeats=1000){
 
   if (is.data.frame(stats.tab)){ stats.tab <- data.matrix(stats.tab) }
   stopifnot(!is.null(rownames(stats.tab)), !is.null(colnames(stats.tab)), rownames(stats.tab) %in% rownames(feat.tab),
             is.finite(stats.tab))
 
   # stats.tab must be matrix
-  index <- ezlimma::g_index(G=G, object=stats.tab, min.nfeats=min.nfeats, max.nfeats=max.nfeats)
+  index <- ezlimma:::g_index(G=G, object=stats.tab, min.nfeats=min.nfeats, max.nfeats=max.nfeats)
 
   for (col.ind in 1:ncol(stats.tab)){
     stats.tab.v <- stats::setNames(stats.tab[, col.ind], nm=rownames(stats.tab))
