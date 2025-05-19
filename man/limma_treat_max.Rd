@@ -28,8 +28,8 @@ features (e.g. genes) and columns to samples. Must have row names that are non-d
 \item{contrast.v}{Named vector of contrasts, passed to \code{\link[limma]{makeContrasts}}.}
 
 \item{treat.lfc}{Vector of logFC passed to \code{\link[limma:lmFit]{treat}} \code{lfc}. It is recycled as needed to match
-rows of \code{object}. If given, \code{length(contrast.v)} must be 1. McCarthy & Smyth suggest a 10 percent fold-change,
-which is \code{treat.lfc=log2(1.1)}. Limma Treat tests for logFC's outside the interval [-treat.lfc, treat.lfc].}
+rows of \code{object}. If given, \code{length(contrast.v)} must be 1. McCarthy & Smyth suggest a 10% fold-change,
+which is \code{treat.lfc=log2(1.1)}.}
 
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
 
