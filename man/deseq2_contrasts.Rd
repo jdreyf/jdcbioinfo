@@ -10,8 +10,13 @@ deseq2_contrasts(
   contrast.v,
   add.means = !is.null(grp),
   cols = c("pvalue", "padj", "log2FoldChange"),
+  shrunken = TRUE,
+  add_cooks = FALSE,
+  independentFiltering = FALSE,
+  parallel = TRUE,
   ncore = 1,
-  shrunken = TRUE
+  alpha = 0.1,
+  lfc_shrink_type = c("ashr", "apeglm", "normal")
 )
 }
 \arguments{
@@ -28,13 +33,26 @@ deseq2_contrasts(
 \code{"logFC", "SE", "AveExpr", "z", "t", "P.Value", "adj.P.Val", "CI.L", "CI.R", "B"}. Some of these column names are then changed here. 
 If \code{logFC} is specified, \code{FC} will automatically also be given.}
 
+\item{shrunken}{logical, whether to shrink the log fold-change.}
+
+\item{add_cooks}{logical, whether to include Cook's cutoff. \code{DESeq2} default is \code{TRUE}.}
+
+\item{independentFiltering}{logical, whether independent filtering should be
+applied automatically}
+
+\item{parallel}{if FALSE, no parallelization. if TRUE, parallel
+execution using \code{BiocParallel}, see next argument \code{BPPARAM}}
+
 \item{ncore}{Number of cores to use.}
 
-\item{shrunken}{logical, whether to shrink the log fold-change}
+\item{alpha}{the significance cutoff used for optimizing the independent
+filtering (by default 0.1). If the adjusted p-value cutoff (FDR) will be a
+value other than 0.1, \code{alpha} should be set to that value.}
 }
 \description{
 Apply \pkg{DESeq2}'s \code{DESeq}, \code{results},and \code{lfcShrink} to one or more contrasts, and return a data.frame
 }
 \details{
-\code{grp} isn't needed if \code{add.means} is \code{FALSE}.
+\code{grp} isn't needed if \code{add.means} is \code{FALSE}. To match \code{DESeq2} default, set \code{add_cooks = independentFiltering = TRUE}.
+This function's default values are chosen to be back-compatible with previous versions.
 }
