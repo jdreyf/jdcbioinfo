@@ -57,10 +57,6 @@ multivariate_pc_regression <- function(object, pheno.df, metavars=NULL, formula=
     tidyr::pivot_wider(names_from = PC, values_from = `Pr(>F)`) %>%
     tibble::column_to_rownames(var="Variable")
 
-
-  metavars <- colnames(pvals)
-  colnames(pvals) <- pcs
-  rownames(pvals) <- metavars
   pvals[pvals < 0] <- 0
   pvals[pvals > 1 | is.na(pvals)] <- 1
   if (plot) {plot_pvals(pvals, name=name, width=width, height=height, xrot=xrot, yrot=yrot)}
