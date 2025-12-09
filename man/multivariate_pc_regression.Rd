@@ -7,8 +7,10 @@
 multivariate_pc_regression(
   object,
   pheno.df,
-  metavars,
+  metavars = NULL,
+  formula = NULL,
   num.pc = 10,
+  scale = FALSE,
   plot = TRUE,
   name = "assoc_with_pc_pvals",
   width = 8,
@@ -22,21 +24,25 @@ multivariate_pc_regression(
 
 \item{pheno.df}{Data frame with rows as samples and columns as phenotypes.}
 
-\item{metavars}{A vector of column names in pheno.df.}
+\item{metavars}{Character vector of column names in pheno.df to include as independent variables in the regression.}
 
-\item{num.pc}{Number of principal components}
+\item{formula}{Optional. A formula object specifying the regression model. If provided, metavars is ignored.}
 
-\item{plot}{Logical for plotting the p-values.}
+\item{num.pc}{Number of principal components to analyze. Default is 10.}
 
-\item{name}{Name of the plot file.}
+\item{scale}{Logical indicating whether to scale the data before PCA. Default is FALSE.}
 
-\item{width}{Width of the plot.}
+\item{plot}{Logical indicating whether to plot the p-values heatmap. Default is TRUE.}
 
-\item{height}{Height of the plot.}
+\item{name}{Name prefix for the output plot file. Default is "assoc_with_pc_pvals".}
 
-\item{xrot}{rot angle (in degrees) by which the x- axis labels are to be rotated}
+\item{width}{Width of the output plot in inches. Default is 8.}
 
-\item{yrot}{rot angle (in degrees) by which the y- axis labels are to be rotated}
+\item{height}{Height of the output plot in inches. Default is 7.}
+
+\item{xrot}{Rotation angle for x-axis labels in the plot. Default is 0.}
+
+\item{yrot}{Rotation angle for y-axis labels in the plot. Default is 0.}
 }
 \value{
 Matrix of p-values.
