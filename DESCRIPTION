@@ -55,7 +55,7 @@ Suggests:
 	variancePartition,
 	zinbwave
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Remotes: 
     github::jdreyf/ezlimma,
