@@ -39,18 +39,30 @@ multivariate_pc_regression <- function(object, pheno.df, metavars=NULL, formula=
   pcs <- paste0("PC", 1:num.pc)
   dat <- cbind(pheno.df, pca$x[rownames(pheno.df), pcs, drop=FALSE])
 
-  pvals <- sapply(pcs, FUN=function(pc) {
+  pvals <- lapply(pcs, FUN=function(pc) {
     fm <- stats::reformulate(attr(stats::terms(fm), "term.labels"), response = pc)
     lmfit <- stats::lm(fm, data = dat)
     av <- stats::aov(lmfit)
     avRes <- as.data.frame(summary(av)[[1]])
-    avRes <- avRes[metavars, ] %>%
-      dplyr::pull(`Pr(>F)`)
+    avRes <- avRes %>%
+      tibble::rownames_to_column(var="Variable") %>%
+      dplyr::mutate(PC = pc,
+                    Variable=trimws(Variable)) %>%
+      dplyr::filter(Variable != "Residuals") %>%
+
+      dplyr::select(PC, Variable, `Pr(>F)`)
   })
+
+  pvals <- do.call(rbind, pvals) %>%
+    tidyr::pivot_wider(names_from = PC, values_from = `Pr(>F)`) %>%
+    tibble::column_to_rownames(var="Variable")
+
+
+  metavars <- colnames(pvals)
   colnames(pvals) <- pcs
   rownames(pvals) <- metavars
   pvals[pvals < 0] <- 0
-  pvals[pvals > 1] <- 1
+  pvals[pvals > 1 | is.na(pvals)] <- 1
   if (plot) {plot_pvals(pvals, name=name, width=width, height=height, xrot=xrot, yrot=yrot)}
 
   return(pvals)
