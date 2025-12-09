@@ -28,7 +28,7 @@ multivariate_pc_regression <- function(object, pheno.df, metavars=NULL, formula=
   } else {
     fm <- stats::as.formula(paste0("~", paste(metavars, collapse="+")))
   }
-  stopifnot(metvars %in% colnames(pheno.df))
+  stopifnot(metavars %in% colnames(pheno.df))
 
   des <- stats::model.matrix(fm, pheno.df)
   if (ncol(des) > ncol(object)) {
@@ -40,7 +40,7 @@ multivariate_pc_regression <- function(object, pheno.df, metavars=NULL, formula=
   dat <- cbind(pheno.df, pca$x[rownames(pheno.df), pcs, drop=FALSE])
 
   pvals <- sapply(pcs, FUN=function(pc) {
-    fm <- stats::as.formula(paste0(pc, "~", paste(metavars, collapse="+")))
+    fm <- stats::reformulate(attr(stats::erms(fm), "term.labels"), response = pc)
     lmfit <- stats::lm(fm, data = dat)
     av <- stats::aov(lmfit)
     avRes <- as.data.frame(summary(av)[[1]])
