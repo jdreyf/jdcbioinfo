@@ -40,7 +40,7 @@ multivariate_pc_regression <- function(object, pheno.df, metavars=NULL, formula=
   dat <- cbind(pheno.df, pca$x[rownames(pheno.df), pcs, drop=FALSE])
 
   pvals <- sapply(pcs, FUN=function(pc) {
-    fm <- stats::reformulate(attr(stats::erms(fm), "term.labels"), response = pc)
+    fm <- stats::reformulate(attr(stats::terms(fm), "term.labels"), response = pc)
     lmfit <- stats::lm(fm, data = dat)
     av <- stats::aov(lmfit)
     avRes <- as.data.frame(summary(av)[[1]])
