@@ -8,6 +8,6 @@ test_that("default", {
 
 test_that("spearman", {
   # this depends on how multi_pval2z within combine_directional_pvalues handles p-value of zero and one
-  ct <- cor_by_grp(M, phenotype=covar2, grp=grp, method="spearman")
+  expect_silent(ct <- cor_by_grp(M, phenotype=covar2, grp=grp, method="spearman"))
   # expect_equal(rownames(ct)[1], "gene7")
 })

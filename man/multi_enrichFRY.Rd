@@ -28,7 +28,7 @@ multi_enrichFRY(
 \item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to
 features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.}
 
-\item{G}{Gene set list as returned from \code{\link{read_gmt}}.}
+\item{G}{Gene set list as returned from \code{\link[ezlimma]{read_gmt}}.}
 
 \item{annot}{annotation for the features that has a column of the same type as in gene set list \code{G}.}
 

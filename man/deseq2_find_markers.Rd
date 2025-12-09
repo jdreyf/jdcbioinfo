@@ -40,7 +40,7 @@ list of options. A \code{NULL} value will result in the default adjustment metho
 
 \item{ncore}{Number of cores to use.}
 
-\item{shrunken}{logical, whether to shrink the log fold-change}
+\item{shrunken}{logical, whether to shrink the log fold-change.}
 }
 \value{
 Data frame.
