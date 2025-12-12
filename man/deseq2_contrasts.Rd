@@ -48,6 +48,8 @@ execution using \code{BiocParallel}, see next argument \code{BPPARAM}}
 \item{alpha}{the significance cutoff used for optimizing the independent
 filtering (by default 0.1). If the adjusted p-value cutoff (FDR) will be a
 value other than 0.1, \code{alpha} should be set to that value.}
+
+\item{lfc_shrink_type}{character string, method for \code{lfcShrink}. It is recommended to not use method \code{"normal"}.}
 }
 \description{
 Apply \pkg{DESeq2}'s \code{DESeq}, \code{results},and \code{lfcShrink} to one or more contrasts, and return a data.frame

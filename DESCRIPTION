@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.1.9008
+Version: 0.0.1.9009
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -27,6 +27,7 @@ Imports:
 	statmod,
 	stats,
 	tibble,
+	tidyr,
 	tidyselect,
 	utils,
 	logspline

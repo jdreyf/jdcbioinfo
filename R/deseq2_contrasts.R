@@ -5,6 +5,7 @@
 #' @param ncore Number of cores to use.
 #' @param shrunken logical, whether to shrink the log fold-change.
 #' @param add_cooks logical, whether to include Cook's cutoff. \code{DESeq2} default is \code{TRUE}.
+#' @param lfc_shrink_type character string, method for \code{lfcShrink}. It is recommended to not use method \code{"normal"}.
 #' @inheritParams ezlimma::limma_contrasts
 #' @inheritParams DESeq2::results
 #' @details \code{grp} isn't needed if \code{add.means} is \code{FALSE}. To match \code{DESeq2} default, set \code{add_cooks = independentFiltering = TRUE}.

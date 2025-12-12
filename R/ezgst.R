@@ -52,7 +52,7 @@ ezgst <- function(stats.tab, G, feat.tab, name=NA, adjust.method ="BH", alternat
     if (col.ind == 1) tab <- tab.tmp else tab <- data.frame(tab, tab.tmp[rownames(tab), setdiff(colnames(tab.tmp), "NGenes")])
   }
   # order rows by p-values
-  tab <- tab[order(combine_pvalues(tab)), ]
+  tab <- tab[order(ezlimma::combine_pvalues(tab)), ]
 
   res.xl <- ezlimma::df_signif(as.data.frame(tab), digits=3)
   # write xlsx file with links
