@@ -30,7 +30,8 @@ Imports:
 	tidyr,
 	tidyselect,
 	utils,
-	logspline
+	logspline,
+	evd
 Suggests:
 	ashr,
 	bacon,

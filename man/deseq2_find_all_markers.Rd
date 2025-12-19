@@ -9,32 +9,37 @@ deseq2_find_all_markers(
   grp,
   direction = c("up", "down"),
   design = NULL,
+  method = c("exact", "asymptotic", "monte_carlo"),
+  nsim = 1e+07 - 2,
+  seed = 42,
   add.means = !is.null(grp),
   adjust.method = "BH",
   ncore = 1,
-  shrunken = TRUE
+  shrunken = FALSE
 )
 }
 \arguments{
-\item{dds}{DESeqDataSet object.}
+\item{dds}{A DESeqDataSet object}
 
-\item{grp}{Vector of sample groups. These must be valid variable names in R and the same length as 
-\code{ncol(object)}.}
+\item{grp}{A named vector of group labels for each column in dds}
 
 \item{direction}{Either "up" or "down" or both}
 
-\item{design}{Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be 
-estimated.}
+\item{design}{Optional design formula to set for dds}
 
-\item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
+\item{method}{Method for p-value calculation, one of "exact", "asymptotic", or "monte_carlo"}
 
-\item{adjust.method}{Method used to adjust the p-values for multiple testing. Options, in increasing conservatism, 
-include \code{"none"}, \code{"BH"}, \code{"BY"}, and \code{"holm"}. See \code{\link[stats]{p.adjust}} for the complete
-list of options. A \code{NULL} value will result in the default adjustment method, which is \code{"BH"}.}
+\item{nsim}{Number of Monte Carlo simulations to perform if method is "monte_carlo"}
 
-\item{ncore}{Number of cores to use.}
+\item{seed}{Random seed for reproducibility}
 
-\item{shrunken}{logical, whether to shrink the log fold-change.}
+\item{add.means}{Whether to add group-wise mean expression values to the output}
+
+\item{adjust.method}{Method for p-value adjustment, passed to p.adjust}
+
+\item{ncore}{Number of cores to use}
+
+\item{shrunken}{Whether to use shrunken log2 fold changes for ranking}
 }
 \value{
 Data frame.

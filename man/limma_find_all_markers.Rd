@@ -9,6 +9,9 @@ limma_find_all_markers(
   grp,
   direction = c("up", "down"),
   design = NULL,
+  method = c("exact", "asymptotic", "monte_carlo"),
+  nsim = 1e+07 - 2,
+  seed = 42,
   add.means = !is.null(grp),
   adjust.method = "BH",
   weights = NA,
@@ -19,39 +22,33 @@ limma_find_all_markers(
 )
 }
 \arguments{
-\item{object}{Matrix-like data object containing log-ratios or log-expression values, with rows corresponding to 
-features (e.g. genes) and columns to samples. Must have row names that are non-duplicated and non-empty.}
+\item{object}{A numeric matrix or voom object}
 
-\item{grp}{Vector of sample groups. These must be valid variable names in R and the same length as 
-\code{ncol(object)}.}
+\item{grp}{A named vector of group labels for each column in object}
 
 \item{direction}{Either "up" or "down" or both}
 
-\item{design}{Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be 
-estimated.}
+\item{design}{Optional design matrix to set for the linear model}
 
-\item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
+\item{method}{Method for p-value calculation, one of "exact", "asymptotic", or "monte_carlo"}
 
-\item{adjust.method}{Method used to adjust the p-values for multiple testing. Options, in increasing conservatism, 
-include \code{"none"}, \code{"BH"}, \code{"BY"}, and \code{"holm"}. See \code{\link[stats]{p.adjust}} for the complete
-list of options. A \code{NULL} value will result in the default adjustment method, which is \code{"BH"}.}
+\item{nsim}{Number of Monte Carlo simulations to perform if method is "monte_carlo"}
 
-\item{weights}{Non-negative observation weights. Can be a numeric matrix of individual weights of same size as the 
-\code{object}, or a numeric vector of sample weights with length \code{ncol(object)}, or a numeric vector of gene 
-weights with length equal to \code{nrow(object)}. Set to \code{NULL} to ignore \code{object$weights}. 
-\code{weights=NA} (with length one) doesn't pass weights to \code{limma}.}
+\item{seed}{Random seed for reproducibility}
 
-\item{trend}{Logical; should an intensity-trend be allowed for the prior variance? Default is that the prior variance 
-is constant.}
+\item{add.means}{Whether to add group-wise mean expression values to the output}
 
-\item{block}{Vector specifying a blocking variable on the samples. Has length = \code{ncol(object)}. 
-Must be \code{NULL} if \code{ndups > 1}.}
+\item{adjust.method}{Method for p-value adjustment, passed to p.adjust}
 
-\item{correlation}{Inter-duplicate or inter-technical replicate correlation. Must be given if 
-\code{ndups>1} or \code{!is.null(block)}.}
+\item{weights}{Optional observation weights for limma}
 
-\item{moderated}{Logical; should \code{\link[limma]{eBayes}} be used? Otherwise an unmoderated version for 
-\pkg{limma} to produce ordinary least squares statistics is used.}
+\item{trend}{Whether to use mean-variance trend for limma}
+
+\item{block}{Optional blocking factor for limma}
+
+\item{correlation}{Optional correlation structure for limma}
+
+\item{moderated}{Whether to use moderated t-statistics for limma}
 }
 \value{
 Data frame.
