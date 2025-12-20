@@ -2,13 +2,19 @@
 #'
 #' Apply \pkg{DESeq2}'s \code{DESeq}, \code{results},and \code{lfcShrink} to one or more contrasts, and return a data.frame
 #' @param dds DESeqDataSet object.
+#' @param robust logical, whether to use robust estimation of dispersion
 #' @param name Name of the individual effect (coefficient) to test
 #' @param ncore Number of cores to use.
 #' @param shrunken logical, whether to shrink the slope
 #' @inheritParams ezlimma::limma_contrasts
 #' @export
 
-deseq2_cor <- function(dds, name = colnames(design(dds))[2], cols=c("pvalue", "padj", "log2FoldChange"), ncore=1, shrunken=TRUE){
+deseq2_cor <- function(dds,
+                       name = colnames(design(dds))[2],
+                       cols=c("pvalue", "padj", "log2FoldChange"),
+                       robust=FALSE,
+                       ncore=1,
+                       shrunken=FALSE){
 
     if (.Platform$OS.type=="windows") {
       bp <- BiocParallel::SnowParam(workers=ncore, type="SOCK")
@@ -19,7 +25,7 @@ deseq2_cor <- function(dds, name = colnames(design(dds))[2], cols=c("pvalue", "p
     BiocParallel::register(BiocParallel::bpstart(bp))
 
     # Differential expression analysis based on the Negative Binomial (a.k.a. Gamma-Poisson) distribution
-    dds <- DESeq2::DESeq(dds, test="Wald", parallel=TRUE, BPPARAM=bp)
+    dds <- DESeq2::DESeq(dds, robust=robust, test="Wald", parallel=TRUE, BPPARAM=bp)
 
     tt <- DESeq2::results(dds, name=name, cooksCutoff=FALSE, independentFiltering=FALSE,
                           test="Wald", parallel=TRUE, BPPARAM=bp)
