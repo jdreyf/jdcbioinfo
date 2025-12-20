@@ -2,7 +2,6 @@
 #'
 #' Apply \pkg{DESeq2}'s \code{DESeq}, \code{results},and \code{lfcShrink} to one or more contrasts, and return a data.frame
 #' @param dds DESeqDataSet object.
-#' @param robust logical, whether to use robust estimation of dispersion
 #' @param reduced model matrix of the reduced model
 #' @param prefix the prefix for the test result columns
 #' @param ncore Number of cores to use.
@@ -13,7 +12,6 @@
 deseq2_lrt <- function(dds,
                        grp=NULL,
                        reduced=design(dds)[,1],
-                       robust=FALSE,
                        prefix = "Group",
                        add.means=!is.null(grp),
                        cols=c("stat", "pvalue", "padj"),
@@ -30,7 +28,7 @@ deseq2_lrt <- function(dds,
     BiocParallel::register(BiocParallel::bpstart(bp))
 
     # Differential expression analysis based on the Negative Binomial (a.k.a. Gamma-Poisson) distribution
-    dds <- DESeq2::DESeq(dds, robust=robust, test="LRT", reduced=reduced, parallel=TRUE, BPPARAM=bp)
+    dds <- DESeq2::DESeq(dds, test="LRT", reduced=reduced, parallel=TRUE, BPPARAM=bp)
 
     # results
     tt <- DESeq2::results(dds, cooksCutoff=FALSE, independentFiltering=FALSE, test="LRT", parallel=TRUE, BPPARAM=bp)

@@ -2,7 +2,6 @@
 #'
 #' Apply \pkg{DESeq2}'s \code{DESeq}, \code{results},and \code{lfcShrink} to one or more contrasts, and return a data.frame
 #' @param dds DESeqDataSet object.
-#' @param robust logical, whether to use robust estimation of dispersion
 #' @param ncore Number of cores to use.
 #' @param shrunken logical, whether to shrink the log fold-change.
 #' @param add_cooks logical, whether to include Cook's cutoff. \code{DESeq2} default is \code{TRUE}.
@@ -15,7 +14,6 @@
 
 deseq2_contrasts <- function(dds, grp=NULL, contrast.v, add.means=!is.null(grp),
                              cols=c("pvalue", "padj", "log2FoldChange"),
-                             robust=FALSE,
                              shrunken=FALSE,
                              add_cooks=FALSE,
                              independentFiltering=FALSE,
@@ -38,9 +36,9 @@ deseq2_contrasts <- function(dds, grp=NULL, contrast.v, add.means=!is.null(grp),
 
     # Differential expression analysis based on the Negative Binomial (a.k.a. Gamma-Poisson) distribution
     if (parallel){
-      dds <- DESeq2::DESeq(dds, robust=robust, test="Wald", parallel=TRUE, BPPARAM=bp)
+      dds <- DESeq2::DESeq(dds, test="Wald", parallel=TRUE, BPPARAM=bp)
     } else {
-      dds <- DESeq2::DESeq(dds, robust=robust, test="Wald")
+      dds <- DESeq2::DESeq(dds, test="Wald")
     }
 
     # contrasts
