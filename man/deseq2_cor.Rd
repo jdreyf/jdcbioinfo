@@ -9,7 +9,7 @@ deseq2_cor(
   name = colnames(design(dds))[2],
   cols = c("pvalue", "padj", "log2FoldChange"),
   ncore = 1,
-  shrunken = TRUE
+  shrunken = FALSE
 )
 }
 \arguments{

@@ -10,7 +10,7 @@ deseq2_contrasts(
   contrast.v,
   add.means = !is.null(grp),
   cols = c("pvalue", "padj", "log2FoldChange"),
-  shrunken = TRUE,
+  shrunken = FALSE,
   add_cooks = FALSE,
   independentFiltering = FALSE,
   parallel = TRUE,
