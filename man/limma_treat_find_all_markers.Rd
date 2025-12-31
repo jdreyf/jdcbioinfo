@@ -10,6 +10,9 @@ limma_treat_find_all_markers(
   direction = c("up", "down"),
   treat.lfc = log2(1.2),
   design = NULL,
+  method = c("exact", "asymptotic", "monte_carlo"),
+  nsim = 1e+07 - 2,
+  seed = 42,
   add.means = !is.null(grp),
   adjust.method = "BH",
   weights = NA,
@@ -34,6 +37,12 @@ which is \code{treat.lfc=log2(1.1)}. Limma Treat tests for logFC's outside the i
 
 \item{design}{Design matrix of the experiment, with rows corresponding to samples and columns to coefficients to be 
 estimated.}
+
+\item{method}{Method for p-value calculation, one of "exact", "asymptotic", or "monte_carlo"}
+
+\item{nsim}{Number of Monte Carlo simulations to perform if method is "monte_carlo"}
+
+\item{seed}{Random seed for reproducibility}
 
 \item{add.means}{Logical indicating if (unweighted) group means per row should be added to the output.}
 
