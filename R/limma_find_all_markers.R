@@ -112,13 +112,13 @@ limma_find_all_markers <- function(object, grp, direction=c("up", "down"), desig
         }
       }else if(method == "monte_carlo"){
         mtt_sim <- apply(mtt_tmp, 2, function(v) sample(v, nsim, replace=TRUE))
-        score_stat_sim <- apply(mtt_sim, 1, score_fn, na.rm=TRUE)
-        score_stat_sim[is.infinite(score_stat_sim)] <- NA
-        Fn <- stats::ecdf(c(score_stat_sim, Inf, -Inf))
+        score_sim <- apply(mtt_sim, 1, score_fn, na.rm=TRUE)
+        score_sim[is.infinite(score_sim)] <- NA
+        Fn <- stats::ecdf(c(score_sim, Inf, -Inf))
         if(d=="up"){
-          pval <- 1 - Fn(score_stat)
+          pval <- 1 - Fn(score)
         }else if(d=="down"){
-          pval <- Fn(score_stat)
+          pval <- Fn(score)
         }
       }else{
         stop("Method must be 'exact', 'asymptotic', or 'monte_carlo'")
