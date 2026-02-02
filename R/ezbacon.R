@@ -12,6 +12,7 @@
 ezbacon <- function(tab, z.cols="z"){
   if (!requireNamespace("bacon", quietly = TRUE)) stop("Package \"bacon\" must be installed to use this function.", call. = FALSE)
   stopifnot(ncol(tab) >= 1, nrow(tab) >= 1, !is.null(colnames(tab)))
+  rnms_tab <- rownames(tab)
   z.colnms <- ezlimma:::grep_cols(tab, stat.cols=z.cols)
   # tab.z <- as.matrix(tab[, z.colnms])
   # if (!is.numeric(tab.z)) stop("Some z-score columns of tab are not numeric.")
@@ -25,8 +26,9 @@ ezbacon <- function(tab, z.cols="z"){
     prefix <- gsub(pattern = "\\..+", replacement = "", z.colnm)
     tab.bc <- data.frame(bacon.z, bacon.p, bacon.FDR)
     colnames(tab.bc) <- paste(prefix, colnames(tab.bc), sep="_")
-
+    # strips row names
     tab <- tab %>% tibble::add_column(tab.bc, .after = z.colnm)
   }
+  rownames(tab) <- rnms_tab
   tab
 }

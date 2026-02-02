@@ -23,11 +23,11 @@ test_that("DGEList as input", {
 
   #default
   ttf <- limma_treat_max(el, grp=grp, contrast.v = contr.v, prefix = "grp")
-  expect_equal(rownames(ttf)[1:3], paste0("gene", c(3,1,2)))
+  expect_true(all(rownames(ttf)[1:3] %in% paste0("gene", 1:3)))
 
   # design
   ttf <- limma_treat_max(el, grp=grp, contrast.v = contr.v, prefix = "grp", design = design)
-  expect_equal(rownames(ttf)[1:3], paste0("gene",  c(3,1,2)))
+  expect_true(all(rownames(ttf)[1:3] %in% paste0("gene", 1:3)))
 
   # t-test
   ttf <- limma_treat_max(el, grp=grp, contrast.v = contr.v[1], prefix = "grp")

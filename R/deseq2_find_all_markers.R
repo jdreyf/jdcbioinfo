@@ -60,7 +60,7 @@ deseq2_find_all_markers <- function(dds, grp, direction=c("up", "down"), design=
     }else if(k < 20){
       warning("k = ", k, ": Asymptotic method may be INACCURATE for k < 20. Consider exact method for better accuracy.")
     }else if(k<50){
-      warning("k = ", k, ": Asymptotic method is REASONABLE for k ≥ 20 but may have bias in extreme tails.")
+      warning("k = ", k, ": Asymptotic method is REASONABLE for k >= 20 but may have bias in extreme tails.")
     }
 
     # Precompute Gumbel parameters

@@ -36,7 +36,7 @@ limma_treat_max <- function(object, grp=NULL, contrast.v, treat.lfc=log2(1.2), a
   }
 
   # contrast
-  contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
+  contr.mat <- limma::makeContrasts(contrasts=unname(contrast.v), levels=design)
 
   # contrasts.fit & treat
   fit2 <- limma::contrasts.fit(fit, contr.mat)

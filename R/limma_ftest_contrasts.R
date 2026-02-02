@@ -34,8 +34,8 @@ limma_ftest_contrasts <- function(object, grp=NULL, contrast.v, add.means=!is.nu
     fit <- limma::lmFit(object, design, block = block, correlation = correlation)
   }
 
-  # contrast
-  contr.mat <- limma::makeContrasts(contrasts=contrast.v, levels=design)
+  # limma 3.66: makeContrasts() uses names(contrasts)
+  contr.mat <- limma::makeContrasts(contrasts=unname(contrast.v), levels=design)
 
   # contrasts.fit & eBayes
   fit2 <- limma::contrasts.fit(fit, contr.mat)

@@ -76,7 +76,7 @@ limma_treat_find_all_markers <- function(object, grp, direction= c("up", "down")
     }else if(k < 20){
       warning("k = ", k, ": Asymptotic method may be INACCURATE for k < 20. Consider exact method for better accuracy.")
     }else if(k<50){
-      warning("k = ", k, ": Asymptotic method is REASONABLE for k ≥ 20 but may have bias in extreme tails.")
+      warning("k = ", k, ": Asymptotic method is REASONABLE for k >= 20 but may have bias in extreme tails.")
     }
 
     # Precompute Gumbel parameters
