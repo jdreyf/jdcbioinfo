@@ -45,6 +45,8 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
+          # Force a fresh dependency resolution to bypass broken mirror links
+          cache-key: ${{ runner.os }}-r-${{ matrix.config.r }}-fresh-deps
 
       - uses: r-lib/actions/check-r-package@v2
         with:
