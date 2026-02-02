@@ -45,8 +45,9 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
-          # Increment this version number to force a fresh dependency resolution
-          cache-version: 2
+          # Forces pak to ignore the existing .github/pkg.lock file
+          # and resolve dependencies from scratch for the current OS
+          cache-version: 3
 
       - uses: r-lib/actions/check-r-package@v2
         with:
