@@ -1,13 +1,13 @@
 #' PCA plot with optional outlier detection
 #'
 #' PCA scatter plot of the first two principal components. Optionally draws a
-#' confidence ellipse based on Mahalanobis distance and labels points outside
-#' this ellipse as potential outliers. All original functionality of
-#' \code{\link{ezlimmaplot::ezpca}} is preserved.
+#' confidence ellipse based on Mahalanobis distance (using the covariance of
+#' the plotted PC scores) and labels points outside this ellipse as outliers.
+#' All original functionality of \code{\link{ezlimmaplot::ezpca}} is retained.
 #'
 #' @param outlier.pval Numeric p‑value threshold for outlier detection
-#'   (e.g., 0.05). If \code{NULL} (default), no outlier ellipse is drawn and no
-#'   outlier labels are added.
+#'   (e.g., 0.05). If \code{NULL} (default), no outlier ellipse is drawn and
+#'   no outlier labels are added.
 #' @param label.outliers Logical; if \code{TRUE} (default) and \code{outlier.pval}
 #'   is not \code{NULL}, labels points outside the ellipse using \code{ggrepel}.
 #'   The global \code{labels} parameter is automatically set to \code{FALSE}
@@ -16,17 +16,16 @@
 #' @param ... Aesthetics passed to \code{\link[ggplot2:aes_]{aes_string}}.
 #'
 #' @details PCA is computed with \code{\link[stats]{prcomp}} (no scaling).
-#' The squared Mahalanobis distance for a point with PC scores \eqn{t_1, t_2} is
-#' \eqn{D^2 = t_1^2/\lambda_1 + t_2^2/\lambda_2}, where \eqn{\lambda_1,\lambda_2}
-#' are the variances (eigenvalues) of the first two components.
-#' Under bivariate normality, \eqn{D^2 \sim \chi^2_2}. Points with
-#' \eqn{D^2 > \chi^2_{2,1-p}} are considered outliers.
+#' Outliers are defined as points whose squared Mahalanobis distance
+#' \eqn{D^2 = (x-\mu)' \Sigma^{-1} (x-\mu)} exceeds the \eqn{1-p} quantile of
+#' the chi‑square distribution with 2 degrees of freedom. The ellipse is drawn
+#' using the same mean vector \eqn{\mu} and covariance matrix \eqn{\Sigma}
+#' estimated from the plotted PC scores.
 #'
-#' When \code{outlier.pval} is provided, a single confidence ellipse (ignoring
-#' any grouping aesthetics) is drawn using \code{stat_ellipse(group = 1)}.
-#' The original \code{ellipses} parameter (if \code{TRUE}) draws separate
-#' ellipses per group defined by the aesthetic mapping; both types of ellipses
-#' can appear simultaneously.
+#' When \code{outlier.pval} is provided, a single ellipse (ignoring any
+#' grouping aesthetics) is drawn. The original \code{ellipses} parameter (if
+#' \code{TRUE}) draws separate ellipses per group defined by the aesthetic
+#' mapping; both types of ellipses can appear simultaneously.
 #'
 #' @return Invisibly, a \code{ggplot} object. Its \code{data} element contains
 #'   the first two PCs, the original \code{pheno.df} (if supplied), and if
@@ -74,13 +73,23 @@ ezpca_outlier <- function(object, pheno.df = NULL, name = "pca", alpha = 1,
     dat$row_names <- colnames(object)
   }
 
-  # Outlier detection based on Mahalanobis distance (global)
+  # Outlier detection based on Mahalanobis distance (using covariance of the plotted scores)
   if (!is.null(outlier.pval)) {
-    var1 <- pca$sdev[1]^2
-    var2 <- pca$sdev[2]^2
-    dat$mahal_dist2 <- (dat$PC1^2) / var1 + (dat$PC2^2) / var2
-    threshold <- stats::qchisq(1 - outlier.pval, df = 2)
-    dat$outlier <- dat$mahal_dist2 > threshold
+    # Center and covariance from the plotted data
+    center <- colMeans(dat[, c("PC1", "PC2")])
+    covmat <- cov(dat[, c("PC1", "PC2")])
+    # Check for singularity (at least 3 points needed for 2D covariance)
+    if (nrow(dat) < 3 || rcond(covmat) < 1e-12) {
+      warning("Too few points or singular covariance matrix: cannot compute outlier ellipse.")
+      outlier.pval <- NULL
+    } else {
+      # Squared Mahalanobis distances
+      dat$mahal_dist2 <- stats::mahalanobis(dat[, c("PC1", "PC2")],
+                                            center = center,
+                                            cov = covmat)
+      threshold <- stats::qchisq(1 - outlier.pval, df = 2)
+      dat$outlier <- dat$mahal_dist2 > threshold
+    }
   }
 
   # Adjust PDF width based on longest label in mapped aesthetics (as in original)
@@ -128,13 +137,23 @@ ezpca_outlier <- function(object, pheno.df = NULL, name = "pca", alpha = 1,
     qp <- qp + ggplot2::stat_ellipse()
   }
 
-  # Outlier ellipse (single group, if requested)
-  if (!is.null(outlier.pval)) {
-    qp <- qp + ggplot2::stat_ellipse(
-      mapping = ggplot2::aes(group = 1),
-      level = 1 - outlier.pval,
-      type = "norm"   # uses chi‑square distribution
-    )
+  # Outlier ellipse (single group, using the same covariance as outlier detection)
+  if (!is.null(outlier.pval) && exists("center", where = dat, inherits = FALSE)) {
+    # Compute ellipse points using eigen decomposition
+    theta <- seq(0, 2 * pi, length = 200)
+    # Circle in Mahalanobis space: points with radius sqrt(qchisq(1-pval,2))
+    rad <- sqrt(stats::qchisq(1 - outlier.pval, df = 2))
+    # Transform to original space using eigenvectors and eigenvalues
+    eig <- eigen(covmat)
+    # Scale eigenvectors by sqrt(eigenvalues) and rad
+    ell <- sweep(eig$vectors %*% diag(sqrt(eig$values), nrow = 2), 2, rad, `*`)
+    # Parametric points
+    ell_points <- t(center + ell %*% rbind(cos(theta), sin(theta)))
+    colnames(ell_points) <- c("PC1", "PC2")
+    ell_df <- as.data.frame(ell_points)
+    qp <- qp + ggplot2::geom_path(data = ell_df,
+                                  mapping = ggplot2::aes(x = PC1, y = PC2),
+                                  inherit.aes = FALSE, color = "red", linetype = "dashed")
   }
 
   # Manual scales if provided
@@ -155,7 +174,8 @@ ezpca_outlier <- function(object, pheno.df = NULL, name = "pca", alpha = 1,
   }
 
   # Outlier labels (if requested and outliers exist)
-  if (!is.null(outlier.pval) && isTRUE(label.outliers) && any(dat$outlier)) {
+  if (!is.null(outlier.pval) && isTRUE(label.outliers) &&
+      exists("outlier", where = dat) && any(dat$outlier)) {
     qp <- qp + ggrepel::geom_text_repel(
       data = subset(dat, outlier),
       mapping = ggplot2::aes_string(x = "PC1", y = "PC2", label = "row_names"),
