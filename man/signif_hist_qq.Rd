@@ -10,7 +10,8 @@ signif_hist_qq(
   fdr.suffix = "FDR",
   sep = ".",
   pi0 = FALSE,
-  method = c("lfdr", "convest")
+  method = c("lfdr", "convest"),
+  name = "signif_hist_qq"
 )
 }
 \arguments{
@@ -20,12 +21,14 @@ signif_hist_qq(
 
 \item{fdr.suffix}{Suffix for FDR columns. Set to \code{NA} if no FDR columns. FDR column names cannot be duplicated.}
 
-\item{sep}{Separator for column names before \code{p} or \code{FDR}, passed to \code{\link{extract_prefix}}.
+\item{sep}{Separator for column names before \code{p} or \code{FDR}, passed to \code{\link{ezlimmaplot:::extract_prefix}}.
 If not found, it is assumed to be \code{NA}.}
 
 \item{pi0}{Logical indicating if proportion of null hypotheses should be calculated per p-value histogram.}
 
 \item{method}{Method for estimating pi0, passed to \code{\link[limma:propTrueNull]{limma::propTrueNull}}. Ignored if \code{!pi0}.}
+
+\item{name}{Name of file to create. Set to \code{NA} to plot to screen instead of to file.}
 }
 \value{
 List of ggplots.
