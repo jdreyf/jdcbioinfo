@@ -51,6 +51,12 @@ ezpca_outlier <- function(object, pheno.df = NULL, name = "pca", alpha = 1,
       message("'labels = TRUE' is overridden because outlier detection is active.")
       labels <- FALSE
     }
+
+    if (!is.null(facet)) {
+      warning("Outlier detection is based on the covariance of all points; faceting may lead to misleading results.
+              Disable faceting or outlier detection for more accurate results.")
+      facet <- NULL
+    }
     stopifnot(is.numeric(outlier.pval), length(outlier.pval) == 1,
               outlier.pval > 0, outlier.pval < 1)
   }
@@ -138,7 +144,7 @@ ezpca_outlier <- function(object, pheno.df = NULL, name = "pca", alpha = 1,
   }
 
   # Outlier ellipse (single group, using the same covariance as outlier detection)
-  if (!is.null(outlier.pval) && exists("center", where = dat, inherits = FALSE)) {
+  if (!is.null(outlier.pval) && exists("outlier", where = dat) && any(dat$outlier)) {
     # Compute ellipse points using eigen decomposition
     theta <- seq(0, 2 * pi, length = 200)
     # Circle in Mahalanobis space: points with radius sqrt(qchisq(1-pval,2))

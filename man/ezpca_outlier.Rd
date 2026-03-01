@@ -56,8 +56,8 @@ discrete color scale. Vector length should be equal to number of levels in mappe
 \item{ellipses}{Logical; should probability ellipses be drawn?}
 
 \item{outlier.pval}{Numeric p‑value threshold for outlier detection
-(e.g., 0.05). If \code{NULL} (default), no outlier ellipse is drawn and no
-outlier labels are added.}
+(e.g., 0.05). If \code{NULL} (default), no outlier ellipse is drawn and
+no outlier labels are added.}
 
 \item{label.outliers}{Logical; if \code{TRUE} (default) and \code{outlier.pval}
 is not \code{NULL}, labels points outside the ellipse using \code{ggrepel}.
@@ -76,21 +76,20 @@ the first two PCs, the original \code{pheno.df} (if supplied), and if
 }
 \description{
 PCA scatter plot of the first two principal components. Optionally draws a
-confidence ellipse based on Mahalanobis distance and labels points outside
-this ellipse as potential outliers. All original functionality of
-\code{\link{ezlimmaplot::ezpca}} is preserved.
+confidence ellipse based on Mahalanobis distance (using the covariance of
+the plotted PC scores) and labels points outside this ellipse as outliers.
+All original functionality of \code{\link{ezlimmaplot::ezpca}} is retained.
 }
 \details{
 PCA is computed with \code{\link[stats]{prcomp}} (no scaling).
-The squared Mahalanobis distance for a point with PC scores \eqn{t_1, t_2} is
-\eqn{D^2 = t_1^2/\lambda_1 + t_2^2/\lambda_2}, where \eqn{\lambda_1,\lambda_2}
-are the variances (eigenvalues) of the first two components.
-Under bivariate normality, \eqn{D^2 \sim \chi^2_2}. Points with
-\eqn{D^2 > \chi^2_{2,1-p}} are considered outliers.
+Outliers are defined as points whose squared Mahalanobis distance
+\eqn{D^2 = (x-\mu)' \Sigma^{-1} (x-\mu)} exceeds the \eqn{1-p} quantile of
+the chi‑square distribution with 2 degrees of freedom. The ellipse is drawn
+using the same mean vector \eqn{\mu} and covariance matrix \eqn{\Sigma}
+estimated from the plotted PC scores.
 
-When \code{outlier.pval} is provided, a single confidence ellipse (ignoring
-any grouping aesthetics) is drawn using \code{stat_ellipse(group = 1)}.
-The original \code{ellipses} parameter (if \code{TRUE}) draws separate
-ellipses per group defined by the aesthetic mapping; both types of ellipses
-can appear simultaneously.
+When \code{outlier.pval} is provided, a single ellipse (ignoring any
+grouping aesthetics) is drawn. The original \code{ellipses} parameter (if
+\code{TRUE}) draws separate ellipses per group defined by the aesthetic
+mapping; both types of ellipses can appear simultaneously.
 }
