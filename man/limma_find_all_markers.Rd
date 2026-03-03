@@ -9,9 +9,6 @@ limma_find_all_markers(
   grp,
   direction = c("up", "down"),
   design = NULL,
-  method = c("exact", "asymptotic", "monte_carlo"),
-  nsim = 1e+07 - 2,
-  seed = 42,
   add.means = !is.null(grp),
   adjust.method = "BH",
   weights = NA,
@@ -29,12 +26,6 @@ limma_find_all_markers(
 \item{direction}{Either "up" or "down" or both}
 
 \item{design}{Optional design matrix to set for the linear model}
-
-\item{method}{Method for p-value calculation, one of "exact", "asymptotic", or "monte_carlo"}
-
-\item{nsim}{Number of Monte Carlo simulations to perform if method is "monte_carlo"}
-
-\item{seed}{Random seed for reproducibility}
 
 \item{add.means}{Whether to add group-wise mean expression values to the output}
 
@@ -54,5 +45,6 @@ limma_find_all_markers(
 Data frame.
 }
 \description{
-Perform limma's pairwise moderated t-tests, find specifically up or down-regulated markers for each group.
+Perform limma's pairwise moderated t-tests, find specifically up or down-regulated markers for each group vs all other groups. Uses maximum p-value, but
+cannot divide by two since tests are dependent.
 }
