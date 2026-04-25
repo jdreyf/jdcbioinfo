@@ -1,6 +1,6 @@
 Package: jdcbioinfo
 Title: Joslin Diabetes Center bioinformatics utilities
-Version: 0.0.1.9010
+Version: 0.0.1.9011
 Authors@R: c(person("Jonathan", "Dreyfuss", role = c("aut", "cre"), email = "jdreyf@bu.edu"),
              person("Hui", "Pan", role = "aut"))
 BugReports: https://github.com/jdreyf/jdcbioinfo/issues
@@ -8,6 +8,8 @@ Description: Miscellaneous functions used by Joslin Diabetes Center Bioinformati
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+	R (>= 4.1.0)
 Imports:
 	limma,
 	ezlimma,
@@ -16,6 +18,7 @@ Imports:
 	dplyr,
 	DOSE,
 	edgeR,
+	enrichit,
 	forcats,
 	ggplot2,
 	ggrepel,

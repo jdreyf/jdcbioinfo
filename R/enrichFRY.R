@@ -29,7 +29,7 @@
 #' @param pvalueCutoff Cutoff value of pvalue.
 #' @param qvalueCutoff Cutoff value of qvalue.
 #' @return  A list of 3 \code{enrichResult} instance for up-regulated, down-regulated, and mixed-regulated enriched gene sets.
-#' @importClassesFrom DOSE enrichResult
+#' @importClassesFrom enrichit enrichResult
 #' @export
 
 enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast = ncol(design), design = NULL,
@@ -281,11 +281,11 @@ enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol"
                        readable       = FALSE)
 
   # subset
-  up <- DOSE:::get_enriched(up)
+  up <- enrichit:::get_enriched(up)
   if (nrow(up@result) == 0) warning("No up-regulated gene sets are enriched")
-  down <- DOSE:::get_enriched(down)
+  down <- enrichit:::get_enriched(down)
   if (nrow(down@result) == 0) warning("No down-regulated gene sets are enriched")
-  mix <- DOSE:::get_enriched(mix)
+  mix <- enrichit:::get_enriched(mix)
   if (nrow(mix@result) == 0) warning("No mixed-regulated gene sets are enriched")
 
   return(list(Up = up, Down = down, Mixed = mix))

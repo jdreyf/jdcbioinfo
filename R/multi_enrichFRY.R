@@ -1,12 +1,12 @@
-##' @title multi_enrichFRY
-##'
-##' @description Enrichment analyzer using \code{\link[limma]{roast}} with function \code{fry}.
-##'
-##' @param contrast.v Named vector of contrasts, passed to \code{\link[limma]{makeContrasts}}.
-##' @inheritParams enrichFRY
-##' @return  A list of 3 \code{compareClusterResult} instance for up-regulated, down-regulated, and mixed-regulated enriched gene sets.
-##' @importClassesFrom DOSE compareClusterResult
-##' @export
+#' @title multi_enrichFRY
+#'
+#' @description Enrichment analyzer using \code{\link[limma]{roast}} with function \code{fry}.
+#'
+#' @param contrast.v Named vector of contrasts, passed to \code{\link[limma]{makeContrasts}}.
+#' @inheritParams enrichFRY
+#' @return  A list of 3 \code{compareClusterResult} instance for up-regulated, down-regulated, and mixed-regulated enriched gene sets.
+#' @importClassesFrom enrichit compareClusterResult
+#' @export
 
 multi_enrichFRY <- function(object, G, annot, sep.str = " /// ", symbol.col = "symbol", grp = NULL, contrast.v = ncol(design), design = NULL,
                       weights = NULL, trend = FALSE, block = NULL, correlation = NULL, adjust.method = c("BH", "none"),
