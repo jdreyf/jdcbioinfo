@@ -55,7 +55,7 @@ signif_hist_qq <- function(tab, p.suffix = "p", fdr.suffix = "FDR", sep = ".", p
     max_count <- max(hist_obj$counts)
 
     p1 <- ggplot2::ggplot(tab, ggplot2::aes(x = !!rlang::sym(p.col))) +
-      ggplot2::geom_histogram(bins = 20, fill = "gray", color = "white") +
+      ggplot2::geom_histogram(bins = 20, fill = "gray", color = "white", boundary = 0) +
       ggplot2::labs(x = "P-value", title = prefix) +
       ggplot2::geom_hline(yintercept = 0.05 * length(pvals_hist), linetype = "dashed") +
       ggplot2::annotate("text", x = 0.8, y = 0.05 * length(pvals_hist),
@@ -117,7 +117,7 @@ signif_hist_qq <- function(tab, p.suffix = "p", fdr.suffix = "FDR", sep = ".", p
       stopifnot(length(fdr.col) == 1)
 
       p3 <- ggplot2::ggplot(tab, ggplot2::aes(x = !!rlang::sym(fdr.col))) +
-        ggplot2::geom_histogram(bins = 20, fill = "gray", color = "white") +
+        ggplot2::geom_histogram(bins = 20, fill = "gray", color = "white", boundary = 0) +
         ggplot2::labs(x = "FDR", title = prefix) +
         ggplot2::theme_minimal()
     }
