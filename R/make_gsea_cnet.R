@@ -48,15 +48,13 @@ make_gsea_cnet <- function(gseaRes, fc, resolution = 1, algorithm = "louvain", l
     plt <- plt + ggplot2::theme(
       # 1. Center the title, increase its font size, and add a bottom margin
       plot.title = element_text(
-        hjust = 0.5,                  # Centers the title text (0 = left, 1 = right)
+        hjust = 0.5,                   # Centers the title text (0 = left, 1 = right)
         size = 18,                     # Increases title font size
         face = "bold",                 # Makes title bold
         margin = margin(b = 20)        # Adds 20pt margin between title and plot surface
       ),
-
       # 2. Add an explicit margin around the legend container
       legend.margin = margin(t = 10, r = 15, b = 10, l = 15),
-
       # 3. Add space explicitly between the legend body and the main plot panel
       legend.box.margin = margin(t = 0, r = 0, b = 0, l = 20)
     )
