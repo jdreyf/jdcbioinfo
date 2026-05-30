@@ -43,7 +43,7 @@ make_gsea_cnet <- function(gseaRes, fc, resolution = 1, algorithm = "louvain", l
     set.seed(100)
     plt <- enrichplot::cnetplot(gsea2, foldChange = fc[[nm]], categorySize = ~itemNum,  showCategory = length(pwys), node_label = "category",
                     color_category = "orange", size_category = 1.5)
-    plt <- plt + ggplot2::scale_colour_gradient2(name = label, low = "blue", mid = "white", high = "red") +
+    plt <- plt + ggplot2::scale_colour_gradient2(name = label, low = "blue", mid = "white", high = "red")
     plt <- plt + ggplot2::ggtitle(nm)
     plt <- plt + ggplot2::theme(
       # 1. Center the title, increase its font size, and add a bottom margin
