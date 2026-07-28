@@ -17,9 +17,9 @@ my_ggsave <- function(name,
                       bg = "white",
                       ...) {
   formats <- c("png", "pdf")
-  for (f in formats) {
-    fileanme <- paste(name, f, sep = ".")
-    ggsave(fileanme = fileanme,
+  fileanmes <- paste(name, formats, sep = ".")
+  for (fileanme in fileanmes) {
+    ggsave(filename = fileanme,
            plot = plot,
            width = width,
            height = height,
@@ -30,5 +30,5 @@ my_ggsave <- function(name,
            ...
     )
   }
-  return(invisible(paste(name, formats, sep = ".")))
+  return(invisible(fileanmes))
 }
