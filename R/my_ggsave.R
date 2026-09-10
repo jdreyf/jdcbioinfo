@@ -32,5 +32,6 @@ my_ggsave <- function(name,
            ...
     )
   }
+  fileanmes <- paste(name, formats, sep = ".")
   return(invisible(fileanmes))
 }
