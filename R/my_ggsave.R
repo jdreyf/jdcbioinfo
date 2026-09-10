@@ -17,10 +17,12 @@ my_ggsave <- function(name,
                       bg = "white",
                       ...) {
   formats <- c("png", "pdf")
-  fileanmes <- paste(name, formats, sep = ".")
-  for (fileanme in fileanmes) {
+  for (format in formats) {
+    fileanme <- paste(name, format, sep = ".")
+    device <- ifelse(format == "png", grDevices::png, grDevices::cairo_pdf)
     ggsave(filename = fileanme,
            plot = plot,
+           device = device,
            width = width,
            height = height,
            units = "in",

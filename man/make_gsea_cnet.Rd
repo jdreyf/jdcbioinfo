@@ -9,7 +9,8 @@ make_gsea_cnet(
   fc,
   resolution = 1,
   algorithm = "louvain",
-  label = "Z-scores"
+  label = "Z-scores",
+  plot = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ make_gsea_cnet(
 \item{algorithm}{either "louvain" or "leiden"}
 
 \item{label}{label for color bar}
+
+\item{plot}{logical, whether to plot the cnet plots. Default is TRUE.}
 }
 \value{
 a list of ggplot2 objects.

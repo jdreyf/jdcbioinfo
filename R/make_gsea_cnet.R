@@ -7,10 +7,11 @@
 #' @param resolution optional resolution parameter
 #' @param algorithm either "louvain" or "leiden"
 #' @param label label for color bar
+#' @param plot logical, whether to plot the cnet plots. Default is TRUE.
 #' @return a list of ggplot2 objects.
 #' @export
 
-make_gsea_cnet <- function(gseaRes, fc, resolution = 1, algorithm = "louvain", label = "Z-scores") {
+make_gsea_cnet <- function(gseaRes, fc, resolution = 1, algorithm = "louvain", label = "Z-scores", plot = TRUE) {
   if (!requireNamespace("igraph", quietly = TRUE)) stop("Package \"igraph\" must be installed to use this function.", call. = FALSE)
   if (!requireNamespace("enrichplot", quietly = TRUE)) stop("Package \"enrichplot\" must be installed to use this function.", call. = FALSE)
   gseaRes <- lapply(gseaRes, FUN = enrichplot::pairwise_termsim, method = "JC")
@@ -47,18 +48,20 @@ make_gsea_cnet <- function(gseaRes, fc, resolution = 1, algorithm = "louvain", l
     plt <- plt + ggplot2::ggtitle(nm)
     plt <- plt + ggplot2::theme(
       # 1. Center the title, increase its font size, and add a bottom margin
-      plot.title = element_text(
+      plot.title = ggplot2::element_text(
         hjust = 0.5,                   # Centers the title text (0 = left, 1 = right)
         size = 18,                     # Increases title font size
         face = "bold",                 # Makes title bold
-        margin = margin(b = 20)        # Adds 20pt margin between title and plot surface
+        margin = ggplot2::margin(t = 20)        # Adds 20pt margin between title and plot surface
       ),
       # 2. Add an explicit margin around the legend container
-      legend.margin = margin(t = 10, r = 15, b = 10, l = 15),
+      legend.margin = ggplot2::margin(t = 10, r = 15, b = 10, l = 15),
       # 3. Add space explicitly between the legend body and the main plot panel
-      legend.box.margin = margin(t = 0, r = 0, b = 0, l = 20)
+      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 20)
     )
-    graphics::plot(plt)
+    if (plot) {
+      graphics::plot(plt)
+    }
 
     pltList[[nm]] <- plt
   }
