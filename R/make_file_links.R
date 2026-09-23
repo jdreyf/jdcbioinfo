@@ -8,6 +8,8 @@
 
 make_file_links <- function(path=".", pattern=NULL, recursive=FALSE, full.names=TRUE) {
   full.path <- dir(path=path, pattern=pattern, recursive=recursive, full.names=full.names)
+  # drop Microsoft Office temporary/lock files (e.g. "~$report.xlsx"), which start with "~"
+  full.path <- full.path[!startsWith(basename(full.path), "~")]
   if (length(full.path) == 0) stop("No file found.")
 
   file.nm <- full.path
